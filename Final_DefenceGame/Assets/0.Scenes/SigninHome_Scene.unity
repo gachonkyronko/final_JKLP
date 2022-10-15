@@ -152,6 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1014b5c91cfbe45bd8515d065b4500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+=======
+  newgameButton: {fileID: 414816470}
+>>>>>>> LEEWONWOO
 --- !u!4 &251697290
 Transform:
   m_ObjectHideFlags: 0
