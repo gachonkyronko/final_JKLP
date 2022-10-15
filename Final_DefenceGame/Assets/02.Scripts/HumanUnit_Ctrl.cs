@@ -73,7 +73,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
 
                 case State.ATTACK:
 
-                    enemyTr.LookAt(enemyTr.transform);
+                    humanTr.LookAt(enemyTr.transform);
 
                     navi.isStopped = true;
                     animator.SetBool("IsAttack", true);
