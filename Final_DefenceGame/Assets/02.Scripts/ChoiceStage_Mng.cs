@@ -7,13 +7,19 @@ using UnityEngine.SceneManagement;
 public class ChoiceStage_Mng : MonoBehaviour
 {
     public Button BackButton;
-  
     private UnityAction backaction;
+
+    public Button firstStageButton;
+    private UnityAction firstStageaction;
     void Start()
     {
         backaction = () => OnBackButtonClick();
        
         BackButton.onClick.AddListener(backaction);
+
+        firstStageaction = () => OnfirstStageButtonClick();
+
+        firstStageButton.onClick.AddListener(firstStageaction);
     }
 
     // Update is called once per frame
@@ -24,5 +30,9 @@ public class ChoiceStage_Mng : MonoBehaviour
     public void OnBackButtonClick()
     {
         SceneManager.LoadScene("MainHome_Scene");
+    }
+    public void OnfirstStageButtonClick()
+    {
+        SceneManager.LoadScene("Battle_Scene");
     }
 }

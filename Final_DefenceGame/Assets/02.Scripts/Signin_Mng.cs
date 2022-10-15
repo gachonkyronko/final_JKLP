@@ -15,6 +15,7 @@ public class Signin_Mng : MonoBehaviour
     private UnityAction signinaction;
     public Button SignupButton;
     private UnityAction signupaction;
+    public bool loginok = false;
     void Awake()
     {
         // 객체 초기화
@@ -27,9 +28,10 @@ public class Signin_Mng : MonoBehaviour
             task => {
                 if (task.IsCompleted && !task.IsFaulted && !task.IsCanceled)
                 {
-                    SigninButton.onClick.AddListener(signinaction);
+                    
                     Debug.Log(emailField.text + " 로 로그인 하셨습니다.");
-                     
+                    SigninButton.onClick.AddListener(signinaction);
+                    loginok = true;
                 }
                 else
                 {
@@ -38,11 +40,19 @@ public class Signin_Mng : MonoBehaviour
             }
         );
     }
+    private void Update()
+    {
+        if(loginok==true)
+        {
+            SceneManager.LoadScene("SigninHome_Scene");
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
         signinaction = () => OnSigninClick();
         signupaction = () => OnSignupClick();
+         
         SignupButton.onClick.AddListener(signupaction);
     }
 

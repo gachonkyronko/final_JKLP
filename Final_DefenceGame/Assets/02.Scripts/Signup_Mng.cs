@@ -13,6 +13,7 @@ public class Signup_Mng : MonoBehaviour
     public Button BackButton;
     private UnityAction signupaction;
     private UnityAction backaction;
+    public bool signupok = false;
     // 인증을 관리할 객체
     Firebase.Auth.FirebaseAuth auth;
 
@@ -32,6 +33,7 @@ public class Signup_Mng : MonoBehaviour
 
                     Debug.Log(emailField.text + "로 회원가입\n");
                     SignupButton.onClick.AddListener(signupaction);
+                    signupok = true;
                 }
                 else
                     Debug.Log("회원가입 실패\n");
@@ -48,7 +50,8 @@ public class Signup_Mng : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(signupok==true)
+            SceneManager.LoadScene("Signin_Scene");
     }
     public void OnSignupClick()
     {

@@ -10,7 +10,14 @@ public class GameManager : MonoBehaviour
     public GameObject HumanPrefab; 
     public Button firstSpawnButton;
     public UnityAction firstSpawnaction;
-    private int spawnidx = 0;
+    public Button secondSpawnButton;
+    public UnityAction secondSpawnaction;
+    public Button firstunitButton;
+    public UnityAction firstunitaction;
+    private int spawnidx = 1;
+
+    public float setTime = 120.0f;
+    public Text countdowntext;
     //3초마다 10마리 
     private float timePrev;
     void Start()
@@ -21,18 +28,23 @@ public class GameManager : MonoBehaviour
         timePrev = Time.time; //현재시간을 대입
         firstSpawnaction = () => OnFirstSpawnButtonClick();
         firstSpawnButton.onClick.AddListener(firstSpawnaction);
-
+        secondSpawnaction = () => OnSecondSpawnButtonClick();
+        secondSpawnButton.onClick.AddListener(secondSpawnaction);
+        firstunitaction = () => OnFirstUnitButtonClick();
+        firstunitButton.onClick.AddListener(firstunitaction);
+        countdowntext.text = setTime.ToString();
     }
     void Update()
     {      //현재시간 - 과거시 = 흘러간 시간 
-        //if (Time.time - timePrev > 2.0f)
-        //{                     //하이라키에서 "Zombie"태그를 가진 갯수를 넘긴다. 
-        //    int zombieCount = GameObject.FindGameObjectsWithTag("Zombie").Length;
-        //    if (zombieCount < 5)
-        //        CreateZomBie();
-        //    timePrev = Time.time;
-        //}
-         
+           //if (Time.time - timePrev > 2.0f)
+           //{                     //하이라키에서 "Zombie"태그를 가진 갯수를 넘긴다. 
+           //    int zombieCount = GameObject.FindGameObjectsWithTag("Zombie").Length;
+           //    if (zombieCount < 5)
+           //        CreateZomBie();
+           //    timePrev = Time.time;
+           //}
+        setTime -= Time.deltaTime;
+        countdowntext.text = "남은 시간 : " + Mathf.Round(setTime).ToString();
 
 
     }
@@ -40,9 +52,21 @@ public class GameManager : MonoBehaviour
     {
         spawnidx = 1;
        
+       
+    }
+    public void OnSecondSpawnButtonClick()
+    {
+        spawnidx = 2;
+
+
+    }
+    public void OnFirstUnitButtonClick()
+    {
+        
+
         Instantiate(HumanPrefab, Points[spawnidx].position,
             Points[spawnidx].rotation);
     }
-     
-    
+
+
 }
