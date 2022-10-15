@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
 
     public float setTime = 120.0f;
     public Text countdowntext;
+    public Text costtext;
+    public int cost = 3;
+    public int mycost = 8;
     //3초마다 10마리 
     private float timePrev;
     void Start()
@@ -45,7 +48,7 @@ public class GameManager : MonoBehaviour
            //}
         setTime -= Time.deltaTime;
         countdowntext.text = "남은 시간 : " + Mathf.Round(setTime).ToString();
-
+        costtext.text = "보유코스트 : " + mycost.ToString();
 
     }
     public void OnFirstSpawnButtonClick()
@@ -62,10 +65,18 @@ public class GameManager : MonoBehaviour
     }
     public void OnFirstUnitButtonClick()
     {
-        
-
-        Instantiate(HumanPrefab, Points[spawnidx].position,
+        if(mycost>cost)
+        {
+            Instantiate(HumanPrefab, Points[spawnidx].position,
             Points[spawnidx].rotation);
+            mycost -= cost;
+        }
+        else
+        {
+            Debug.Log("코스트가 부족합니다.");
+        }
+        
+         
     }
 
 
