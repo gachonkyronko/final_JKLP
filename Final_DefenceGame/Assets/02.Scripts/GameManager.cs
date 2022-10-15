@@ -51,14 +51,14 @@ public class GameManager : MonoBehaviour
     public void OnFirstSpawnButtonClick()
     {
         spawnidx = 1;
-       
-       
+        firstSpawnButton.image.color = Color.gray;
+        secondSpawnButton.image.color = Color.white;
     }
     public void OnSecondSpawnButtonClick()
     {
         spawnidx = 2;
-
-
+        firstSpawnButton.image.color = Color.white;
+        secondSpawnButton.image.color = Color.gray;
     }
     public void OnFirstUnitButtonClick()
     {
