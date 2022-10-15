@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] //태어날 위치 지정 
@@ -14,8 +15,14 @@ public class GameManager : MonoBehaviour
     public UnityAction secondSpawnaction;
     public Button firstunitButton;
     public UnityAction firstunitaction;
+    public Button menuButton;
+    public UnityAction menuaction;
+    public Button menubackButton;
+    public UnityAction menubackaction;
+    public Button menuhomeButton;
+    public UnityAction menuhomeaction;
     private int spawnidx = 1;
-
+    
     public float setTime = 120.0f;
     public Text countdowntext;
     public Text costtext;
@@ -35,6 +42,12 @@ public class GameManager : MonoBehaviour
         secondSpawnButton.onClick.AddListener(secondSpawnaction);
         firstunitaction = () => OnFirstUnitButtonClick();
         firstunitButton.onClick.AddListener(firstunitaction);
+        menuaction = () => OnMenuButtonClick();
+        menuButton.onClick.AddListener(menuaction);
+        menubackaction = () => OnMenuBackButtonClick();
+        menubackButton.onClick.AddListener(menubackaction);
+        menuhomeaction = () => OnMenuHomeButtonClick();
+        menuhomeButton.onClick.AddListener(menuhomeaction);
         countdowntext.text = setTime.ToString();
     }
     void Update()
@@ -56,6 +69,21 @@ public class GameManager : MonoBehaviour
         spawnidx = 1;
         firstSpawnButton.image.color = Color.gray;
         secondSpawnButton.image.color = Color.white;
+    }
+    public void OnMenuButtonClick()
+    {
+        Time.timeScale = 0f;
+
+    }
+    public void OnMenuBackButtonClick()
+    {
+        Time.timeScale = 1.0f;
+
+    }
+    public void OnMenuHomeButtonClick()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("MainHome_Scene");
     }
     public void OnSecondSpawnButtonClick()
     {
