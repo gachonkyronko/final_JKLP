@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class BattleTimer : MonoBehaviour
+public class BattleTimer_pch : MonoBehaviour
 {
     public float setTime = 20.0f;
     public Text countdowntext;
