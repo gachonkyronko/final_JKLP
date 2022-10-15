@@ -62,7 +62,11 @@ public class GameManager : MonoBehaviour
         setTime -= Time.deltaTime;
         countdowntext.text = "남은 시간 : " + Mathf.Round(setTime).ToString();
         costtext.text = "보유코스트 : " + mycost.ToString();
-
+        if(setTime<=0)
+        {
+            Time.timeScale = 0f;
+            Debug.Log("패배");
+        }
     }
     public void OnFirstSpawnButtonClick()
     {
