@@ -20,7 +20,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
     private Animator animator;
     private float traceDist = 15.0f; //추적 거리 
     bool isDie = false;
-    private float attackDist = 2.0f; //공격 거리 
+    private float attackDist = 1.5f; //공격 거리 
     //ZombieDamage z_damage;
     // Start is called before the first frame update
     void Start()
