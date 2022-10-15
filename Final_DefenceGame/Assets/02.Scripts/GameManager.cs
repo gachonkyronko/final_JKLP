@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public UnityAction secondSpawnaction;
     public Button firstunitButton;
     public UnityAction firstunitaction;
+
+    public Button menuButton;
+    public UnityAction menuaction;
     private int spawnidx = 1;
 
     public float setTime = 120.0f;
@@ -35,6 +38,8 @@ public class GameManager : MonoBehaviour
         secondSpawnButton.onClick.AddListener(secondSpawnaction);
         firstunitaction = () => OnFirstUnitButtonClick();
         firstunitButton.onClick.AddListener(firstunitaction);
+        menuaction = () => OnMenuButtonClick();
+        menuButton.onClick.AddListener(menuaction);
         countdowntext.text = setTime.ToString();
     }
     void Update()
@@ -50,6 +55,10 @@ public class GameManager : MonoBehaviour
         countdowntext.text = "남은 시간 : " + Mathf.Round(setTime).ToString();
         costtext.text = "보유코스트 : " + mycost.ToString();
 
+    }
+    public void OnMenuButtonClick()
+    {
+        Time.timeScale = 0f;
     }
     public void OnFirstSpawnButtonClick()
     {
