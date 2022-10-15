@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class BossDamage : MonoBehaviour
+public class BossDamage_pch : MonoBehaviour
 {
     public Image Hpbar;
     private int CurHp = 0;
