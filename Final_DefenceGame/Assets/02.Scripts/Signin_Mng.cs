@@ -44,7 +44,7 @@ public class Signin_Mng : MonoBehaviour
     {
         if(loginok==true)
         {
-            SceneManager.LoadScene("SigninHome_Scene_1");
+            SceneManager.LoadScene("SigninHome_Scene");
         }
     }
     // Start is called before the first frame update
@@ -58,7 +58,7 @@ public class Signin_Mng : MonoBehaviour
 
     public void OnSigninClick()
     {
-        SceneManager.LoadScene("SigninHome_Scene_1");
+        SceneManager.LoadScene("SigninHome_Scene");
     }
     public void OnSignupClick()
     {
