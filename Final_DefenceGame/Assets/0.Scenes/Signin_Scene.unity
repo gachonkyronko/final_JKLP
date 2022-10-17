@@ -233,10 +233,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EmailInput: {fileID: 295814289}
   PasswordInput: {fileID: 831957282}
-  emailField: {fileID: 295814289}
-  passField: {fileID: 831957282}
-  SigninButton: {fileID: 414816470}
-  SignupButton: {fileID: 1445578954}
   loginok: 0
 --- !u!4 &131571269
 Transform:
@@ -824,19 +820,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 131571268}
         m_TargetAssemblyTypeName: Signin_Mng, Assembly-CSharp
-        m_MethodName: LoginBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GoogleSheetManager, Assembly-CSharp
-        m_MethodName: Login
+        m_MethodName: SigninBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1510,7 +1494,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC544\uC774\uB514"
+  m_Text: "\uC774\uBA54\uC77C"
 --- !u!222 &1272918251
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1589,7 +1573,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC544\uC774\uB514"
+  m_Text: "\uC774\uBA54\uC77C"
 --- !u!222 &1324002852
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1683,7 +1667,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 131571268}
         m_TargetAssemblyTypeName: Signin_Mng, Assembly-CSharp
-        m_MethodName: OnSignupClick
+        m_MethodName: SignupBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

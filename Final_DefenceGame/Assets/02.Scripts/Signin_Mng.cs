@@ -2,50 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using PlayFab;
 using PlayFab.ClientModels;
 
 public class Signin_Mng : MonoBehaviour
 {
-    public InputField EmailInput, PasswordInput;
-    [SerializeField] InputField emailField;
-    [SerializeField] InputField passField;
-   
-    public Button SigninButton;
-    private UnityAction signinaction;
-    public Button SignupButton;
-    private UnityAction signupaction;
+    public InputField EmailInput;
+    public InputField PasswordInput;
     public bool loginok = false;
- 
-    public void LoginBtn()
+
+    public void SigninBtn() //로그인버튼
     {
         var request = new LoginWithEmailAddressRequest { Email = EmailInput.text, Password = PasswordInput.text };
         PlayFabClientAPI.LoginWithEmailAddress(request, (result) => loginok = true , (error) => print("로그인 실패"));
     }
-    private void Update()
+    private void Update() //로그인버튼활성화시 바로 씬 넘어가지도록
     {
         if(loginok==true)
         {
             SceneManager.LoadScene("SigninHome_Scene");
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        signinaction = () => OnSigninClick();
-        signupaction = () => OnSignupClick();
-         
-        SignupButton.onClick.AddListener(signupaction);
-    }
-
-    public void OnSigninClick()
-    {
-        SceneManager.LoadScene("SigninHome_Scene");
-    }
-    public void OnSignupClick()
+    public void SignupBtn() //회원가입화면이동
     {
         SceneManager.LoadScene("Signup_Scene");
     }
+
+    
 }
