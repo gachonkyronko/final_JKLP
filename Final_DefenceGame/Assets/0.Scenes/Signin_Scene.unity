@@ -231,10 +231,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f646ee73e5370a44a3c6c6450d249f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EmailInput: {fileID: 295814289}
+  PasswordInput: {fileID: 831957282}
   emailField: {fileID: 295814289}
   passField: {fileID: 831957282}
   SigninButton: {fileID: 414816470}
   SignupButton: {fileID: 1445578954}
+  loginok: 0
 --- !u!4 &131571269
 Transform:
   m_ObjectHideFlags: 0
@@ -821,7 +824,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 131571268}
         m_TargetAssemblyTypeName: Signin_Mng, Assembly-CSharp
-        m_MethodName: login
+        m_MethodName: LoginBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GoogleSheetManager, Assembly-CSharp
+        m_MethodName: Login
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1665,7 +1680,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1445578955}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 131571268}
+        m_TargetAssemblyTypeName: Signin_Mng, Assembly-CSharp
+        m_MethodName: OnSignupClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1445578955
 MonoBehaviour:
   m_ObjectHideFlags: 0
