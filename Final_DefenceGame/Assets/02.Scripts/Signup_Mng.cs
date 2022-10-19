@@ -19,7 +19,7 @@ public class Signup_Mng : MonoBehaviour
     public string Username = "";
 
 
-    public void RegisterBtn() //ȸ�����Թ�ư
+    public void RegisterBtn()  
     {
         var request = new RegisterPlayFabUserRequest { Email = EmailInput.text, Password = PasswordInput.text, Username = UsernameInput.text };
         PlayFabClientAPI.RegisterPlayFabUser(request, (result) => { signupfinish = true; nickname(); }, (error) => print("실패"));
