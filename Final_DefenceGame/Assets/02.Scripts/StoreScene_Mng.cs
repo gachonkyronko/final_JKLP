@@ -20,22 +20,21 @@ public class StoreScene_Mng : MonoBehaviour
     public Button reinforceButton4;
     private UnityAction backaction;
     public Button backButton;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        backaction = () => OnBackbuttonClick();
-        backButton.onClick.AddListener(backaction);
+        
     }
     public void GetInventory() => PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
-                                 {
-                                     print("현재금액 : " + result.VirtualCurrency["GD"]);
-                                     for (int i = 0; i < result.Inventory.Count; i++)
-                                     {
-                                         var Inven = result.Inventory[i];
-                                         print(Inven.DisplayName + "/" + Inven.UnitCurrency + "/" + Inven.UnitPrice + "/" + Inven.ItemInstanceId + "/" + Inven.RemainingUses);
-                                     }
-                                 }, (error) => print("인벤토리 실패"));
+    {
+        print("현재금액 : " + result.VirtualCurrency["GD"]);
+        for (int i = 0; i < result.Inventory.Count; i++)
+        {
+            var Inven = result.Inventory[i];
+            print(Inven.DisplayName + "/" + Inven.UnitCurrency + "/" + Inven.UnitPrice + "/" + Inven.ItemInstanceId + "/" + Inven.RemainingUses);
+        }
+    }, (error) => print("인벤토리 실패"));
 
     public void AddMoney()
     {
@@ -44,7 +43,7 @@ public class StoreScene_Mng : MonoBehaviour
     }
     public void PurchaseUnit1()
     {
-        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = "1", VirtualCurrency="GD", Price=1000 };
+        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = "1", VirtualCurrency = "GD", Price = 1000 };
         PlayFabClientAPI.PurchaseItem(request, (result) => print("유닛 구입 성공!"), (error) => print("유닛 구입 실패"));
     }
     public void PurchaseUnit2()
@@ -64,7 +63,7 @@ public class StoreScene_Mng : MonoBehaviour
     }
     public void ConsumeItem()
     {
-        var request = new ConsumeItemRequest() { ConsumeCount = 1, ItemInstanceId = "E01A5C5EDD04BE06"};
+        var request = new ConsumeItemRequest() { ConsumeCount = 1, ItemInstanceId = "E01A5C5EDD04BE06" };
         PlayFabClientAPI.ConsumeItem(request, (result) => print("유닛 사용 성공!"), (error) => print("유닛 사용 실패"));
     }
     public void OnBackbuttonClick()
@@ -74,6 +73,6 @@ public class StoreScene_Mng : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
