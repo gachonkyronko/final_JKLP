@@ -17,7 +17,7 @@ public class Signup_Mng : MonoBehaviour
     public bool signupfinish = false;
     public bool nicknamefinish = false;
     public string Username = "";
-
+    public string stage = "0";
 
     public void RegisterBtn()  
     {
@@ -50,6 +50,8 @@ public class Signup_Mng : MonoBehaviour
 
             var request1 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { "닉네임", Username } } };
             PlayFabClientAPI.UpdateUserData(request1, (result) => { print("성공"); signupok = true; }, (error) => print("실패"));
+            var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { "스테이지", stage } } };
+            PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); signupok = true; }, (error) => print("실패"));
         }
     }
 

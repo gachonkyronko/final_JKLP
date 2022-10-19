@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     private float timePrev;
     void Start()
     {            //자기자신 부터 하위 자식들 트랜스폼 컴퍼넌트 
-        Points = GameObject.Find("SpawnPoint").GetComponentsInChildren<Transform>();
+        Points = GameObject.Find("Spqwn").GetComponentsInChildren<Transform>();
         //하이라키에서 SpawnPoint 라는 오브젝트 명을 찾고 그 하위 자식 트랜스폼 컴포넌트들을 
         //몽땅 Points라는 트랜스폼 배열에 넣는 다.    
         timePrev = Time.time; //현재시간을 대입

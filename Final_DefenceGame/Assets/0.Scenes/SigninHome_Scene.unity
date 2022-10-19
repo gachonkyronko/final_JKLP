@@ -691,9 +691,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainHome_Mng, Assembly-CSharp
-        m_MethodName: OnStoreButtonClick
+      - m_Target: {fileID: 1665123377}
+        m_TargetAssemblyTypeName: SigninHome_Mng, Assembly-CSharp
+        m_MethodName: OnloadGameButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -969,6 +969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleTxt: {fileID: 0}
   myName: 
+  myStage: 
 --- !u!1 &1699829914
 GameObject:
   m_ObjectHideFlags: 0
