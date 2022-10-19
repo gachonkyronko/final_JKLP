@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stats
 {
     public int ID;
-    public string name;
+    public string Name;
     public int Hp;
     public int Defence;
     public int Attack;
@@ -16,11 +16,16 @@ public class Stats
     public int Ability;
     public int AbilityDetail;
     public int Cost;
+    public int Slot;
 
     public void Print()
     {
         Debug.Log(ID);
-        Debug.Log(name);
+        Debug.Log(Name);
         Debug.Log(Hp);
+        Debug.Log(Defence);
+        Debug.Log(Attack);
+        Debug.Log(AttackSpeed);
+        Debug.Log(Range);
     }
 }

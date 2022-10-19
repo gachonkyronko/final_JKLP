@@ -25,9 +25,6 @@ public class UnitList : MonoBehaviour
     {
         textData = Resources.Load("UnitData") as TextAsset;
         unit = JsonUtility.FromJson<UnitData>(textData.ToString());
-        Debug.Log("1" + unit.UNITS[0].ID);
-        unit.UNITS[0].Print();
-        Debug.Log("2" + unit.UNITS[3].ID);
 
         foreach(Unit unit in unit.UNITS)
         {
@@ -45,6 +42,7 @@ public class UnitList : MonoBehaviour
             unit.Value.Print();
             Debug.Log("=====");
         }
+        Debug.Log(UnitDic[1001].Attack);
     }
 
     // Update is called once per frame
