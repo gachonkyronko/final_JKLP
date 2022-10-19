@@ -1,58 +1,65 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.UI;
-using UnityEngine.Events;
+ 
 using UnityEngine.SceneManagement;
+using PlayFab;
+using PlayFab.ClientModels;
 public class Signup_Mng : MonoBehaviour
 {
-    [SerializeField] InputField emailField;
-    [SerializeField] InputField passField;
-    public Button SignupButton;
-    public Button BackButton;
-    private UnityAction signupaction;
-    private UnityAction backaction;
+    
+    public InputField EmailInput;
+    public InputField PasswordInput;
+    public InputField UsernameInput;
     public bool signupok = false;
-   
+    public bool signupfinish = false;
+    public bool nicknamefinish = false;
+    public string Username = "";
 
-  
-    //public void register()
-    //{
-    //    // Á¦°øµÇ´Â ÇÔ¼ö : ÀÌ¸ÞÀÏ°ú ºñ¹Ð¹øÈ£·Î È¸¿ø°¡ÀÔ ½ÃÄÑ ÁÜ
-    //    auth.CreateUserWithEmailAndPasswordAsync(emailField.text, passField.text).ContinueWith(
-    //        task => {
-    //            if (!task.IsCanceled && !task.IsFaulted)
-    //            {
 
-    //                Debug.Log(emailField.text + "·Î È¸¿ø°¡ÀÔ\n");
-    //                SignupButton.onClick.AddListener(signupaction);
-    //                signupok = true;
-    //            }
-    //            else
-    //                Debug.Log("È¸¿ø°¡ÀÔ ½ÇÆÐ\n");
-    //        }
-    //        );
-    //}
-    private void Start()
+    public void RegisterBtn() //È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô¹ï¿½Æ°
     {
-        signupaction = () => OnSignupClick();
-        backaction = () => OnBackClick();
-        BackButton.onClick.AddListener(backaction);
+        var request = new RegisterPlayFabUserRequest { Email = EmailInput.text, Password = PasswordInput.text, Username = UsernameInput.text };
+        PlayFabClientAPI.RegisterPlayFabUser(request, (result) => { signupfinish = true; nickname(); }, (error) => print("ì‹¤íŒ¨"));
+        Username = UsernameInput.text;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    
+    void Update()  
     {
-        if(signupok==true)
-            SceneManager.LoadScene("Signin_Scene");
+         
+            if (signupok == true)
+                SceneManager.LoadScene("Signin_Scene");
     }
-    public void OnSignupClick()
+    void nickname()
+    {
+        if (signupfinish == true)
+        {
+            var request = new LoginWithEmailAddressRequest { Email = EmailInput.text, Password = PasswordInput.text };
+            PlayFabClientAPI.LoginWithEmailAddress(request, (result) => { nicknamefinish = true; print(" ì„±ê³µ"); nicknameok(); }, (error) => print("ì‹¤íŒ¨"));
+
+        }
+    }
+    void nicknameok()
+    {
+        if (nicknamefinish == true)
+        {
+
+            var request1 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { "ë‹‰ë„¤ìž„", Username } } };
+            PlayFabClientAPI.UpdateUserData(request1, (result) => { print("ì„±ê³µ"); signupok = true; }, (error) => print("ì‹¤íŒ¨"));
+        }
+    }
+
+        public void BackBtn() //ï¿½Ú·Î°ï¿½ï¿½ï¿½
     {
         SceneManager.LoadScene("Signin_Scene");
     }
-    public void OnBackClick()
-    {
-        SceneManager.LoadScene("Signin_Scene");
-    }
+
+
+
+
+
 }

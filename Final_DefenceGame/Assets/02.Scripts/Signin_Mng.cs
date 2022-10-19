@@ -1,63 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
-
 using UnityEngine.UI;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using PlayFab;
+using PlayFab.ClientModels;
 
 public class Signin_Mng : MonoBehaviour
 {
-    [SerializeField] InputField emailField;
-    [SerializeField] InputField passField;
     
-    public Button SigninButton;
-    private UnityAction signinaction;
-    public Button SignupButton;
-    private UnityAction signupaction;
+    public InputField EmailInput;
+    public InputField PasswordInput;
     public bool loginok = false;
-   
-    //public void login()
-    //{
-    //    // Á¦°øµÇ´Â ÇÔ¼ö : ÀÌ¸ÞÀÏ°ú ºñ¹Ð¹øÈ£·Î ·Î±×ÀÎ ½ÃÄÑ ÁÜ
-       
-    //        task => {
-    //            if (task.IsCompleted && !task.IsFaulted && !task.IsCanceled)
-    //            {
-                    
-    //                Debug.Log(emailField.text + " ·Î ·Î±×ÀÎ ÇÏ¼Ì½À´Ï´Ù.");
-    //                SigninButton.onClick.AddListener(signinaction);
-    //                loginok = true;
-    //            }
-    //            else
-    //            {
-    //                Debug.Log("·Î±×ÀÎ¿¡ ½ÇÆÐÇÏ¼Ì½À´Ï´Ù.");
-    //            }
-    //        }
-    //    );
-    //}
-    private void Update()
+    public static string myID = "";
+    public static string myEmail = "";
+    public static string myPassword = "";
+
+    public void SigninBtn()  
     {
-        if(loginok==true)
+        myEmail = EmailInput.text;
+        myPassword = PasswordInput.text;
+        var request = new LoginWithEmailAddressRequest { Email = EmailInput.text, Password = PasswordInput.text };
+        PlayFabClientAPI.LoginWithEmailAddress(request, (result) => { loginok = true; myID = result.PlayFabId; }, (error) => print("ë¡œê·¸ì¸ ì‹¤íŒ¨"));
+    }
+   
+    private void Update()  
+    {
+        if (loginok == true)
         {
-            SceneManager.LoadScene("SigninHome_Scene_1");
+            SceneManager.LoadScene("SigninHome_Scene");
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        signinaction = () => OnSigninClick();
-        signupaction = () => OnSignupClick();
-         
-        SignupButton.onClick.AddListener(signupaction);
-    }
-
-    public void OnSigninClick()
-    {
-        SceneManager.LoadScene("SigninHome_Scene_1");
-    }
-    public void OnSignupClick()
+   
+    
+    public void SignupBtn() 
     {
         SceneManager.LoadScene("Signup_Scene");
     }
+
+
 }
