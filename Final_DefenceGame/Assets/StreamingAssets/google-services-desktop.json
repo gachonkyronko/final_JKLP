@@ -1,8 +1,8 @@
 {
   "project_info": {
     "project_number": "1066661371188",
+    "firebase_url": "https://reversedefence-default-rtdb.firebaseio.com",
     "project_id": "reversedefence",
-    "firebase_rul": "https://reversedefence-default-rtdb.firebaseio.com/",
     "storage_bucket": "reversedefence.appspot.com"
   },
   "client": [

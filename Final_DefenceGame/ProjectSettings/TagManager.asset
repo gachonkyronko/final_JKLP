@@ -7,6 +7,7 @@ TagManager:
   - Human
   - Enemy
   - Humanweapon
+  - NotRender
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - NotRender
   - 
   - 
   - 

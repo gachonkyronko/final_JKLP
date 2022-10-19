@@ -231,9 +231,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f646ee73e5370a44a3c6c6450d249f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EmailInput: {fileID: 295814289}
-  PasswordInput: {fileID: 831957282}
-  loginok: 0
+  emailField: {fileID: 295814289}
+  passField: {fileID: 831957282}
+  SigninButton: {fileID: 414816470}
+  SignupButton: {fileID: 1445578954}
 --- !u!4 &131571269
 Transform:
   m_ObjectHideFlags: 0
@@ -611,8 +612,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.5}
-  m_SizeDelta: {x: 250.8326, y: 30}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &358694259
 MonoBehaviour:
@@ -820,7 +821,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 131571268}
         m_TargetAssemblyTypeName: Signin_Mng, Assembly-CSharp
-        m_MethodName: SigninBtn
+        m_MethodName: login
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -868,49 +869,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414816468}
   m_CullTransparentMesh: 1
---- !u!1 &635465800
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 635465802}
-  - component: {fileID: 635465801}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &635465801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635465800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17b1626c76d638c459ac3bb97e359fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &635465802
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635465800}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 425.93585, y: 45.059906, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1537,7 +1495,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC774\uBA54\uC77C"
+  m_Text: "\uC544\uC774\uB514"
 --- !u!222 &1272918251
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1616,7 +1574,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC774\uBA54\uC77C"
+  m_Text: "\uC544\uC774\uB514"
 --- !u!222 &1324002852
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1707,19 +1665,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1445578955}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 131571268}
-        m_TargetAssemblyTypeName: Signin_Mng, Assembly-CSharp
-        m_MethodName: SignupBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1445578955
 MonoBehaviour:
   m_ObjectHideFlags: 0

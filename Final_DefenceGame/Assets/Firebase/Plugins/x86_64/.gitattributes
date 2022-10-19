@@ -1,0 +1,2 @@
+*.zip filter=lfs diff=lfs merge=lfs -text
+FirebaseCppApp-9_6_0.bundle filter=lfs diff=lfs merge=lfs -text
