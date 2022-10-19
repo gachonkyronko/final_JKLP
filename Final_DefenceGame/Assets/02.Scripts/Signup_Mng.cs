@@ -1,53 +1,59 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.UI;
+ 
 using UnityEngine.SceneManagement;
 using PlayFab;
 using PlayFab.ClientModels;
 public class Signup_Mng : MonoBehaviour
 {
+    
     public InputField EmailInput;
     public InputField PasswordInput;
     public InputField UsernameInput;
     public bool signupok = false;
     public bool signupfinish = false;
     public bool nicknamefinish = false;
-    public string Username="";
-    public void RegisterBtn() //È¸¿ø°¡ÀÔ¹öÆ°
+    public string Username = "";
+
+
+    public void RegisterBtn() //È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô¹ï¿½Æ°
     {
-         
-        var request = new RegisterPlayFabUserRequest { Email = EmailInput.text, Password = PasswordInput.text, Username = UsernameInput.text};
-        PlayFabClientAPI.RegisterPlayFabUser(request, (result) => { signupfinish = true; nickname(); }, (error) => print("È¸¿ø°¡ÀÔ ½ÇÆÐ")) ;
+        var request = new RegisterPlayFabUserRequest { Email = EmailInput.text, Password = PasswordInput.text, Username = UsernameInput.text };
+        PlayFabClientAPI.RegisterPlayFabUser(request, (result) => { signupfinish = true; nickname(); }, (error) => print("ì‹¤íŒ¨"));
         Username = UsernameInput.text;
-        
-         
     }
-    void Update() //È¸¿ø°¡ÀÔ¼º°ø½Ã È­¸éÀÌµ¿
+
+
+    
+    void Update()  
     {
-        if (signupok == true)
-            SceneManager.LoadScene("Signin_Scene");
          
+            if (signupok == true)
+                SceneManager.LoadScene("Signin_Scene");
     }
     void nickname()
     {
         if (signupfinish == true)
         {
             var request = new LoginWithEmailAddressRequest { Email = EmailInput.text, Password = PasswordInput.text };
-            PlayFabClientAPI.LoginWithEmailAddress(request, (result) => { nicknamefinish = true; print("·Î±×ÀÎ¼º°ø");nicknameok();  }, (error) => print("·Î±×ÀÎ ½ÇÆÐ"));
-             
+            PlayFabClientAPI.LoginWithEmailAddress(request, (result) => { nicknamefinish = true; print(" ì„±ê³µ"); nicknameok(); }, (error) => print("ì‹¤íŒ¨"));
+
         }
     }
     void nicknameok()
     {
-        if(nicknamefinish == true)
+        if (nicknamefinish == true)
         {
-             
-            var request1 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { "´Ð³×ÀÓ", Username } } };
-            PlayFabClientAPI.UpdateUserData(request1, (result) => { print("µ¥ÀÌÅÍ ÀúÀå ¼º°ø");signupok = true; }, (error) => print("µ¥ÀÌÅÍ ÀúÀå ½ÇÆÐ"));
+
+            var request1 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { "ë‹‰ë„¤ìž„", Username } } };
+            PlayFabClientAPI.UpdateUserData(request1, (result) => { print("ì„±ê³µ"); signupok = true; }, (error) => print("ì‹¤íŒ¨"));
         }
     }
-    public void BackBtn() //µÚ·Î°¡±â
+
+        public void BackBtn() //ï¿½Ú·Î°ï¿½ï¿½ï¿½
     {
         SceneManager.LoadScene("Signin_Scene");
     }

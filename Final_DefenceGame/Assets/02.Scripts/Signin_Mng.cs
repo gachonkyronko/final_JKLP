@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -8,39 +7,35 @@ using PlayFab.ClientModels;
 
 public class Signin_Mng : MonoBehaviour
 {
-     
+    
     public InputField EmailInput;
     public InputField PasswordInput;
     public bool loginok = false;
-    public static string myID="";
+    public static string myID = "";
     public static string myEmail = "";
     public static string myPassword = "";
 
-    public void SigninBtn() //·Î±×ÀÎ¹öÆ°
+    public void SigninBtn()  
     {
         myEmail = EmailInput.text;
         myPassword = PasswordInput.text;
         var request = new LoginWithEmailAddressRequest { Email = EmailInput.text, Password = PasswordInput.text };
-        PlayFabClientAPI.LoginWithEmailAddress(request, (result) => { loginok = true; myID = result.PlayFabId;  }, (error) => print("·Î±×ÀÎ ½ÇÆĞ"));
-        
-       
+        PlayFabClientAPI.LoginWithEmailAddress(request, (result) => { loginok = true; myID = result.PlayFabId; }, (error) => print("ë¡œê·¸ì¸ ì‹¤íŒ¨"));
     }
-    
-
-     
-
-
-        private void Update() //·Î±×ÀÎ¹öÆ°È°¼ºÈ­½Ã ¹Ù·Î ¾À ³Ñ¾î°¡Áöµµ·Ï
+   
+    private void Update()  
     {
-        if(loginok==true)
+        if (loginok == true)
         {
             SceneManager.LoadScene("SigninHome_Scene");
         }
     }
-    public void SignupBtn() //È¸¿ø°¡ÀÔÈ­¸éÀÌµ¿
+   
+    
+    public void SignupBtn() 
     {
         SceneManager.LoadScene("Signup_Scene");
     }
 
-    
+
 }
