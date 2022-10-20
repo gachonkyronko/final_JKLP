@@ -21,10 +21,27 @@ public class StoreScene_Mng : MonoBehaviour
     private UnityAction backaction;
     public Button backButton;
 
+    public string[] unit_1 = new string [5];
     // Start is called before the first frame update
     void Start()
     {
-        
+        var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
+        PlayFabClientAPI.GetCatalogItems(requset, GetSuccess, GetFail);
+    }
+    private void GetFail(PlayFabError obj)
+    {
+        Debug.Log("카탈로그 불러오기 실패");
+    }
+    //카탈로그를 불러오는데 성공했다면 콜백이 된다.
+    private void GetSuccess(GetCatalogItemsResult obj)
+    {
+        Debug.Log("칼탈로그 불러오기 성공");
+        var items = obj.Catalog;
+        for (int i = 2; i < items.Count; i++)
+        {
+            Debug.Log("아이템 아이디 =" + items[i].ItemId);
+            unit_1[i] = items[i].ItemId;
+        }
     }
     public void GetInventory() => PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
     {
@@ -58,8 +75,10 @@ public class StoreScene_Mng : MonoBehaviour
     }
     public void PurchaseUnit4()
     {
-        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = "unit4", VirtualCurrency = "GD", Price = 7000 };
+        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unit_1[2], VirtualCurrency = "GD", Price = 100 };
         PlayFabClientAPI.PurchaseItem(request, (result) => print("유닛 구입 성공!"), (error) => print("유닛 구입 실패"));
+        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unit_1[2], "0"} } };
+        PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
     }
     public void ConsumeItem()
     {
