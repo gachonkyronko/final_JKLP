@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public Text costtext;
     public int cost = 3;
     public int mycost = 8;
+    public GameObject[] spawnbutton = new GameObject[10];
     //3초마다 10마리 
     private float timePrev;
     public string[] unit = new string[10];
@@ -53,6 +54,17 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
             Debug.Log("패배");
         }
+        //for ( int i = 0; i<10;i++)
+        //{
+        //    if( unit[i] == "1")
+        //    {
+        //        spawnbutton[i].GetComponentInChildren<Text>().text = unit[i];
+        //    }
+        //    //else
+        //    //{
+
+        //    //}
+        //}
     }
     public void OnFirstSpawnButtonClick()
     {
