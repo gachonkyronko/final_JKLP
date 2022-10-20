@@ -36,18 +36,7 @@ public class GameManager : MonoBehaviour
         //하이라키에서 SpawnPoint 라는 오브젝트 명을 찾고 그 하위 자식 트랜스폼 컴포넌트들을 
         //몽땅 Points라는 트랜스폼 배열에 넣는 다.    
         timePrev = Time.time; //현재시간을 대입
-        firstSpawnaction = () => OnFirstSpawnButtonClick();
-        firstSpawnButton.onClick.AddListener(firstSpawnaction);
-        secondSpawnaction = () => OnSecondSpawnButtonClick();
-        secondSpawnButton.onClick.AddListener(secondSpawnaction);
-        firstunitaction = () => OnFirstUnitButtonClick();
-        firstunitButton.onClick.AddListener(firstunitaction);
-        menuaction = () => OnMenuButtonClick();
-        menuButton.onClick.AddListener(menuaction);
-        menubackaction = () => OnMenuBackButtonClick();
-        menubackButton.onClick.AddListener(menubackaction);
-        menuhomeaction = () => OnMenuHomeButtonClick();
-        menuhomeButton.onClick.AddListener(menuhomeaction);
+        
         countdowntext.text = setTime.ToString();
     }
     void Update()
