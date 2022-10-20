@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using PlayFab;
+using PlayFab.ClientModels;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] //태어날 위치 지정 
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     public int mycost = 8;
     //3초마다 10마리 
     private float timePrev;
+    public string[] unit = new string[10];
     void Start()
     {             
         Points = GameObject.Find("Spqwn").GetComponentsInChildren<Transform>();
@@ -37,6 +40,8 @@ public class GameManager : MonoBehaviour
         timePrev = Time.time;  
         
         countdowntext.text = setTime.ToString();
+        var request1 = new GetUserDataRequest() { PlayFabId = Signin_Mng.myID };
+        PlayFabClientAPI.GetUserData(request1, (result) => { unit[0] = result.Data["Vampire"].Value; Debug.Log("뱀파이어넘어옴");  }, (error) => print("데이터못넘김"));
     }
     void Update()
     {       
