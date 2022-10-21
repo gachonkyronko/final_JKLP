@@ -6,28 +6,26 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 public class MainHome_Mng : MonoBehaviour
 {
-    public Button StageButton;
-    public Button StoreButton;
-    public UnityAction storeaction;
-    private UnityAction stageaction;
-    void Start()
+    public Text titleTxt;
+
+    void Start() //타이틀이름설정
     {
-        stageaction = () => OnStageButtonClick();
-        StageButton.onClick.AddListener(stageaction);
-        storeaction = () => OnStoreButtonClick();
-        StoreButton.onClick.AddListener(storeaction);
+        print(Signin_Mng.myID);
+        titleTxt = GameObject.Find("Canvas_Title").transform.GetChild(0).GetComponent<Text>();
+        
+
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        titleTxt.text = Signin_Mng.myName.ToString() + "님 전투를 준비해주세요!";
     }
-    public void OnStageButtonClick()
+    public void OnStageButtonClick() //스테이지버튼이벤트
     {
         SceneManager.LoadScene("ChoiceStage_Scene");
     }
-    public void OnStoreButtonClick()
+    public void OnStoreButtonClick() //상점버튼이벤트
     {
         SceneManager.LoadScene("Store_Scene");
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stats
+public class Items
 {
     public int ID;
     public string Name;
@@ -12,12 +12,8 @@ public class Stats
     public double AttackSpeed;
     public double Range;
     public double MoveSpeed;
-    public int Race;
-    public int Ability;
-    public int AbilityDetail;
-    public int Cost;
-    public int Slot;
-    public int Itemcode;
+    public int Grade;
+    public int UseStack;
 
     public void Print()
     {
@@ -28,6 +24,5 @@ public class Stats
         Debug.Log(Attack);
         Debug.Log(AttackSpeed);
         Debug.Log(Range);
-        Debug.Log(Itemcode);
     }
 }

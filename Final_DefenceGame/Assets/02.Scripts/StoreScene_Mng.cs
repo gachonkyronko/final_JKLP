@@ -9,21 +9,11 @@ using UnityEngine.SceneManagement;
 
 public class StoreScene_Mng : MonoBehaviour
 {
-    public Button ChargegoldButton;
-    public Button UnitButton1;
-    public Button UnitButton2;
-    public Button UnitButton3;
-    public Button UnitButton4;
-    public Button reinforceButton1;
-    public Button reinforceButton2;
-    public Button reinforceButton3;
-    public Button reinforceButton4;
-    private UnityAction backaction;
-    public Button backButton;
-
+    public Text MyMoneyTxt;
+    public int MyMoney = 0;
     public string[] unit_1 = new string [5];
-    // Start is called before the first frame update
-    void Start()
+     
+    void Start() //상점정보불러오기
     {
         var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
         PlayFabClientAPI.GetCatalogItems(requset, GetSuccess, GetFail);
@@ -82,18 +72,25 @@ public class StoreScene_Mng : MonoBehaviour
         var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unit_1[2], "Vampire"} } };
         PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
     }
+    
     public void ConsumeItem()
     {
         var request = new ConsumeItemRequest() { ConsumeCount = 1, ItemInstanceId = "E01A5C5EDD04BE06" };
         PlayFabClientAPI.ConsumeItem(request, (result) => print("유닛 사용 성공!"), (error) => print("유닛 사용 실패"));
     }
-    public void OnBackbuttonClick()
+    public void OnBackbuttonClick() //뒤로가기 이벤트
     {
         SceneManager.LoadScene("MainHome_Scene");
     }
-    // Update is called once per frame
+   
     void Update()
     {
-
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
+        {
+            MyMoney = result.VirtualCurrency["GD"];
+          
+        }, (error) => print("금액업데이트실패"));
+        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(9).GetComponent<Text>();
+        MyMoneyTxt.text = "보유골드량 : ";
     }
 }

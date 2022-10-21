@@ -6,7 +6,7 @@ public class UnitList : MonoBehaviour
 {
     TextAsset textData;
     UnitData unit;
-    Dictionary<int, Unit> UnitDic = new Dictionary<int, Unit>();
+    public static Dictionary<int, Unit> UnitDic = new Dictionary<int, Unit>();
 
     [System.Serializable]
     public class Unit : Stats
@@ -19,7 +19,8 @@ public class UnitList : MonoBehaviour
     {
         public Unit[] UNITS;
     }
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +44,10 @@ public class UnitList : MonoBehaviour
             Debug.Log("=====");
         }
         Debug.Log(UnitDic[1001].Attack);
+        int id = 1001;
+        
+        UnitDic.Add(id+10000, UnitDic[id]);
+        UnitDic[id + 10000].Print();
     }
 
     // Update is called once per frame
