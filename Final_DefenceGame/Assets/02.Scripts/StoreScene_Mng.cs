@@ -22,6 +22,7 @@ public class StoreScene_Mng : MonoBehaviour
     public int[] Allunit = new int[100];
     public int[] Useunit = new int[100];
     public int[] Randomunit = new int[5];
+    string[] a = new string[5];
     UnitList AllUnitList;
     MyunitList UseUnitList;
     void Start() //상점정보불러오기
@@ -39,70 +40,69 @@ public class StoreScene_Mng : MonoBehaviour
         }
         for( j=0;j<5;j++)
         {
-            item[j] = UnityEngine.Random.Range(1, i); 
+            item[j] = UnityEngine.Random.Range(1, i);
+            print("아이템아이디 : "+item[j]);
         }
         
-        print("아이템닉네임 : " +AllitemID.FindDic(item[0]).Name);
-        print("아이템코드:"+item[0]);
+        
+        AllUnitList = GameObject.Find("StoreScene_Mng").GetComponent<UnitList>();
+        UseUnitList = GameObject.Find("StoreScene_Mng").GetComponent<MyunitList>();
+        Allunit = AllUnitList.GetKey();
+        Useunit = UseUnitList.GetKey();
 
+        foreach (int number in Allunit)
+        {
+            if (number == 0)
+            {
+                 
+                break;
+
+            }
+            i++;
+        }
+
+        foreach (int number in Useunit)
+        {
+            if (number == 0)
+            {
+                
+                break;
+
+            }
+            j++;
+        }
+         
+        for (int k = 0; k < 5; k++)
+        {
+            while (true)
+            {
+                int l = UnityEngine.Random.Range(0, i);
+                int number = Allunit[l];
+                var check = Array.Exists(Useunit, x => x == number);
+                if (check == true)
+                {
+                    
+                    continue;
+                }
+                else
+                {
+                    Randomunit[k] = number;
+                    print("유닛id : " + Randomunit[k]);
+                    break;
+                }
+            }
+        }
+        for (int m = 0; m < 5; m++)
+        {
+            string a = AllUnitList.FindDic(Randomunit[m]).Name;
+             
+        }
+        //Debug.Log("유닛id : " + Randomunit[0]);
+        //print("아이템닉네임 : " + AllUnitList.FindDic(Randomunit[0]).Name);
 
         var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
         PlayFabClientAPI.GetCatalogItems(requset, GetSuccess, GetFail);
         MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(9).GetComponent<Text>();
-
-
-        //유닛테스트
-         
-        //AllUnitList = GameObject.Find("StoreScene_Mng").GetComponent<UnitList>();
-        //UseUnitList = GameObject.Find("StoreScene_Mng").GetComponent<MyunitList>();
-        //Allunit = AllUnitList.GetKey();
-        //Useunit = UseUnitList.GetKey();
-
-        //foreach (int number in Allunit)
-        //{
-        //    if (number == 0)
-        //    {
-        //        i++;
-        //        break;
-                
-        //    }
-        //}
-
-        //foreach (int number in Useunit)
-        //{
-        //    if (number == 0)
-        //    {
-        //        j++;
-        //        break;
-                
-        //    }
-        //}
-
-        //for (int k = 0; k < 5; k++)
-        //{
-        //    while (true)
-        //    {
-        //        int l = UnityEngine.Random.Range(0, i);
-        //        int number = Allunit[l];
-        //        var check = Array.Exists(Useunit, x => x == number);
-        //        if (check == true)
-        //        {
-        //            continue;
-        //        }
-        //        else
-        //        {
-        //            Randomunit[k] = number;
-        //            Debug.Log("유닛id"+number);
-        //            break;
-        //        }
-        //    }
-        //}
-        //for (int m = 0; m < 5; m++)
-        //{
-        //    string a = AllUnitList.FindDic(Randomunit[m]).Name;
-        //    Debug.Log("유닛이름"+a);
-        //}
-
     }
     private void GetFail(PlayFabError obj)
     {

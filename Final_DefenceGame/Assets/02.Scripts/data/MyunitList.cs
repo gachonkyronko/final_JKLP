@@ -18,7 +18,7 @@ public class MyunitList : MonoBehaviour
         int i = 0;
         Unit units = new Unit();
         myunit = GameObject.Find("StoreScene_Mng").GetComponent<MyUnit>();
-        Debug.Log("Test");
+      
         int[] array = myunit.GetKey();
         foreach (int number in array)
         {
@@ -43,7 +43,7 @@ public class MyunitList : MonoBehaviour
             units.Slot = myunit.FindDic(number).Slot;
             units.Itemcode = myunit.FindDic(number).Itemcode;
             MyUnitDic.Add(units.ID, units);
-            MyUnitDic[number].Print();
+         
         }
 
     }

@@ -29,23 +29,21 @@ public class ItemList : MonoBehaviour
         Items = JsonUtility.FromJson<ItemData>(textData.ToString());
         foreach (Item item in Items.ITEM)
         {
-            Debug.Log(item.ID);
+             
             ItemDic.Add(item.ID, item);
         }
 
         foreach (int itemiD in ItemDic.Keys)
         {
 
-            ItemDic[itemiD].Print();
+             
             itemID[i] = itemiD;
             i++;
         }
 
         foreach (KeyValuePair<int, Item> item in ItemDic)
         {
-            Debug.Log(item.Key);
-            item.Value.Print();
-            Debug.Log("=====");
+             
         }
     }
 

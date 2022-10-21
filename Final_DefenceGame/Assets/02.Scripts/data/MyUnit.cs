@@ -64,16 +64,14 @@ public class MyUnit : MonoBehaviour
                 }
                 foreach (int unitID in MyUnitDic.Keys)
                 {
-                    MyUnitDic[unitID].Print();
+                    
                     Array[i] = unitID;
                     i++;
                 }
 
                 foreach (KeyValuePair<int, Unit> unit in MyUnitDic)
                 {
-                    Debug.Log(unit.Key);
-                    unit.Value.Print();
-                    Debug.Log("=====");
+                   
                 }
                 break;
 
@@ -86,16 +84,14 @@ public class MyUnit : MonoBehaviour
                 }
                 foreach (int unitID in MyUnitDic.Keys)
                 {
-                    MyUnitDic[unitID].Print();
+                    
                     Array[i] = unitID;
                     i++;
                 }
 
                 foreach (KeyValuePair<int, Unit> unit in MyUnitDic)
                 {
-                    Debug.Log(unit.Key);
-                    unit.Value.Print();
-                    Debug.Log("=====");
+                     
                 }
                 break;
 
@@ -108,16 +104,14 @@ public class MyUnit : MonoBehaviour
                 }
                 foreach (int unitID in MyUnitDic.Keys)
                 {
-                    MyUnitDic[unitID].Print();
+                     
                     Array[i] = unitID;
                     i++;
                 }
 
                 foreach (KeyValuePair<int, Unit> unit in MyUnitDic)
                 {
-                    Debug.Log(unit.Key);
-                    unit.Value.Print();
-                    Debug.Log("=====");
+                   
                 }
                 break;
 
@@ -130,16 +124,14 @@ public class MyUnit : MonoBehaviour
                 }
                 foreach (int unitID in MyUnitDic.Keys)
                 {
-                    MyUnitDic[unitID].Print();
+                   
                     Array[i] = unitID;
                     i++;
                 }
 
                 foreach (KeyValuePair<int, Unit> unit in MyUnitDic)
                 {
-                    Debug.Log(unit.Key);
-                    unit.Value.Print();
-                    Debug.Log("=====");
+                   
                 }
                 break;
 
@@ -154,18 +146,16 @@ public class MyUnit : MonoBehaviour
 
         foreach (int unitID in UnitDic.Keys)
         {
-            UnitDic[unitID].Print();
+         
         }
         foreach (int unitID in MyUnitDic.Keys)
         {
-            MyUnitDic[unitID].Print();
+            
         }
 
         foreach (KeyValuePair<int, Unit> unit in MyUnitDic)
         {
-            Debug.Log(unit.Key);
-            unit.Value.Print();
-            Debug.Log("=====");
+           
         }
 
 
