@@ -37,7 +37,7 @@ public class ChoiceStage_Mng : MonoBehaviour
     }
     public void OnfirstStageButtonClick()
     {
-        SceneManager.LoadScene("Battle_Scene");
+        SceneManager.LoadScene("FirstStage");
     }
     public void stageColor()
     {
