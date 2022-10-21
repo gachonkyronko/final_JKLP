@@ -27,28 +27,33 @@ public class StoreScene_Mng : MonoBehaviour
     MyunitList UseUnitList;
     void Start() //상점정보불러오기
     {
-        int i = 0;
-        int j = 0;
+        
         AllitemID = GameObject.Find("StoreScene_Mng").GetComponent<ItemList>();
-        Buttons = GameObject.Find("PurchaseItem").GetComponentsInChildren<Transform>();
+        AllUnitList = GameObject.Find("StoreScene_Mng").GetComponent<UnitList>();
+        UseUnitList = GameObject.Find("StoreScene_Mng").GetComponent<MyunitList>();
+        int i = 0;
+        int j = 0;  
+        int n = 0;
+        int m = 0;
         Itemnumber = AllitemID.GetKey();
+        Allunit = AllUnitList.GetKey();
+        Useunit = UseUnitList.GetKey();
         foreach (int number in Itemnumber)
         {
+            
             if (number == 0)
+            {
+                
                 break;
+            }
             i++;
+
         }
         for( j=0;j<5;j++)
         {
             item[j] = UnityEngine.Random.Range(1, i);
             print("아이템아이디 : "+item[j]);
         }
-        
-        
-        AllUnitList = GameObject.Find("StoreScene_Mng").GetComponent<UnitList>();
-        UseUnitList = GameObject.Find("StoreScene_Mng").GetComponent<MyunitList>();
-        Allunit = AllUnitList.GetKey();
-        Useunit = UseUnitList.GetKey();
 
         foreach (int number in Allunit)
         {
@@ -58,7 +63,7 @@ public class StoreScene_Mng : MonoBehaviour
                 break;
 
             }
-            i++;
+            n++;
         }
 
         foreach (int number in Useunit)
@@ -69,41 +74,53 @@ public class StoreScene_Mng : MonoBehaviour
                 break;
 
             }
-            j++;
+            m++;
         }
          
         for (int k = 0; k < 5; k++)
         {
+            
+            int rootnum = 0;
+            int p;
             while (true)
             {
-                int l = UnityEngine.Random.Range(0, i);
-                int number = Allunit[l];
-                var check = Array.Exists(Useunit, x => x == number);
-                if (check == true)
+                rootnum++;
+                 
+                p = UnityEngine.Random.Range(0, n);
+                int number = Allunit[p];
+                var check = Array.Exists(Useunit, x => x.Equals(number));
+
+                if (check == false)
                 {
-                    
-                    continue;
+                    Randomunit[k] = number;
+                     
+                        break;
+
                 }
                 else
                 {
-                    Randomunit[k] = number;
-                    print("유닛id : " + Randomunit[k]);
-                    break;
+                    if (rootnum > 10000)
+
+                        break;
                 }
             }
         }
-        for (int m = 0; m < 5; m++)
+        
+        for (int t = 0; t < 5; t++)
         {
-            string a = AllUnitList.FindDic(Randomunit[m]).Name;
+
+            a[t] = AllUnitList.FindDic(Randomunit[t]).Name;
+            print("유닛 아이디 : " + Randomunit[t]);
              
         }
-        //Debug.Log("유닛id : " + Randomunit[0]);
-        //print("아이템닉네임 : " + AllUnitList.FindDic(Randomunit[0]).Name);
 
+        
+        Buttons = GameObject.Find("PurchaseItem").GetComponentsInChildren<Transform>();
         var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
         PlayFabClientAPI.GetCatalogItems(requset, GetSuccess, GetFail);
         MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(9).GetComponent<Text>();
     }
+    
     private void GetFail(PlayFabError obj)
     {
         Debug.Log("카탈로그 불러오기 실패");

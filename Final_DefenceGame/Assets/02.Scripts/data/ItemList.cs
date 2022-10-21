@@ -21,7 +21,7 @@ public class ItemList : MonoBehaviour
         public Item[] ITEM;
     }
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         int i = 0;
         textData = Resources.Load("UnitData") as TextAsset;
@@ -64,6 +64,7 @@ public class ItemList : MonoBehaviour
 
     public int[] GetKey()
     {
+        
         return itemID;
     }
 }
