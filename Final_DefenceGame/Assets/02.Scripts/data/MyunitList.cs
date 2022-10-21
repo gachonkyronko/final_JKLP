@@ -17,7 +17,7 @@ public class MyunitList : MonoBehaviour
     {
         int i = 0;
         Unit units = new Unit();
-        myunit = GameObject.Find("GameObject").GetComponent<MyUnit>();
+        myunit = GameObject.Find("StoreScene_Mng").GetComponent<MyUnit>();
         Debug.Log("Test");
         int[] array = myunit.GetKey();
         foreach (int number in array)

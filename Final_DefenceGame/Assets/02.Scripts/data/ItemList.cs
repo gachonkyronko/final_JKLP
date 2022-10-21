@@ -6,6 +6,7 @@ public class ItemList : MonoBehaviour
 {
     TextAsset textData;
     ItemData Items;
+    public int[] itemID = new int[100];
     public static Dictionary<int, Item> ItemDic = new Dictionary<int, Item>();
 
     [System.Serializable]
@@ -22,6 +23,7 @@ public class ItemList : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int i = 0;
         textData = Resources.Load("UnitData") as TextAsset;
 
         Items = JsonUtility.FromJson<ItemData>(textData.ToString());
@@ -31,9 +33,12 @@ public class ItemList : MonoBehaviour
             ItemDic.Add(item.ID, item);
         }
 
-        foreach (int itemID in ItemDic.Keys)
+        foreach (int itemiD in ItemDic.Keys)
         {
-            ItemDic[itemID].Print();
+
+            ItemDic[itemiD].Print();
+            itemID[i] = itemiD;
+            i++;
         }
 
         foreach (KeyValuePair<int, Item> item in ItemDic)
@@ -58,4 +63,10 @@ public class ItemList : MonoBehaviour
         }
         return null;
     }
+
+    public int[] GetKey()
+    {
+        return itemID;
+    }
 }
+
