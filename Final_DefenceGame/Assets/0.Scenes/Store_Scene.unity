@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 117303365}
   - component: {fileID: 117303364}
   - component: {fileID: 117303363}
+  - component: {fileID: 117303367}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -467,6 +468,69 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &117303367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117303362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca31e856c7809a24fb6f98c7e58f0411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyMoneyTxt: {fileID: 0}
+  MyMoney: 0
+  unit_1:
+  - 
+  - 
+  - 
+  - 
+  - 
+  unitname:
+  - 
+  - 
+  - 
+  - 
+  - 
+  saveunitcost: 0000000000000000000000000000000000000000
+  saveunitcost_1:
+  - 
+  - 
+  - 
+  - 
+  - 
+  UnitButtons: []
+  unitPurchaseBtn:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  myunit_invenBtn:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  unitCost:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Allunit: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  Useunit: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  Randomunit: 0000000000000000000000000000000000000000
+  myunit_inven:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
 --- !u!1 &119330170
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,7 +970,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 184511200}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 427241375}
+        m_TargetAssemblyTypeName: StoreScene_Mng, Assembly-CSharp
+        m_MethodName: PurchaseUnit2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &184511200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2105,6 +2181,19 @@ MonoBehaviour:
   MyMoneyTxt: {fileID: 0}
   MyMoney: 0
   unit_1:
+  - 
+  - 
+  - 
+  - 
+  - 
+  unitname:
+  - 
+  - 
+  - 
+  - 
+  - 
+  saveunitcost: 0000000000000000000000000000000000000000
+  saveunitcost_1:
   - 
   - 
   - 
@@ -4138,6 +4227,19 @@ MonoBehaviour:
   - 
   - 
   - 
+  unitname:
+  - 
+  - 
+  - 
+  - 
+  - 
+  saveunitcost: 0000000000000000000000000000000000000000
+  saveunitcost_1:
+  - 
+  - 
+  - 
+  - 
+  - 
   UnitButtons: []
   unitPurchaseBtn:
   - {fileID: 0}
@@ -4744,6 +4846,19 @@ MonoBehaviour:
   MyMoneyTxt: {fileID: 0}
   MyMoney: 0
   unit_1:
+  - 
+  - 
+  - 
+  - 
+  - 
+  unitname:
+  - 
+  - 
+  - 
+  - 
+  - 
+  saveunitcost: 0000000000000000000000000000000000000000
+  saveunitcost_1:
   - 
   - 
   - 
@@ -6168,6 +6283,19 @@ MonoBehaviour:
   - 
   - 
   - 
+  unitname:
+  - 
+  - 
+  - 
+  - 
+  - 
+  saveunitcost: 0000000000000000000000000000000000000000
+  saveunitcost_1:
+  - 
+  - 
+  - 
+  - 
+  - 
   UnitButtons: []
   unitPurchaseBtn:
   - {fileID: 0}
@@ -6251,6 +6379,19 @@ MonoBehaviour:
   MyMoneyTxt: {fileID: 0}
   MyMoney: 0
   unit_1:
+  - 
+  - 
+  - 
+  - 
+  - 
+  unitname:
+  - 
+  - 
+  - 
+  - 
+  - 
+  saveunitcost: 0000000000000000000000000000000000000000
+  saveunitcost_1:
   - 
   - 
   - 
@@ -7457,6 +7598,19 @@ MonoBehaviour:
   - 
   - 
   - 
+  unitname:
+  - 
+  - 
+  - 
+  - 
+  - 
+  saveunitcost: 0000000000000000000000000000000000000000
+  saveunitcost_1:
+  - 
+  - 
+  - 
+  - 
+  - 
   UnitButtons: []
   unitPurchaseBtn:
   - {fileID: 0}
@@ -7614,7 +7768,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 427241375}
         m_TargetAssemblyTypeName: StoreScene_Mng, Assembly-CSharp
-        m_MethodName: PurchaseUnit1
+        m_MethodName: PurchaseUnit5
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
