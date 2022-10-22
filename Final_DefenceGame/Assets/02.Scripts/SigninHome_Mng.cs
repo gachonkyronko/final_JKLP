@@ -8,7 +8,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 public class SigninHome_Mng : MonoBehaviour
 {
-    public Text titleTxt;
+    public static Text titleTxt;
      
     void Start() //타이틀이름설정
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
+ 
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -13,21 +14,27 @@ public class StoreScene_Mng : MonoBehaviour
     public Text MyMoneyTxt;
     public int MyMoney = 0;
     public string[] unit_1 = new string [5]; //아이템 아이디를   배열로 가져오려고 만듬
+    
     ItemList AllitemID;
-    Transform[] Buttons;
+    //public GameObject[] UnitButtons= new GameObject[8];
+    public  Transform[] UnitButtons;
     int[] Itemnumber = new int[100];
-     
+    public Button[] unitPurchaseBtn = new Button[5];
+    public Text[] unitCost = new Text[5];
     int[] item = new int[5];
     //유닛테스트
     public int[] Allunit = new int[100];
     public int[] Useunit = new int[100];
     public int[] Randomunit = new int[5];
     string[] a = new string[5];
+    int[] b = new int[5];
     UnitList AllUnitList;
     MyunitList UseUnitList;
     void Start() //상점정보불러오기
     {
         
+        unitPurchaseBtn = GameObject.Find("PurchaseUnit").GetComponentsInChildren<Button>();
+        unitCost = GameObject.Find("PurchaseUnitCost").GetComponentsInChildren<Text>();
         AllitemID = GameObject.Find("StoreScene_Mng").GetComponent<ItemList>();
         AllUnitList = GameObject.Find("StoreScene_Mng").GetComponent<UnitList>();
         UseUnitList = GameObject.Find("StoreScene_Mng").GetComponent<MyunitList>();
@@ -110,15 +117,20 @@ public class StoreScene_Mng : MonoBehaviour
         {
 
             a[t] = AllUnitList.FindDic(Randomunit[t]).Name;
-            print("유닛 아이디 : " + Randomunit[t]);
-             
+            b[t] = AllUnitList.FindDic(Randomunit[t]).Cost;
+
+        }
+        Debug.Log("유닛아이디반환완료, 텍스트정보변환시작");
+        for (int q = 0; q < 5; q++)
+        {
+            unitPurchaseBtn[q].GetComponentInChildren<Text>().text = a[q];
+            unitCost[q].text = "필요 코스트 : " + b[q].ToString();
         }
 
-        
-        Buttons = GameObject.Find("PurchaseItem").GetComponentsInChildren<Transform>();
+
         var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
         PlayFabClientAPI.GetCatalogItems(requset, GetSuccess, GetFail);
-        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(9).GetComponent<Text>();
+        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(1).GetComponent<Text>();
     }
     
     private void GetFail(PlayFabError obj)
@@ -153,30 +165,37 @@ public class StoreScene_Mng : MonoBehaviour
     }
     public void PurchaseUnit1()
     {
-        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unit_1[0], VirtualCurrency = "GD", Price = 100 };
+        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = a[0], VirtualCurrency = "GD", Price = AllUnitList.FindDic(Randomunit[0]).Cost };
         PlayFabClientAPI.PurchaseItem(request, (result) => print("유닛 구입 성공!"), (error) => print("유닛 구입 실패"));
-        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unit_1[0], "Tiger" } } };
+        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { a[0], a[0] } } };
         PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
     }
     public void PurchaseUnit2()
     {
-        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unit_1[1], VirtualCurrency = "GD", Price = 100 };
+        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = a[1], VirtualCurrency = "GD", Price = AllUnitList.FindDic(Randomunit[1]).Cost };
         PlayFabClientAPI.PurchaseItem(request, (result) => print("유닛 구입 성공!"), (error) => print("유닛 구입 실패"));
-        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unit_1[1], "Vampire" } } };
+        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { a[1], a[1] } } };
         PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
     }
     public void PurchaseUnit3()
     {
-        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unit_1[2], VirtualCurrency = "GD", Price = 100 };
+        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = a[2], VirtualCurrency = "GD", Price = AllUnitList.FindDic(Randomunit[2]).Cost };
         PlayFabClientAPI.PurchaseItem(request, (result) => print("유닛 구입 성공!"), (error) => print("유닛 구입 실패"));
-        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unit_1[2], "Tiger" } } };
+        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { a[2], a[2] } } };
         PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
     }
     public void PurchaseUnit4()
     {
-        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unit_1[3], VirtualCurrency = "GD", Price = 100 };
+        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = a[3], VirtualCurrency = "GD", Price = AllUnitList.FindDic(Randomunit[3]).Cost };
         PlayFabClientAPI.PurchaseItem(request, (result) => print("유닛 구입 성공!"), (error) => print("유닛 구입 실패"));
-        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unit_1[3], "Vampire"} } };
+        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { a[3], a[3]} } };
+        PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
+    }
+    public void PurchaseUnit5()
+    {
+        var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = a[4], VirtualCurrency = "GD", Price = AllUnitList.FindDic(Randomunit[4]).Cost };
+        PlayFabClientAPI.PurchaseItem(request, (result) => print("유닛 구입 성공!"), (error) => print("유닛 구입 실패"));
+        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { a[4], a[4] } } };
         PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
     }
     //사용용도없어서 일단 주석
@@ -189,11 +208,13 @@ public class StoreScene_Mng : MonoBehaviour
     {
         SceneManager.LoadScene("MainHome_Scene");
     }
+
+    
    
 void Update()
     {
-    
-     
-        
+
+       
+
     }
 }
