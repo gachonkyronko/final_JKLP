@@ -17,8 +17,8 @@ public class MyunitList : MonoBehaviour
     {
         int i = 0;
         Unit units = new Unit();
-        myunit = GameObject.Find("StoreScene_Mng").GetComponent<MyUnit>();
-      
+        //myunit = GameObject.Find("StoreScene_Mng").GetComponent<MyUnit>();
+        myunit =  GetComponent<MyUnit>();
         int[] array = myunit.GetKey();
         foreach (int number in array)
         {
@@ -65,5 +65,24 @@ public class MyunitList : MonoBehaviour
     public int[] GetKey()
     {
         return unitarray;
+    }
+    public void AddUnit(int id)
+    {
+        Unit units = new Unit();
+        units.ID = myunit.MyFindDic(id).ID;
+        units.Name = myunit.MyFindDic(id).Name;
+        units.Hp = myunit.MyFindDic(id).Hp;
+        units.Defence = myunit.MyFindDic(id).Defence;
+        units.Attack = myunit.MyFindDic(id).Attack;
+        units.AttackSpeed = myunit.MyFindDic(id).AttackSpeed;
+        units.Range = myunit.MyFindDic(id).Range;
+        units.MoveSpeed = myunit.MyFindDic(id).MoveSpeed;
+        units.Race = myunit.MyFindDic(id).Race;
+        units.Ability = myunit.MyFindDic(id).Ability;
+        units.AbilityDetail = myunit.MyFindDic(id).AbilityDetail;
+        units.Cost = myunit.MyFindDic(id).Cost;
+        units.Slot = myunit.MyFindDic(id).Slot;
+        units.Itemcode = myunit.MyFindDic(id).Itemcode;
+        MyUnitDic.Add(units.ID, units);
     }
 }

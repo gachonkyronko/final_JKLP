@@ -181,4 +181,13 @@ public class MyUnit : MonoBehaviour
     {
         return Array;
     }
+    public Unit MyFindDic(int id)
+    {
+        Unit json;
+        if (UnitDic.TryGetValue(id, out json))
+        {
+            return json;
+        }
+        return null;
+    }
 }

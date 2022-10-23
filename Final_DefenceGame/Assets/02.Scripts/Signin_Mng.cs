@@ -16,6 +16,19 @@ public class Signin_Mng : MonoBehaviour
     public static string myPassword = "";
     public static string myName = "";
     public static string myStage = "";
+
+
+    private void Start()
+    {
+        for(int i =0; i<10;i++)
+        {
+            if(i==5)
+            {
+                i = 8;
+            }
+            print(i);
+        }    
+    }
     public void SigninBtn() //로그인버튼클릭이벤트 
     {
         myEmail = EmailInput.text;

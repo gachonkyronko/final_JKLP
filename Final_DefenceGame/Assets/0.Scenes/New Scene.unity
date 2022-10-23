@@ -1852,6 +1852,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  obj:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  memeber: 0
+  load_unit: /Unit/
+  saveunit: 0
   unit:
   - 
   - 

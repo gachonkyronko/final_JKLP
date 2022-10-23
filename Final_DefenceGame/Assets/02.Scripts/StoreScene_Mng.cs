@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
- 
+
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using System;
-
-
 public class StoreScene_Mng : MonoBehaviour
 {
     public Text MyMoneyTxt;
     public int MyMoney = 0;
     public string[] unit_1 = new string [5]; //아이템 아이디를   배열로 가져오려고 만듬
     public string[] unitname = new string[5];
+    public string[] itemname = new string[5];
     public int[] saveunitcost = new int[5];
     public string[] saveunitcost_1 = new string[5];
     ItemList AllitemID;
-     
+    public Button ClickUnit;
     public  Transform[] UnitButtons;
     int[] Itemnumber = new int[100];
     public Button[] unitPurchaseBtn = new Button[5];
+    public Button[] itemPurchaseBtn = new Button[5];
     public Button[] myunit_invenBtn = new Button[6];
+    public Button[] inven_myitem = new Button[6];
     public Text[] unitCost = new Text[5];
     int[] item = new int[5];
     //유닛테스트
@@ -31,11 +32,14 @@ public class StoreScene_Mng : MonoBehaviour
     public int[] Useunit = new int[100];
     public int[] Randomunit = new int[5];
     string[] a = new string[5] { "", "", "", "", "" };
-     
+    string[] catalog = new string[100];
     int[] b = new int[5] {0 ,0,0,0,0};
     public string[] myunit_inven = new string[6];
-     string[] myUnitInven = new string[10000];
-    UnitList AllUnitList;
+    int o = 0;
+    int g = 0;
+    string[] myUnitInven = new string[10000];
+    MyUnit AllUnitList;
+    
     MyunitList UseUnitList;
 
     
@@ -44,10 +48,13 @@ public class StoreScene_Mng : MonoBehaviour
     {
 
         myunit_invenBtn = GameObject.Find("Inventory").GetComponentsInChildren<Button>();
+        inven_myitem = GameObject.Find("inven_myitem").GetComponentsInChildren<Button>();
         unitPurchaseBtn = GameObject.Find("PurchaseUnit").GetComponentsInChildren<Button>();
+        itemPurchaseBtn = GameObject.Find("PurchaseItem").GetComponentsInChildren<Button>();
         unitCost = GameObject.Find("PurchaseUnitCost").GetComponentsInChildren<Text>();
         AllitemID = GameObject.Find("StoreScene_Mng").GetComponent<ItemList>();
-        AllUnitList = GameObject.Find("StoreScene_Mng").GetComponent<UnitList>();
+        AllUnitList = GameObject.Find("StoreScene_Mng").GetComponent<MyUnit>();
+       
         UseUnitList = GameObject.Find("StoreScene_Mng").GetComponent<MyunitList>();
         int i = 0;
         int j = 0;  
@@ -71,6 +78,7 @@ public class StoreScene_Mng : MonoBehaviour
         {
             item[j] = UnityEngine.Random.Range(1, i);
             print("아이템아이디 : "+item[j]);
+            itemPurchaseBtn[j].GetComponentInChildren<Text>().text = item[j].ToString();
         }
 
         foreach (int number in Allunit)
@@ -146,29 +154,83 @@ public class StoreScene_Mng : MonoBehaviour
         var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
         PlayFabClientAPI.GetCatalogItems(requset, GetSuccess, GetFail);
         MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(1).GetComponent<Text>();
+        //  PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
+        //  {
+
+        //      for (int i = 0; i < result.Inventory.Count; i++)
+        //      {
+        //          var Inven = result.Inventory[i];
+        //          myUnitInven[i] = Inven.DisplayName;
+
+        //      }
+        //      //for(int j=0;j<6;j++)
+        //      //{
+        //      //    int idx = UnityEngine.Random.Range(0, 6);
+        //      //    myUnitInven[j] = myUnitInven[idx];
+        //      //}
+        //      for (int i = 0; i < 6; i++)
+        //      {
+        //          Debug.Log("출력값확인 : " + myUnitInven[i]);
+        //          myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[i];
+
+        //      }
+        //  },
+
+        //(error) => print("인벤토리 불러오기 실패"));
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
-        {
+       {
 
-            for (int i = 0; i < result.Inventory.Count; i++)
-            {
-                var Inven = result.Inventory[i];
-                myUnitInven[i] = Inven.DisplayName;
+           for (int i = 0; i < result.Inventory.Count; i++)
+           {
 
-            }
-            //for(int j=0;j<6;j++)
-            //{
-            //    int idx = UnityEngine.Random.Range(0, 6);
-            //    myUnitInven[j] = myUnitInven[idx];
-            //}
-            for (int i = 0; i < 6; i++)
-            {
-                Debug.Log("출력값확인 : " + myUnitInven[i]);
-                myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[i];
+               var Inven = result.Inventory[i];
+               if(result.Inventory[i].ItemClass =="Unit")
+               {
+                   myUnitInven[i] = Inven.DisplayName;
+               }
+               else
+               {
+                   myUnitInven[i] = "0";
+               }
 
-            }
-        },
+           }
+           for (int i = 0; i < 6; i++)
+           {
+               Debug.Log("체크0" + myUnitInven[i]);
+                
 
-      (error) => print("인벤토리 불러오기 실패"));
+           }
+            
+           Debug.Log("체크1");
+           int f=0;
+           for (int i = 0; i < 6; i++)
+           {
+               Debug.Log("체크2");
+               for (int k = f;k< result.Inventory.Count;k++)
+               {
+                   Debug.Log("체크3");
+                   Debug.Log(f);
+                   Debug.Log(k);
+                   if (myUnitInven[k] != "0")
+                   {
+                       Debug.Log(myUnitInven[k]);
+                        
+                       myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[k];
+                       f = k+1;
+                       Debug.Log("체크4");
+                       break;
+
+                   }
+                    
+               }
+               
+
+           }
+       },
+
+     (error) => print("인벤토리 불러오기 실패"));
+
+
         Debug.Log("인벤토리반환성공");
     }
      
@@ -198,8 +260,11 @@ public class StoreScene_Mng : MonoBehaviour
         var request = new AddUserVirtualCurrencyRequest() { VirtualCurrency = "GD", Amount = 100 };
         PlayFabClientAPI.AddUserVirtualCurrency(request, (result) => { print("돈 얻기 성공! 현재 돈 : " + result.Balance);  MyMoneyTxt.text = "보유골드량 : " + result.Balance; }, (error) => print("돈 얻기 실패"));
     }
-    public void updateInven()
+    public void updateInvenitem()
     {
+
+
+
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
         {
 
@@ -211,13 +276,88 @@ public class StoreScene_Mng : MonoBehaviour
             }
             for (int i = 0; i < 6; i++)
             {
-                 
+
                 myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[i];
 
             }
         },
 
      (error) => print("인벤토리 불러오기 실패"));
+
+    }
+    public void updateInven()
+    {
+        //   PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
+        //   {
+
+        //       for (int i = 0; i < result.Inventory.Count; i++)
+        //       {
+
+        //           var Inven = result.Inventory[i];
+        //           myUnitInven[i] = Inven.DisplayName;
+
+        //       }
+        //       for (int i = 0; i < 6; i++)
+        //       {
+
+        //           myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[i];
+
+        //       }
+        //   },
+
+        //(error) => print("인벤토리 불러오기 실패"));
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
+        {
+
+            for (int i = 0; i < result.Inventory.Count; i++)
+            {
+
+                var Inven = result.Inventory[i];
+                if (result.Inventory[i].ItemClass == "Unit")
+                {
+                    myUnitInven[i] = Inven.DisplayName;
+                }
+                else
+                {
+                    myUnitInven[i] = "0";
+                }
+
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                Debug.Log("체크0" + myUnitInven[i]);
+
+
+            }
+
+            Debug.Log("체크1");
+            int f = 0;
+            for (int i = 0; i < 6; i++)
+            {
+                Debug.Log("체크2");
+                for (int k = f; k < result.Inventory.Count; k++)
+                {
+                    Debug.Log("체크3");
+                    Debug.Log(f);
+                    Debug.Log(k);
+                    if (myUnitInven[k] != "0")
+                    {
+                        Debug.Log(myUnitInven[k]);
+
+                        myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[k];
+                        f = k + 1;
+                        Debug.Log("체크4");
+                        break;
+
+                    }
+
+                }
+
+
+            }
+        },
+
+      (error) => print("인벤토리 불러오기 실패"));
         Debug.Log("인벤토리반환성공");
     }
     public void PurchaseUnit1()
@@ -227,53 +367,130 @@ public class StoreScene_Mng : MonoBehaviour
         print(unitname[0]);
         print(saveunitcost[0]);
         var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unitname[0], VirtualCurrency = "GD", Price = saveunitcost[0] };
-        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[0]); }, (error) => print("유닛 구입 실패"));
-        Debug.Log("구입로직먼저했는가");
-        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[0], unitname[0] } } };
-        PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
+        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[0]);
+            var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[0], unitname[0] } } };
+            PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
+        }, (error) => print("유닛 구입 실패"));
+         
+         
     }
     public void PurchaseUnit2()
     {
         unitname[1] = unitPurchaseBtn[1].GetComponentInChildren<Text>().text;
         saveunitcost[1] = int.Parse(unitCost[1].text);
         var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unitname[1], VirtualCurrency = "GD", Price = saveunitcost[1] };
-        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[1]); }, (error) => print("유닛 구입 실패"));
-        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[1], unitname[1] } } };
-        PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
+        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[1]); var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[1], unitname[1] } } };
+            PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
+        }, (error) => print("유닛 구입 실패"));
+         
     }
     public void PurchaseUnit3()
     {
         unitname[2] = unitPurchaseBtn[2].GetComponentInChildren<Text>().text;
         saveunitcost[2] = int.Parse(unitCost[2].text);
         var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unitname[2], VirtualCurrency = "GD", Price = saveunitcost[2] };
-        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[2]); }, (error) => print("유닛 구입 실패"));
-        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[2], unitname[2] } } };
-        PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
+        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[2]); var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[2], unitname[2] } } };
+            PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
+        }, (error) => print("유닛 구입 실패"));
+      
     }
     public void PurchaseUnit4()
     {
         unitname[3] = unitPurchaseBtn[3].GetComponentInChildren<Text>().text;
         saveunitcost[3] = int.Parse(unitCost[3].text);
         var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unitname[3], VirtualCurrency = "GD", Price = saveunitcost[3] };
-        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[3]); }, (error) => print("유닛 구입 실패"));
-        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[3], unitname[3] } } };
-        PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
+        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[3]); var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[3], unitname[3] } } };
+            PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
+        }, (error) => print("유닛 구입 실패"));
+       
     }
     public void PurchaseUnit5()
     {
         unitname[4] = unitPurchaseBtn[4].GetComponentInChildren<Text>().text;
         saveunitcost[4] = int.Parse(unitCost[4].text);
         var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unitname[4], VirtualCurrency = "GD", Price = saveunitcost[4] };
-        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[4]); }, (error) => print("유닛 구입 실패"));
-        var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[4], unitname[4] } } };
-        PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
+        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[4]); var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[4], unitname[4] } } };
+            PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
+        }, (error) => print("유닛 구입 실패"));
+       
     }
+    public void PurchaseItem1()
+    {
+        itemname[0] = itemPurchaseBtn[0].GetComponentInChildren<Text>().text;
+        
+        
+        var request = new PurchaseItemRequest() { CatalogVersion = "Sub", ItemId = itemname[0], VirtualCurrency = "GD", Price = 1 };
+        PlayFabClientAPI.PurchaseItem(request, (result) => {
+            print("아이템 구입 성공!");  
+             
+        }, (error) => print("유닛 구입 실패"));
+
+
+    }
+    public void PurchaseItem2()
+    {
+        itemname[1] = itemPurchaseBtn[1].GetComponentInChildren<Text>().text;
+
+
+        var request = new PurchaseItemRequest() { CatalogVersion = "Sub", ItemId = itemname[1], VirtualCurrency = "GD", Price = 1 };
+        PlayFabClientAPI.PurchaseItem(request, (result) => {
+            print("아이템 구입 성공!");
+
+        }, (error) => print("유닛 구입 실패"));
+
+
+    }
+    public void PurchaseItem3()
+    {
+        itemname[2] = itemPurchaseBtn[2].GetComponentInChildren<Text>().text;
+
+
+        var request = new PurchaseItemRequest() { CatalogVersion = "Sub", ItemId = itemname[2], VirtualCurrency = "GD", Price = 1 };
+        PlayFabClientAPI.PurchaseItem(request, (result) => {
+            print("아이템 구입 성공!");
+
+        }, (error) => print("유닛 구입 실패"));
+
+
+    }
+    public void PurchaseItem4()
+    {
+        itemname[3] = itemPurchaseBtn[3].GetComponentInChildren<Text>().text;
+
+
+        var request = new PurchaseItemRequest() { CatalogVersion = "Sub", ItemId = itemname[3], VirtualCurrency = "GD", Price = 1 };
+        PlayFabClientAPI.PurchaseItem(request, (result) => {
+            print("아이템 구입 성공!");
+
+        }, (error) => print("유닛 구입 실패"));
+
+
+    }
+    public void PurchaseItem5()
+    {
+        itemname[4] = itemPurchaseBtn[4].GetComponentInChildren<Text>().text;
+
+
+        var request = new PurchaseItemRequest() { CatalogVersion = "Sub", ItemId = itemname[4], VirtualCurrency = "GD", Price = 1 };
+        PlayFabClientAPI.PurchaseItem(request, (result) => {
+            print("아이템 구입 성공!");
+
+        }, (error) => print("유닛 구입 실패"));
+
+
+    }
+
     public void SubtractMoney(int money)
     {
         MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(1).GetComponent<Text>();
         var request = new SubtractUserVirtualCurrencyRequest() { VirtualCurrency = "GD", Amount = 50 };
         PlayFabClientAPI.SubtractUserVirtualCurrency(request, (result) =>{ print("돈 빼기 성공! 현재 돈 : " + result.Balance); MyMoneyTxt.text = "보유골드량 : " + result.Balance; }, (error) => print("돈 빼기 실패"));
 
+    }
+
+    public  void ClickUnit1()
+    {
+        ClickUnit.gameObject.GetComponentInChildren<Text>().text = myunit_invenBtn[0].GetComponentInChildren<Text>().text;
     }
  //   public void updateGold()
  //   {
