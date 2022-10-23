@@ -176,6 +176,7 @@ public class MyUnit : MonoBehaviour
         }
         return null;
     }
+     
 
     public int [] GetKey()
     {
@@ -189,5 +190,10 @@ public class MyUnit : MonoBehaviour
             return json;
         }
         return null;
+    }
+
+    internal string FindFirstKeyByValue(string clickname)
+    {
+        throw new System.NotImplementedException();
     }
 }

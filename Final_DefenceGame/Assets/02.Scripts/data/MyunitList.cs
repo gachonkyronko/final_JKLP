@@ -84,5 +84,7 @@ public class MyunitList : MonoBehaviour
         units.Slot = myunit.MyFindDic(id).Slot;
         units.Itemcode = myunit.MyFindDic(id).Itemcode;
         MyUnitDic.Add(units.ID, units);
+         
+
     }
 }
