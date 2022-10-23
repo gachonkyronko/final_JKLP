@@ -613,6 +613,7 @@ public class StoreScene_Mng : MonoBehaviour
 
 
     }
+
     public void PurchaseItem3()
     {
         itemname[2] = itemPurchaseBtn[2].GetComponentInChildren<Text>().text;
@@ -668,24 +669,37 @@ public class StoreScene_Mng : MonoBehaviour
     {
         ClickUnit.gameObject.GetComponentInChildren<Text>().text = myunit_invenBtn[0].GetComponentInChildren<Text>().text;
         string clickname = ClickUnit.gameObject.GetComponentInChildren<Text>().text;
-        var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
-        PlayFabClientAPI.GetCatalogItems(requset, Getkey, GetFail);
+        int k = 0;
+        string UnitDescription = "";
+        PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Main" }, (result) =>
+        {
+            for (int i = 0; i < result.Catalog.Count; i++)
+            {
+                if (result.Catalog[i].DisplayName == clickname)
+                {
+                    k = i;
+                    Debug.Log("k값받음!" +k );
+                    Debug.Log(result.Catalog[i].DisplayName);
 
+                    UnitDescription = result.Catalog[k].Description;
+                    Debug.Log(UnitDescription);
+                    clickTxt.text = UnitDescription;
+                }
+                
+                //var Catalog = result.Catalog[i];
+                //print(Catalog.ItemId + " / " + Catalog.DisplayName + " / " + Catalog.Description + " / " +
+                //    Catalog.VirtualCurrencyPrices["GD"] + " / " + Catalog.Consumable.UsageCount);
+            }
+             
+            
+        },
+        (error) => print("실패"));
+        
         //Debug.Log("커스텀 데이터 =" + dic[clickname]);
 
         //clickTxt.text
     }
-    public void Getkey(GetCatalogItemsResult obj )
-    {
-        Debug.Log("칼탈로그 불러오기 성공");
-        var items = obj.Catalog;
-        for (int i = 0; i < items.Count; i++)
-        {
-            string clickname = ClickUnit.gameObject.GetComponentInChildren<Text>().text;
-             
-           
-        }
-    }
+    
         public void getItem1()
     {
         string getitemUnit = ClickUnit.gameObject.GetComponentInChildren<Text>().text;

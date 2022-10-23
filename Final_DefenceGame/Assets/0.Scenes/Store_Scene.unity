@@ -2670,7 +2670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MyMoneyTxt: {fileID: 0}
-  clickTxt: {fileID: 0}
+  clickTxt: {fileID: 1539211518}
   MyMoney: 0
   unit_1:
   - 
