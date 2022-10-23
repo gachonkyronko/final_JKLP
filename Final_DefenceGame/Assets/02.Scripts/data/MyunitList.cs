@@ -6,6 +6,7 @@ public class MyunitList : MonoBehaviour
 {
     public int[] unitarray = new int[14];
     Dictionary<int, Unit> MyUnitDic = new Dictionary<int, Unit>();
+    Dictionary<string, Unit> MyUnitDic_Name = new Dictionary<string, Unit>();
     public class Unit : Stats
     {
 
@@ -43,7 +44,7 @@ public class MyunitList : MonoBehaviour
             units.Slot = myunit.FindDic(number).Slot;
             units.Itemcode = myunit.FindDic(number).Itemcode;
             MyUnitDic.Add(units.ID, units);
-         
+            MyUnitDic_Name.Add(units.Name, units);
         }
 
     }
@@ -84,7 +85,7 @@ public class MyunitList : MonoBehaviour
         units.Slot = myunit.MyFindDic(id).Slot;
         units.Itemcode = myunit.MyFindDic(id).Itemcode;
         MyUnitDic.Add(units.ID, units);
-         
+        MyUnitDic_Name.Add(units.Name, units);
 
     }
 }

@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     string[] a = new string[5] { "", "", "", "", "" };
     UnitList AllUnitList;
     MyunitList UseUnitList;
+    
     void Start()
     {
         //myunit_invenBtn = GameObject.Find("Inventory").GetComponentsInChildren<Button>();
@@ -190,7 +191,13 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
             Debug.Log("ÆÐ¹è");
         }
-         
+        if (Time.time - timePrev > 5.0f)
+        {
+            mycost += 2;
+            timePrev = Time.time;
+        }
+       
+
     }
     public void OnFirstSpawnButtonClick()
     {

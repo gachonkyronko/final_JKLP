@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using System;
+ 
 public class StoreScene_Mng : MonoBehaviour
 {
     public Text MyMoneyTxt;
@@ -145,8 +146,9 @@ public class StoreScene_Mng : MonoBehaviour
         {
 
             a[t] = AllUnitList.FindDic(Randomunit[t]).Name;
+            
             b[t] = AllUnitList.FindDic(Randomunit[t]).Cost;
-          
+            
 
         }
         Debug.Log("유닛아이디반환완료, 텍스트정보변환시작");
@@ -349,7 +351,14 @@ public class StoreScene_Mng : MonoBehaviour
     private void GetSuccess(GetCatalogItemsResult obj) //상점정보불러오면 보유골드량표시
     {
         Debug.Log("칼탈로그 불러오기 성공");
-        
+        var items = obj.Catalog;
+        for (int i = 0; i < items.Count; i++)
+        {
+            
+             
+            //Debug.Log("커스텀 데이터 =" + dic["key1"]);
+        }
+
         //골드량표시
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
         {
@@ -523,12 +532,13 @@ public class StoreScene_Mng : MonoBehaviour
     }
     public void PurchaseUnit1()
     {
+        //UseUnitList.AddUnit(Randomunit[0]);
         unitname[0] = unitPurchaseBtn[0].GetComponentInChildren<Text>().text;
         saveunitcost[0] = int.Parse(unitCost[0].text);
         print(unitname[0]);
         print(saveunitcost[0]);
         var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unitname[0], VirtualCurrency = "GD", Price = saveunitcost[0] };
-        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[0]);
+        PlayFabClientAPI.PurchaseItem(request, (result) => { print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[0]);  
             var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[0], unitname[0] } } };
             PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
         }, (error) => print("유닛 구입 실패"));
@@ -658,15 +668,25 @@ public class StoreScene_Mng : MonoBehaviour
     {
         ClickUnit.gameObject.GetComponentInChildren<Text>().text = myunit_invenBtn[0].GetComponentInChildren<Text>().text;
         string clickname = ClickUnit.gameObject.GetComponentInChildren<Text>().text;
+        var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
+        PlayFabClientAPI.GetCatalogItems(requset, Getkey, GetFail);
 
-        //string key = AllUnitList.FindFirstKeyByValue(clickname);
-        //print("키값은 : " +key);
-        var key = AllUnitList.FindFirstKeyByValue(clickname);
+        //Debug.Log("커스텀 데이터 =" + dic[clickname]);
 
         //clickTxt.text
     }
-
-    public void getItem1()
+    public void Getkey(GetCatalogItemsResult obj )
+    {
+        Debug.Log("칼탈로그 불러오기 성공");
+        var items = obj.Catalog;
+        for (int i = 0; i < items.Count; i++)
+        {
+            string clickname = ClickUnit.gameObject.GetComponentInChildren<Text>().text;
+             
+           
+        }
+    }
+        public void getItem1()
     {
         string getitemUnit = ClickUnit.gameObject.GetComponentInChildren<Text>().text;
         string getitemname = inven_myitem[0].GetComponentInChildren<Text>().text;
