@@ -68,7 +68,7 @@ public class BossDamage : MonoBehaviour
                  EnemyDamage(Cutname); },
                 (error) => print("아이템정보못가져옴"));
             int k = 0;
-            k = int.Parse(EnemeyItemName);
+            //k = int.Parse(EnemeyItemName);
             EnemyItemDamage = AllitemID.FindDic(k).Attack;
             EneymySumDagame = EnemyUnitDamage + EnemyItemDamage;
             Debug.Log("총합데미지, 아이템데미지, 유닛데미지" + EneymySumDagame + "," + EnemyItemDamage + "," + EnemyUnitDamage);

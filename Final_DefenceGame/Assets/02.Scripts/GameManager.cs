@@ -48,11 +48,14 @@ public class GameManager : MonoBehaviour
     public int[] Randomunit = new int[5];
     public string[] unitidkey = new string[5];
     string[] a = new string[5] { "", "", "", "", "" };
+    //데이터들
+   
     UnitList AllUnitList;
     MyunitList UseUnitList;
     
     void Start()
     {
+        
         //myunit_invenBtn = GameObject.Find("Inventory").GetComponentsInChildren<Button>();
         Points = GameObject.Find("Spqwn").GetComponentsInChildren<Transform>();
         unitcostTxt = GameObject.Find("costbox").GetComponentsInChildren<Text>();
@@ -99,7 +102,7 @@ public class GameManager : MonoBehaviour
                         Debug.Log(myUnitInven[k]);
                          
                         spawnbutton[i].GetComponentInChildren<Text>().text = myUnitInven[k];
-
+                       
                         //프리팹다넣게되면 
                         // spawnbutton[i].GetComponentInChildren<Text>().text  = "Unit/" +  spawnbutton[i].GetComponentInChildren<Text>().text ; 
                         //텍스트자리에 spawnbutton[i].GetComponentInChildren<Text>().text 넣기
@@ -174,6 +177,8 @@ public class GameManager : MonoBehaviour
        
 
     }
+    
+   
     public void OnFirstSpawnButtonClick()
     {
         spawnidx = 1;
