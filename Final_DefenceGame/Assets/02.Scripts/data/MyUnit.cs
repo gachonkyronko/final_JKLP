@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class MyUnit : MonoBehaviour
 {
     TextAsset textData;
-    UnitData unit;
     UnitData_Human human;
     UnitData_Elf elf;
     UnitData_Druid druid;
     UnitData_Undead undead;
+    public string path;
     public int[] Array = new int[10];
  
     Dictionary<int, Unit> MyUnitDic = new Dictionary<int, Unit>();
@@ -20,11 +24,7 @@ public class MyUnit : MonoBehaviour
 
     }
 
-    [System.Serializable]
-    public class UnitData
-    {
-        public Unit[] UNITS;
-    }
+
     [System.Serializable]
     public class UnitData_Human
     {
@@ -45,9 +45,14 @@ public class MyUnit : MonoBehaviour
     {
         public Unit[] Undead;
     }
+    public class test
+    {
+        public int[] Array = new int [100];
+    }
     // Start is called before the first frame update
     void Awake()
     {
+        
         int i = 0;
         int rage = Random.Range(1, 4);
         textData = Resources.Load("UnitData") as TextAsset;
@@ -64,14 +69,14 @@ public class MyUnit : MonoBehaviour
                 }
                 foreach (int unitID in MyUnitDic.Keys)
                 {
-                    
+
                     Array[i] = unitID;
                     i++;
                 }
 
                 foreach (KeyValuePair<int, Unit> unit in MyUnitDic)
                 {
-                   
+
                 }
                 break;
 
@@ -84,14 +89,14 @@ public class MyUnit : MonoBehaviour
                 }
                 foreach (int unitID in MyUnitDic.Keys)
                 {
-                    
+
                     Array[i] = unitID;
                     i++;
                 }
 
                 foreach (KeyValuePair<int, Unit> unit in MyUnitDic)
                 {
-                     
+
                 }
                 break;
 
@@ -104,14 +109,14 @@ public class MyUnit : MonoBehaviour
                 }
                 foreach (int unitID in MyUnitDic.Keys)
                 {
-                     
+
                     Array[i] = unitID;
                     i++;
                 }
 
                 foreach (KeyValuePair<int, Unit> unit in MyUnitDic)
                 {
-                   
+
                 }
                 break;
 
@@ -124,43 +129,33 @@ public class MyUnit : MonoBehaviour
                 }
                 foreach (int unitID in MyUnitDic.Keys)
                 {
-                   
+
                     Array[i] = unitID;
                     i++;
                 }
 
                 foreach (KeyValuePair<int, Unit> unit in MyUnitDic)
                 {
-                   
+
                 }
                 break;
 
         }
-        textData = Resources.Load("UnitData") as TextAsset;
-        unit = JsonUtility.FromJson<UnitData>(textData.ToString());
 
-        foreach (Unit unit in unit.UNITS)
-        {
-            UnitDic.Add(unit.ID, unit);
-        }
-
-        foreach (int unitID in UnitDic.Keys)
-        {
-         
-        }
-        foreach (int unitID in MyUnitDic.Keys)
-        {
-            
-        }
-
-        foreach (KeyValuePair<int, Unit> unit in MyUnitDic)
-        {
-           
-        }
-
-
-
+        FileStream stream = new FileStream(Application.dataPath + "/Myunit.json", FileMode.OpenOrCreate);
+        test jsontest = new test();
+        jsontest.Array = Array;
+        string strjson = JsonConvert.SerializeObject(jsontest);
+        Debug.Log("-------------------");
+        Debug.Log(strjson);
+        Debug.Log("Json¿˙¿Â");
+        byte[] data = Encoding.UTF8.GetBytes(strjson);
+        stream.Write(data, 0, data.Length);
+        File.WriteAllText(Application.dataPath + "/test2.json", strjson);
+        stream.Close();
+        
     }
+
 
     // Update is called once per frame
     void Update()

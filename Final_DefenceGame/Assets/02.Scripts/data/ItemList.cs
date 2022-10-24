@@ -8,7 +8,7 @@ public class ItemList : MonoBehaviour
     ItemData Items;
     public int[] itemID = new int[100];
     public static Dictionary<int, Item> ItemDic = new Dictionary<int, Item>();
-
+    public static Dictionary<string, Item> ItemList_Name = new Dictionary<string, Item>();
     [System.Serializable]
     public class Item : Items
     {
@@ -29,7 +29,18 @@ public class ItemList : MonoBehaviour
         Items = JsonUtility.FromJson<ItemData>(textData.ToString());
         foreach (Item item in Items.ITEM)
         {
-             
+            Item items = new Item();
+            items.ID = item.ID;
+            items.Name = item.Name;
+            items.Hp = item.Hp;
+            items.Defence = item.Defence;
+            items.Attack = item.Attack;
+            items.AttackSpeed = item.AttackSpeed;
+            items.Range = item.Range;
+            items.MoveSpeed = item.MoveSpeed;
+            items.Grade = item.Grade;
+            items.UseStack = item.UseStack;
+            ItemList_Name.Add(items.Name, items);
             ItemDic.Add(item.ID, item);
         }
 
@@ -56,6 +67,15 @@ public class ItemList : MonoBehaviour
     {
         Item json;
         if (ItemDic.TryGetValue(id, out json))
+        {
+            return json;
+        }
+        return null;
+    }
+    public Item FindDic_Name(string name)
+    {
+        Item json;
+        if (ItemList_Name.TryGetValue(name, out json))
         {
             return json;
         }

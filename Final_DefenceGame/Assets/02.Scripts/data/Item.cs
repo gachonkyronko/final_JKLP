@@ -17,12 +17,6 @@ public class Items
 
     public void Print()
     {
-        Debug.Log(ID);
-        Debug.Log(Name);
-        Debug.Log(Hp);
-        Debug.Log(Defence);
-        Debug.Log(Attack);
-        Debug.Log(AttackSpeed);
-        Debug.Log(Range);
+        
     }
 }

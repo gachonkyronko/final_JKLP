@@ -37,7 +37,7 @@ public class MyItem : MonoBehaviour
         Items = JsonUtility.FromJson<ItemData>(textData.ToString());
         foreach (Item item in Items.MyItem)
         {
-            Debug.Log(item.ID);
+            
             ItemDic.Add(item.ID, item);
 
         }
@@ -51,7 +51,7 @@ public class MyItem : MonoBehaviour
 
         foreach (KeyValuePair<int, Item> item in ItemDic)
         {
-            Debug.Log(item.Key);
+            
             item.Value.Print();
             Debug.Log("=====");
         }

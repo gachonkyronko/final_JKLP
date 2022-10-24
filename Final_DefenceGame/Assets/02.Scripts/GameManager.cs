@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     Transform[] Points;
     public GameObject HumanPrefab; 
     public Button firstSpawnButton;
+    public Button ThirdSpawnButton;
     public UnityAction firstSpawnaction;
     public Button secondSpawnButton;
     public UnityAction secondSpawnaction;
@@ -41,9 +42,11 @@ public class GameManager : MonoBehaviour
     public string[] unit = new string[10];
     string[] myUnitInven = new string[10000];
     public Button[] myunit_invenBtn = new Button[6];
+    public Text[] unitcostTxt = new Text[5];
     public int[] Allunit = new int[100];
     public int[] Useunit = new int[100];
     public int[] Randomunit = new int[5];
+    public string[] unitidkey = new string[5];
     string[] a = new string[5] { "", "", "", "", "" };
     UnitList AllUnitList;
     MyunitList UseUnitList;
@@ -52,137 +55,109 @@ public class GameManager : MonoBehaviour
     {
         //myunit_invenBtn = GameObject.Find("Inventory").GetComponentsInChildren<Button>();
         Points = GameObject.Find("Spqwn").GetComponentsInChildren<Transform>();
-        int n = 0;
-        int m = 0;
+        unitcostTxt = GameObject.Find("costbox").GetComponentsInChildren<Text>();
         timePrev = Time.time;
         AllUnitList =  GetComponent<UnitList>();
         UseUnitList =  GetComponent<MyunitList>();
         countdowntext.text = setTime.ToString();
         var request1 = new GetUserDataRequest() { PlayFabId = Signin_Mng.myID };
-        //PlayFabClientAPI.GetUserData(request1, (result) => { unit[1] = result.Data["Tiger"].Value; Debug.Log("타이거넘어옴"); saveunit++; unitCreate();  }, (error) => print("데이터못넘김"));
-        //foreach (int number in Allunit)
-        //{
-        //    if (number == 0)
-        //    {
-
-        //        break;
-
-        //    }
-        //    n++;
-        //}
-
-        //foreach (int number in Useunit)
-        //{
-        //    if (number == 0)
-        //    {
-
-        //        break;
-
-        //    }
-        //    m++;
-        //}
-
-        //for (int k = 0; k < 5; k++)
-        //{
-
-        //    int rootnum = 0;
-        //    int p;
-        //    while (true)
-        //    {
-        //        rootnum++;
-
-        //        p = UnityEngine.Random.Range(0, n);
-        //        int number = Allunit[p];
-        //        var check = Array.Exists(Useunit, x => x.Equals(number));
-
-        //        if (check == false)
-        //        {
-        //            Randomunit[k] = number;
-
-        //            break;
-
-        //        }
-        //        else
-        //        {
-        //            if (rootnum > 10000)
-
-        //                break;
-        //        }
-        //    }
-        //}
-
-        //for (int t = 0; t < 5; t++)
-        //{
-
-        //    a[t] = AllUnitList.FindDic(Randomunit[t]).Name;
-
-        //    PlayFabClientAPI.GetUserData(request1, (result) => { unit[t] = result.Data[a[t]].Value; Debug.Log("유닛가져옴");   }, (error) => print("유닛못가져옴"));
-
-
-        //}
-        //unitCreate();
-        //Debug.Log("유닛정보받음, 텍스트변환시작");
+        unitcostTxt[0].text="하이"; 
         var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
         Debug.Log("유닛정보받기, 적용시작");
+         
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
         {
-
             for (int i = 0; i < result.Inventory.Count; i++)
             {
-                int p;
-                p = UnityEngine.Random.Range(0, result.Inventory.Count);
-                var Inven = result.Inventory[p];
-                myUnitInven[i] = Inven.DisplayName;
+
+                var Inven = result.Inventory[i];
+                if (result.Inventory[i].ItemClass == "Unit")
+                {
+                    myUnitInven[i] = Inven.DisplayName;
+                }
+                else
+                {
+                    myUnitInven[i] = "0";
+                }
 
             }
-            //for(int j=0;j<6;j++)
-            //{
-            //    int idx = UnityEngine.Random.Range(0, 6);
-            //    myUnitInven[j] = myUnitInven[idx];
-            //}
+          
+
+            Debug.Log("체크1");
+            int f = 0;
             for (int i = 0; i < 5; i++)
             {
-                Debug.Log("출력값확인 : " + myUnitInven[i]);
-                 
-                spawnbutton[i].GetComponentInChildren<Text>().text = myUnitInven[i];
+                Debug.Log("체크2");
+                for (int k = f; k < result.Inventory.Count; k++)
+                {
+                    Debug.Log("체크3");
+                    Debug.Log(f);
+                    Debug.Log(k);
+                    k = UnityEngine.Random.Range(0, result.Inventory.Count);
+                    if (myUnitInven[k] != "0")
+                    {
+                        Debug.Log(myUnitInven[k]);
+                         
+                        spawnbutton[i].GetComponentInChildren<Text>().text = myUnitInven[k];
+
+                        //프리팹다넣게되면 
+                        // spawnbutton[i].GetComponentInChildren<Text>().text  = "Unit/" +  spawnbutton[i].GetComponentInChildren<Text>().text ; 
+                        //텍스트자리에 spawnbutton[i].GetComponentInChildren<Text>().text 넣기
+                        obj[i] = Resources.Load("Unit/Vampire", typeof(GameObject)) as GameObject;
+                         
+                        String test_123 = "Unit/" + spawnbutton[i].GetComponentInChildren<Text>().text;
+                        Debug.Log(test_123);
+                        Debug.Log("체크4");
+                        break;
+
+                    }
+
+                }
+
+
             }
+            PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Main" }, (result) =>
+            {
+                int k = 0;
+                for (int j = 0; j < 5; j++)
+                {
+                    for (int i = 0; i < result.Catalog.Count; i++)
+                    {
+                        if (result.Catalog[i].DisplayName == spawnbutton[j].GetComponentInChildren<Text>().text)
+                        {
+                            k = i;
+                            Debug.Log("k값받음!" + k);
+
+
+                            unitidkey[j] = result.Catalog[k].Tags[0];
+                            Debug.Log(unitidkey[j]);
+                            unitcostTxt[j].text = unitidkey[j];
+
+
+
+                        }
+
+
+                    }
+                }
+
+
+
+            },
+      (error) => print("실패"));
+
         },
 
       (error) => print("인벤토리 불러오기 실패"));
         Debug.Log("유닛정보받기완료, 적용시작");
+        
     }
+
      
-    //void unitCreate()
-    //{
-    //    //if (saveunit == 2)
-    //    //{
-    //    //    for (int i = 0; i < 5; i++)
-    //    //    {
-    //    //        for (int j = 0; j < 10000; j++)
-    //    //        {
-    //    //            int idx = UnityEngine.Random.Range(0, 10);
-    //    //            if (spawnbutton[i].GetComponentInChildren<Text>().text == "Button" || spawnbutton[i].GetComponentInChildren<Text>().text == "")
-    //    //                spawnbutton[i].GetComponentInChildren<Text>().text = unit[idx];
-    //    //            else
-    //    //            {
-
-    //    //                obj[i] = Resources.Load(spawnbutton[i].GetComponentInChildren<Text>().text, typeof(GameObject)) as GameObject;
-
-    //    //                break;
-    //    //            }
-
-    //    //        }
-    //    //        Debug.Log(i + "/" + spawnbutton[i].GetComponentInChildren<Text>().text);
-
-    //    //    }
-    //    //}
-    //    //for(int i = 0; i<5;i++)
-    //    //{
-    //    //    spawnbutton[i].GetComponentInChildren<Text>().text = unit[i];
-    //    //}
-    //}
     void Update()
-    {       
+    {
+        
+        
         setTime -= Time.deltaTime;
         countdowntext.text = "남은 시간 : " + Mathf.Round(setTime).ToString();
         costtext.text = "보유코스트 : " + mycost.ToString();
@@ -204,6 +179,7 @@ public class GameManager : MonoBehaviour
         spawnidx = 1;
         firstSpawnButton.image.color = Color.gray;
         secondSpawnButton.image.color = Color.white;
+        ThirdSpawnButton.image.color = Color.white;
     }
     public void OnMenuButtonClick()
     {
@@ -225,36 +201,85 @@ public class GameManager : MonoBehaviour
         spawnidx = 2;
         firstSpawnButton.image.color = Color.white;
         secondSpawnButton.image.color = Color.gray;
+        ThirdSpawnButton.image.color = Color.white;
     }
     public void OnThirdSpawnButtonClick()
     {
         spawnidx = 3;
         firstSpawnButton.image.color = Color.white;
-        secondSpawnButton.image.color = Color.gray;
+        secondSpawnButton.image.color = Color.white;
+        ThirdSpawnButton.image.color = Color.gray;
     }
-    void ChangeUnit(int k)
+    void ChangeUnit(int M)
     {
-        
-            for (int i = 0; i < 5; i++)
+
+      
+        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
+        {
+            for (int i = 0; i < result.Inventory.Count; i++)
             {
-                for (int j = 0; j < 10000; j++)
+
+                var Inven = result.Inventory[i];
+                if (result.Inventory[i].ItemClass == "Unit")
                 {
-                    int idx = UnityEngine.Random.Range(0, 10);
-                    if (spawnbutton[k].GetComponentInChildren<Text>().text == "Button" || spawnbutton[i].GetComponentInChildren<Text>().text == "")
-                        spawnbutton[k].GetComponentInChildren<Text>().text = unit[idx];
-                    else
+                    myUnitInven[i] = Inven.DisplayName;
+                }
+                else if(result.Inventory[i].ItemClass == myUnitInven[M])
+                {
+                    myUnitInven[i] = "0";
+                }
+                else
+                {
+                    myUnitInven[i] = "0";
+                }
+
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                Debug.Log("체크0" + myUnitInven[i]);
+
+
+            }
+
+            Debug.Log("체크1");
+            int f = 0;
+            for (int i = M; i <M+1; i++)
+            {
+                Debug.Log("체크2");
+                for (int k = f; k < result.Inventory.Count; k++)
+                {
+                    Debug.Log("체크3");
+                    Debug.Log(f);
+                    Debug.Log(k);
+                    k = UnityEngine.Random.Range(0, result.Inventory.Count);
+                    if (myUnitInven[k] != "0")
                     {
+                        Debug.Log(myUnitInven[k]);
 
-                        obj[k] = Resources.Load(spawnbutton[k].GetComponentInChildren<Text>().text, typeof(GameObject)) as GameObject;
+                        spawnbutton[i].GetComponentInChildren<Text>().text = myUnitInven[k];
 
+                        //프리팹다넣게되면 
+                        // spawnbutton[i].GetComponentInChildren<Text>().text  = "Unit/" +  spawnbutton[i].GetComponentInChildren<Text>().text ; 
+                        //텍스트자리에 spawnbutton[i].GetComponentInChildren<Text>().text 넣기
+                        obj[i] = Resources.Load("Unit/Vampire", typeof(GameObject)) as GameObject;
+                        f = k + 1;
+                        String test_123 = "Unit/" + spawnbutton[i].GetComponentInChildren<Text>().text;
+                        Debug.Log(test_123);
+                        Debug.Log("체크4");
                         break;
+
                     }
 
                 }
-                Debug.Log("체인지완료");
+
 
             }
-         
+            Debug.Log("체인지완료");
+        },
+
+ (error) => print("인벤토리 불러오기 실패"));
+        
+
     }
     public void OnFirstUnitButtonClick()
     {

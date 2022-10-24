@@ -11,15 +11,15 @@ public class ChoiceStage_Mng : MonoBehaviour
     
     public Button stage1;
     public Button stage2;
+    public Button[] stagebutton = new Button[20];
     
-    Transform[] Buttons;
     public string myStage = "";
     public int stage_num = 0;
     void Start()
     {
+        stagebutton = GameObject.Find("Canvas_Choicemenu").GetComponentsInChildren<Button>();
+
        
-   
-        Buttons = GameObject.Find("Canvas_Choicemenu").GetComponentsInChildren<Transform>();
         var request2 = new GetUserDataRequest() { PlayFabId = Signin_Mng.myID };
         PlayFabClientAPI.GetUserData(request2, (result) => { myStage = result.Data["스테이지"].Value; stageColor(); }, (error) => print("데이터못넘김"));
     }
@@ -41,21 +41,12 @@ public class ChoiceStage_Mng : MonoBehaviour
     }
     public void stageColor()
     {
-
         stage_num = int.Parse(myStage);
-        switch (stage_num)
+        for(int i=0; i<stage_num+1;i++)
         {
-            case 0:
-                stage1.image.color = Color.white;
-                break;
-            case 1:
-                stage2.image.color = Color.white;
-                break;
-            default:
-                
-                break;
-             
+            stagebutton[i].image.color = Color.white;
         }
+ 
 
     }
 }
