@@ -9,7 +9,7 @@ public class BossDamage : MonoBehaviour
     public Image Hpbar;
     private int CurHp = 0;
     private int MaxHp = 1000;
-    private int damage = 15;
+   
     internal float damageDelay = 5f;
     private float initialDamageDelay;
     [SerializeField] protected bool isDamage = false;
@@ -18,10 +18,10 @@ public class BossDamage : MonoBehaviour
     ItemList AllitemID;
     MyunitList UseUnitList;
     private int EnemyUnitDamage = 0;
-    private int EnemyItemDamage = 0;
+   
     private int EneymySumDagame = 0;
-    private string EnemeyItemName = "";
-    string enemyid = "";
+     
+     
      
     void Start()
     {
@@ -36,7 +36,7 @@ public class BossDamage : MonoBehaviour
         CurHp = MaxHp;
         hpTxt.text = " Hp : " + CurHp.ToString();
       
-        Debug.Log("정보를 받고있습니다." + EnemyUnitDamage);
+        
     }
     //isTrigger 체크시 충돌 감지하는 콜백 함수  //통과 하면서 충돌 감지 한다.
     private void Update()

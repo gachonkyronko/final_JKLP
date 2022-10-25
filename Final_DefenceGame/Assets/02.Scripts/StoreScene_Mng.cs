@@ -41,8 +41,7 @@ public class StoreScene_Mng : MonoBehaviour
     public string[] myunit_inven = new string[6];
     public
     int o = 0;
-    bool nounit = false;
-    int g = 0;
+    
     string[] myUnitInven = new string[10000];
     string[] myItemInven = new string[10000];
     UnitList AllUnitList;
@@ -166,7 +165,7 @@ public class StoreScene_Mng : MonoBehaviour
         
         var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
         PlayFabClientAPI.GetCatalogItems(requset, GetSuccess, GetFail);
-        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(1).GetComponent<Text>();
+        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(2).GetComponent<Text>();
          
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
        {

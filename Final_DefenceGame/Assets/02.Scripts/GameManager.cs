@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public Button menuhomeButton;
     public UnityAction menuhomeaction;
     private int spawnidx = 1;
-    private int enemyspawnidx = 0;
+    
     public float setTime = 120.0f;
     public Text countdowntext;
     public Text costtext;
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     public string[] saveenemy = new string[5];
     string[] a = new string[5] { "", "", "", "", "" };
     //데이터들
-   
+    public static bool gamestrat = true;
     UnitList AllUnitList;
     MyunitList UseUnitList;
     
@@ -167,22 +167,22 @@ public class GameManager : MonoBehaviour
                 Debug.Log("테스팅");
                 for (int i = 0; i < result.Catalog.Count; i++)
                 {
-                     
-                        k = UnityEngine.Random.Range(0, 8);
-                        Debug.Log("k값받음!" + k);
-                        EnemyUnit[j] = result.Catalog[k].ItemId;
+
+                    k = UnityEngine.Random.Range(0, 8);
+                    Debug.Log("k값받음!" + k);
+                    EnemyUnit[j] = result.Catalog[k].ItemId;
 
 
-                        Debug.Log("테스트 :" + EnemyUnit[j]);
-                        string unitname = "Unit/" + EnemyUnit[j];
-                        Debug.Log("테스트 :" + unitname);
-                        obj_1[j] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
-                         
-                        
+                    Debug.Log("테스트 :" + EnemyUnit[j]);
+                    string unitname = "Unit/" + EnemyUnit[j];
+                    Debug.Log("테스트 :" + unitname);
+                    obj_1[j] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
 
 
 
-                    
+
+
+
 
 
                 }
@@ -201,9 +201,10 @@ public class GameManager : MonoBehaviour
      
     void Update()
     {
-        
-        
+
+        Time.timeScale = 1.0f;
         setTime -= Time.deltaTime;
+         
         countdowntext.text = "남은 시간 : " + Mathf.Round(setTime).ToString();
         costtext.text = "보유코스트 : " + mycost.ToString();
         if(setTime<=0)
@@ -366,7 +367,7 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(obj[0], Points[spawnidx].position,Points[spawnidx].rotation);
             mycost -= unitcost;
-
+             
             ChangeUnit(0);
                 
 

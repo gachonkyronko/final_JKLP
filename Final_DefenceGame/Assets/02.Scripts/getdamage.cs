@@ -42,7 +42,7 @@ public class getdamage : MonoBehaviour
    
     void Start()
     {
-
+        Debug.Log("실행은되는가?");
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
         {
             for (int i = 0; i < result.Inventory.Count; i++)
@@ -98,7 +98,7 @@ public class getdamage : MonoBehaviour
         (error) => print("인벤토리 불러오기 실패"));
         Debug.Log("유닛정보받기완료, 적용시작");
         Invoke("upload", 1.0f);
-        Invoke("matchitem", 2.0f);
+        Invoke("matchitem", 1.5f);
     }
 
     // Update is called once per frame

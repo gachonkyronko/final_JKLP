@@ -15,8 +15,7 @@ public class EnemyDamage : MonoBehaviour
     public int ABILITY = 0;
     public int ABILITYDETAILL = 0;
     public int COST = 0;
-    private int EnemyUnitDamage = 0;
-    private int EnemyItemDamage = 0;
+    
     private int EneymySumDagame = 0;
     internal float damageDelay = 5f;
     private float initialDamageDelay;
@@ -30,7 +29,7 @@ public class EnemyDamage : MonoBehaviour
 
         AllUnitList = GetComponent<UnitList>();
         UseUnitList = GetComponent<MyunitList>();
-        Invoke("mystat", 1.0f);
+        Invoke("mystat", 1.8f);
 
     }
     private void Update()

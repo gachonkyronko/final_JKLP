@@ -7,7 +7,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
     public int RANGE = 0;
     public double MOVESPD = 0;
     public string myName = "";
-
+    public double attackrange = 0;
     public enum State //열거형 상수 
     {
         TRACE, ATTACK, DIE, IDLE
@@ -29,13 +29,22 @@ public class EnemyUnit_Ctrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyTr = GameObject.FindWithTag("Human").GetComponent<Transform>();
 
         humanTr = GetComponent<Transform>();
+        enemyTr = GameObject.FindWithTag("Human").GetComponent<Transform>();
+
         animator = GetComponent<Animator>();
         navi = GetComponent<NavMeshAgent>();
         myName = gameObject.name;
-        Invoke("mystat", 1.0f);
+        Invoke("mystat",2.0f);
+
+
+
+        
+        StartCoroutine(CheckHumanState_1()); //스타트 코루틴 
+        StartCoroutine(HumanAction_1());
+
+
         //z_damage = GetComponent<ZombieDamage>();
 
         //추적 대상   = 플레이어 위치 
@@ -43,7 +52,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
     }
 
 
-    IEnumerator CheckHumanState() //Update() 함수 대신 무한 반복 하기 위해서 선언 
+    IEnumerator CheckHumanState_1() //Update() 함수 대신 무한 반복 하기 위해서 선언 
     {
         while (isDie == false)
         {
@@ -62,7 +71,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
             //}
         }
     }
-    IEnumerator HumanAction()
+    IEnumerator HumanAction_1()
     {
         while (!isDie)
         {
@@ -116,17 +125,23 @@ public class EnemyUnit_Ctrl : MonoBehaviour
     }
     public void mystat()
     {
-
+        Debug.Log("스탯확인");
         int cutClone = name.IndexOf("(Clone)");
+        Debug.Log("테스트: " + cutClone);
         string Cutname = name.Substring(0, cutClone);
         Debug.Log("이 유닛의 이름 : " + Cutname);
+        Debug.Log("이 유닛의 이름 : " + getdamage.realLen);
         for (int i = 0; i < getdamage.realLen; i++)
         {
+             
+            Debug.Log("이 유닛의 이름 : " + getdamage.enemyName[i]);
             if (getdamage.enemyName[i] == Cutname)
             {
 
                 RANGE = int.Parse(getdamage.enemyattackrange[i]);
                 MOVESPD = double.Parse(getdamage.enemymovepseed[i]);
+                attackrange = double.Parse(getdamage.enemyattackrange[i]);
+                attackDist = ((float)attackrange);
                 navi.speed = ((float)MOVESPD);
                 break;
 
@@ -134,9 +149,12 @@ public class EnemyUnit_Ctrl : MonoBehaviour
             }
         }
         attackDist = RANGE;
-        StartCoroutine(CheckHumanState()); //스타트 코루틴 
-        StartCoroutine(HumanAction());
+         
 
+    }
+    private void Update()
+    {
+       
     }
 }
 
