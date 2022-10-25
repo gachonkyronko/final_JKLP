@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 public class EnemyUnit_Ctrl : MonoBehaviour
 {
+    public int RANGE = 0;
+    public double MOVESPD = 0;
+    public string myName = "";
+
     public enum State //열거형 상수 
     {
         TRACE, ATTACK, DIE, IDLE
@@ -18,32 +22,35 @@ public class EnemyUnit_Ctrl : MonoBehaviour
     private Transform enemyTr;
     [SerializeField]
     private Animator animator;
-    private float traceDist = 15.0f; //추적 거리 
+    private float traceDist = 0.0f; //추적 거리 
     bool isDie = false;
-    private float attackDist = 3.0f; //공격 거리 
+    public float attackDist = 0.0f; //공격 거리 
     //ZombieDamage z_damage;
     // Start is called before the first frame update
     void Start()
     {
-        humanTr = GameObject.FindWithTag("Human").GetComponent<Transform>();
-        
-        enemyTr = GetComponent<Transform>();
+        enemyTr = GameObject.FindWithTag("Human").GetComponent<Transform>();
+
+        humanTr = GetComponent<Transform>();
         animator = GetComponent<Animator>();
         navi = GetComponent<NavMeshAgent>();
+        myName = gameObject.name;
+        Invoke("mystat", 1.0f);
         //z_damage = GetComponent<ZombieDamage>();
-        
+
         //추적 대상   = 플레이어 위치 
-        StartCoroutine(CheckEnemyState()); //스타트 코루틴 
-        StartCoroutine(EnemyAction());
+
     }
-    IEnumerator CheckEnemyState() //Update() 함수 대신 무한 반복 하기 위해서 선언 
+
+
+    IEnumerator CheckHumanState() //Update() 함수 대신 무한 반복 하기 위해서 선언 
     {
         while (isDie == false)
         {
             yield return new WaitForSeconds(0.3f);
 
-            float dist_human = Vector3.Distance(enemyTr.position, humanTr.position);
-            if (dist_human <= attackDist)
+            float dist_Enemy = Vector3.Distance(enemyTr.position, humanTr.position);
+            if (dist_Enemy <= attackDist)
             {
                 state = State.ATTACK;
             }
@@ -55,7 +62,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
             //}
         }
     }
-    IEnumerator EnemyAction()
+    IEnumerator HumanAction()
     {
         while (!isDie)
         {
@@ -64,8 +71,8 @@ public class EnemyUnit_Ctrl : MonoBehaviour
 
                 case State.TRACE:
 
-                    navi.SetDestination(humanTr.position);
-                    enemyTr.LookAt(humanTr.transform);
+                    navi.SetDestination(enemyTr.position);
+                    humanTr.LookAt(enemyTr.transform);
                     navi.isStopped = false;
                     animator.SetBool("IsAttack", false);
 
@@ -73,7 +80,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
 
                 case State.ATTACK:
 
-                    enemyTr.LookAt(humanTr.transform);
+                    humanTr.LookAt(enemyTr.transform);
 
                     navi.isStopped = true;
                     animator.SetBool("IsAttack", true);
@@ -107,4 +114,29 @@ public class EnemyUnit_Ctrl : MonoBehaviour
 
 
     }
+    public void mystat()
+    {
+
+        int cutClone = name.IndexOf("(Clone)");
+        string Cutname = name.Substring(0, cutClone);
+        Debug.Log("이 유닛의 이름 : " + Cutname);
+        for (int i = 0; i < getdamage.realLen; i++)
+        {
+            if (getdamage.enemyName[i] == Cutname)
+            {
+
+                RANGE = int.Parse(getdamage.enemyattackrange[i]);
+                MOVESPD = double.Parse(getdamage.enemymovepseed[i]);
+                navi.speed = ((float)MOVESPD);
+                break;
+
+
+            }
+        }
+        attackDist = RANGE;
+        StartCoroutine(CheckHumanState()); //스타트 코루틴 
+        StartCoroutine(HumanAction());
+
+    }
 }
+

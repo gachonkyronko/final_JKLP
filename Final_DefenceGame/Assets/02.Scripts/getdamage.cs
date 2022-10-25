@@ -97,7 +97,8 @@ public class getdamage : MonoBehaviour
 
         (error) => print("인벤토리 불러오기 실패"));
         Debug.Log("유닛정보받기완료, 적용시작");
-
+        Invoke("upload", 1.0f);
+        Invoke("matchitem", 2.0f);
     }
 
     // Update is called once per frame
@@ -167,7 +168,7 @@ public class getdamage : MonoBehaviour
 
         },
   (error) => print("실패"));
-        matchitem();
+        
     }
 
     public void matchitem()

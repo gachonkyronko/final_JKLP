@@ -135,8 +135,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
 }
             }
         attackDist = RANGE; 
-        StartCoroutine(CheckHumanState()); //스타트 코루틴 
-        StartCoroutine(HumanAction());
+        
 
     }
 }

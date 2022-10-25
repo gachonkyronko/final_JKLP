@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] //태어날 위치 지정 
     Transform[] Points;
+    [SerializeField]
+    Transform[] Points_1;
     public GameObject HumanPrefab; 
     public Button firstSpawnButton;
     public Button ThirdSpawnButton;
@@ -26,7 +28,7 @@ public class GameManager : MonoBehaviour
     public Button menuhomeButton;
     public UnityAction menuhomeaction;
     private int spawnidx = 1;
-    
+    private int enemyspawnidx = 0;
     public float setTime = 120.0f;
     public Text countdowntext;
     public Text costtext;
@@ -34,19 +36,22 @@ public class GameManager : MonoBehaviour
     public int mycost = 1000;
     public GameObject[] spawnbutton = new GameObject[10];
     public GameObject[] obj = new GameObject[5];
+    public GameObject[] obj_1 = new GameObject[5];
     public int memeber = 0;
     //3초마다 10마리 
     public string load_unit = "/Unit/";
     private float timePrev;
     public int saveunit = 0;
     public string[] unit = new string[10];
-    string[] myUnitInven = new string[10000];
+    string[] myUnitInven = new string[100];
     public Button[] myunit_invenBtn = new Button[6];
     public Text[] unitcostTxt = new Text[5];
     public int[] Allunit = new int[100];
     public int[] Useunit = new int[100];
     public int[] Randomunit = new int[5];
     public string[] unitidkey = new string[5];
+    public string[] EnemyUnit = new string[5];
+    public string[] saveenemy = new string[5];
     string[] a = new string[5] { "", "", "", "", "" };
     //데이터들
    
@@ -58,6 +63,7 @@ public class GameManager : MonoBehaviour
         
         //myunit_invenBtn = GameObject.Find("Inventory").GetComponentsInChildren<Button>();
         Points = GameObject.Find("Spqwn").GetComponentsInChildren<Transform>();
+        Points_1 = GameObject.Find("Enemy_Spqwn").GetComponentsInChildren<Transform>();
         unitcostTxt = GameObject.Find("costbox").GetComponentsInChildren<Text>();
         timePrev = Time.time;
         AllUnitList =  GetComponent<UnitList>();
@@ -65,10 +71,12 @@ public class GameManager : MonoBehaviour
         countdowntext.text = setTime.ToString();
         var request1 = new GetUserDataRequest() { PlayFabId = Signin_Mng.myID };
         unitcostTxt[0].text="하이"; 
-        var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
+        var requset = new GetCatalogItemsRequest { CatalogVersion = "Enemy" };
         Debug.Log("유닛정보받기, 적용시작");
-         
-        PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
+        
+        
+
+            PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
         {
             for (int i = 0; i < result.Inventory.Count; i++)
             {
@@ -151,6 +159,41 @@ public class GameManager : MonoBehaviour
         },
 
       (error) => print("인벤토리 불러오기 실패"));
+        PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Enemy" }, (result) =>
+        {
+            int k = 0;
+            for (int j = 0; j < 5; j++)
+            {
+                Debug.Log("테스팅");
+                for (int i = 0; i < result.Catalog.Count; i++)
+                {
+                     
+                        k = UnityEngine.Random.Range(0, 8);
+                        Debug.Log("k값받음!" + k);
+                        EnemyUnit[j] = result.Catalog[k].ItemId;
+
+
+                        Debug.Log("테스트 :" + EnemyUnit[j]);
+                        string unitname = "Unit/" + EnemyUnit[j];
+                        Debug.Log("테스트 :" + unitname);
+                        obj_1[j] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
+                         
+                        
+
+
+
+                    
+
+
+                }
+                int t = UnityEngine.Random.Range(1, 4);
+                Instantiate(obj_1[j], Points_1[t].position, Points[spawnidx].rotation);
+            }
+
+
+
+        },
+   (error) => print("실패"));
         Debug.Log("유닛정보받기완료, 적용시작");
         
     }

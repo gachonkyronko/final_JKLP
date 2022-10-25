@@ -11,7 +11,7 @@ public class MainHome_Mng : MonoBehaviour
     void Start() //타이틀이름설정
     {
         print(Signin_Mng.myID);
-        titleTxt = GameObject.Find("Canvas_Title").transform.GetChild(0).GetComponent<Text>();
+        titleTxt = GameObject.Find("Canvas_Title").transform.GetChild(1).GetComponent<Text>();
         
 
     }
@@ -23,6 +23,7 @@ public class MainHome_Mng : MonoBehaviour
     }
     public void OnStageButtonClick() //스테이지버튼이벤트
     {
+
         SceneManager.LoadScene("ChoiceStage_Scene");
     }
     public void OnStoreButtonClick() //상점버튼이벤트

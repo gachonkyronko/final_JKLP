@@ -8,7 +8,8 @@ using PlayFab;
 using PlayFab.ClientModels;
 public class ChoiceStage_Mng : MonoBehaviour
 {
-    
+    public Sprite changeimg;
+    Image now;
     public Button stage1;
     public Button stage2;
     public Button[] stagebutton = new Button[20];
@@ -18,7 +19,7 @@ public class ChoiceStage_Mng : MonoBehaviour
     void Start()
     {
         stagebutton = GameObject.Find("Canvas_Choicemenu").GetComponentsInChildren<Button>();
-
+        now = GetComponent<Image>();
        
         var request2 = new GetUserDataRequest() { PlayFabId = Signin_Mng.myID };
         PlayFabClientAPI.GetUserData(request2, (result) => { myStage = result.Data["스테이지"].Value; stageColor(); }, (error) => print("데이터못넘김"));
@@ -45,6 +46,7 @@ public class ChoiceStage_Mng : MonoBehaviour
         for(int i=0; i<stage_num+1;i++)
         {
             stagebutton[i].image.color = Color.white;
+            stagebutton[i].image.sprite = changeimg;
         }
  
 

@@ -23,14 +23,15 @@ public class HumanDamage : MonoBehaviour
     UnitList AllUnitList;
     MyunitList UseUnitList;
     [SerializeField] protected bool isDamage = false;
+    public static bool myunitdie = false;
     void Start()
     {
         initialDamageDelay = damageDelay;
          
         AllUnitList = GetComponent<UnitList>();
         UseUnitList = GetComponent<MyunitList>();
+        Invoke("mystat", 1.0f);
 
-        
     }
     private void Update()
     {
@@ -55,7 +56,7 @@ public class HumanDamage : MonoBehaviour
             isDamage = true;
             var request1 = new GetUserDataRequest() { PlayFabId = Signin_Mng.myID };
             string name = other.transform.root.name;
-            
+
             int cutClone = name.IndexOf("(Clone)");
             string Cutname = name.Substring(0, cutClone);
             Debug.Log("충돌유닛이름 : " + Cutname);
@@ -65,19 +66,34 @@ public class HumanDamage : MonoBehaviour
                 Debug.Log("대조하는유닛이름 : " + getdamage.enemyName[i]);
                 int j = 0;
                 if (getdamage.enemyName[i] == Cutname)
-                 
+
                 {
                     EneymySumDagame = getdamage.sumDamage[i];
-                    Debug.Log("총합데미지, 아이템데미지, 유닛데미지" + EneymySumDagame + "," + getdamage.enemyitemAtt[i] + "," + getdamage.enemyattack[i]);
+                    Debug.Log("총합데미지,  유닛데미지" + EneymySumDagame + "," + getdamage.enemyattack[i]);
                     break;
 
                 }
 
             }
 
+            if (DF > EneymySumDagame)
+                DF = DF - EneymySumDagame;
+            else
+            {
+                EneymySumDagame = EneymySumDagame - DF;
+                HP = HP - EneymySumDagame;
+
+            }
+            if (HP < 0)
+            {
+                Debug.Log("유닛사망");
+                Destroy(gameObject);
+            }
         }
 
     }
+
+   
 
     public void mystat()
     {
