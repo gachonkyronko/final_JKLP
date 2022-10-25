@@ -1,11 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using PlayFab;
+using PlayFab.ClientModels;
 public class HumanDamage : MonoBehaviour
 {
-    public int myCurHp = 0;
-    public int myMaxHp = 0;
+    public int HP = 0;
+    public int DF = 0;
+    public int ATT = 0;
+    public double ATTSPD = 0;
+    public int RANGE = 0;
+    public double MOVESPD = 0;
+    public int RACE = 0;
+    public int ABILITY = 0;
+    public int ABILITYDETAILL = 0;
+    public int COST = 0;
+    private int EnemyUnitDamage = 0;
+    private int EnemyItemDamage = 0;
+    private int EneymySumDagame = 0;
     internal float damageDelay = 5f;
     private float initialDamageDelay;
     UnitList AllUnitList;
@@ -18,11 +30,7 @@ public class HumanDamage : MonoBehaviour
         AllUnitList = GetComponent<UnitList>();
         UseUnitList = GetComponent<MyunitList>();
 
-        //MyFindDic(Randomunit[t]).Name;
-        myMaxHp = UseUnitList.FindDic_name("Vampire").ID;
-
-        Debug.Log("소환됐음 내 hp는 ? " + myMaxHp);
-        myCurHp = myMaxHp;
+        
     }
     private void Update()
     {
@@ -42,27 +50,61 @@ public class HumanDamage : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Humanweapon" && !isDamage)
+        if (other.gameObject.tag == "Enemy" && !isDamage)
         {
             isDamage = true;
-            string name = other.gameObject.name;
-            Debug.Log(name + "와 충돌중입니다");
-            //CurHp -= damage;
-            //hpTxt.text = " Hp : " + CurHp.ToString();
-            //Hpbar.fillAmount = (float)CurHp / (float)MaxHp;
+            var request1 = new GetUserDataRequest() { PlayFabId = Signin_Mng.myID };
+            string name = other.transform.root.name;
+            
+            int cutClone = name.IndexOf("(Clone)");
+            string Cutname = name.Substring(0, cutClone);
+            Debug.Log("충돌유닛이름 : " + Cutname);
 
-            //if (Hpbar.fillAmount <= 0.0f)
-            //    Hpbar.color = Color.clear;
-            //else if (Hpbar.fillAmount <= 0.3f)
-            //    Hpbar.color = Color.red;
-            //else if (Hpbar.fillAmount <= 0.5f)
-            //    Hpbar.color = Color.yellow;
-            //if (CurHp <= 0)
-            //    hpTxt.text = " Hp : 0";
-            //PlayerDie();
+            for (int i = 0; i < getdamage.realLen; i++)
+            {
+                Debug.Log("대조하는유닛이름 : " + getdamage.enemyName[i]);
+                int j = 0;
+                if (getdamage.enemyName[i] == Cutname)
+                 
+                {
+                    EneymySumDagame = getdamage.sumDamage[i];
+                    Debug.Log("총합데미지, 아이템데미지, 유닛데미지" + EneymySumDagame + "," + getdamage.enemyitemAtt[i] + "," + getdamage.enemyattack[i]);
+                    break;
+
+                }
+
+            }
+
         }
 
     }
-     
-   
+
+    public void mystat()
+    {
+
+        int cutClone = name.IndexOf("(Clone)");
+        string Cutname = name.Substring(0, cutClone);
+        Debug.Log("이 유닛의 이름 : " + Cutname);
+        for (int i = 0; i < getdamage.realLen; i++)
+        {
+            if (getdamage.enemyName[i] == Cutname)
+            {
+                Debug.Log("테스트" + i);
+                Debug.Log("테스트" + getdamage.enemyName[i]);
+                Debug.Log("테스트" + getdamage.enemyattack[i]);
+                HP = int.Parse(getdamage.enemyHP[i]);
+                DF = int.Parse(getdamage.enemyDF[i]);
+                ATT = int.Parse(getdamage.enemyattack[i]);
+                ATTSPD = double.Parse(getdamage.enemyattackspeed[i]);
+                RANGE = int.Parse(getdamage.enemyattackrange[i]);
+                MOVESPD = double.Parse(getdamage.enemymovepseed[i]);
+                
+                break;
+
+
+            }
+        }
+       
+
+    }
 }

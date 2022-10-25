@@ -536,7 +536,9 @@ public void PurchaseUnit1()
         PlayFabClientAPI.PurchaseItem(request, (result) => {
             print("아이템 구입 성공!");
             SubtractMoney(saveitemcost[u]);
-            updateClickInven();
+            updateClickInven(); 
+            var request1 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { itemname[u], "1234" } } };
+            PlayFabClientAPI.UpdateUserData(request1, (result) => { print("null아이템넣음"); }, (error) => print("실패"));
         }, (error) => print("유닛 구입 실패"));
     }
     public void PurchaseItem1()

@@ -102,14 +102,13 @@ public class GameManager : MonoBehaviour
                         Debug.Log(myUnitInven[k]);
                          
                         spawnbutton[i].GetComponentInChildren<Text>().text = myUnitInven[k];
-                       
+                        string unitname = "Unit/" + spawnbutton[i].GetComponentInChildren<Text>().text;
                         //프리팹다넣게되면 
-                        // spawnbutton[i].GetComponentInChildren<Text>().text  = "Unit/" +  spawnbutton[i].GetComponentInChildren<Text>().text ; 
-                        //텍스트자리에 spawnbutton[i].GetComponentInChildren<Text>().text 넣기
-                        obj[i] = Resources.Load("Unit/Vampire", typeof(GameObject)) as GameObject;
                          
-                        String test_123 = "Unit/" + spawnbutton[i].GetComponentInChildren<Text>().text;
-                        Debug.Log(test_123);
+                        //텍스트자리에 spawnbutton[i].GetComponentInChildren<Text>().text 넣기
+                        obj[i] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
+                         
+                         
                         Debug.Log("체크4");
                         break;
 
@@ -132,7 +131,7 @@ public class GameManager : MonoBehaviour
                             Debug.Log("k값받음!" + k);
 
 
-                            unitidkey[j] = result.Catalog[k].Tags[0];
+                            unitidkey[j] = result.Catalog[k].Tags[10];
                             Debug.Log(unitidkey[j]);
                             unitcostTxt[j].text = unitidkey[j];
 
@@ -262,11 +261,11 @@ public class GameManager : MonoBehaviour
                         Debug.Log(myUnitInven[k]);
 
                         spawnbutton[i].GetComponentInChildren<Text>().text = myUnitInven[k];
-
+                        string unitname = "Unit/" + spawnbutton[i].GetComponentInChildren<Text>().text;
                         //프리팹다넣게되면 
-                        // spawnbutton[i].GetComponentInChildren<Text>().text  = "Unit/" +  spawnbutton[i].GetComponentInChildren<Text>().text ; 
+                        
                         //텍스트자리에 spawnbutton[i].GetComponentInChildren<Text>().text 넣기
-                        obj[i] = Resources.Load("Unit/Vampire", typeof(GameObject)) as GameObject;
+                        obj[i] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
                         f = k + 1;
                         String test_123 = "Unit/" + spawnbutton[i].GetComponentInChildren<Text>().text;
                         Debug.Log(test_123);
@@ -283,15 +282,47 @@ public class GameManager : MonoBehaviour
         },
 
  (error) => print("인벤토리 불러오기 실패"));
-        
+        PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Main" }, (result) =>
+        {
+            int k = 0;
+            for (int j = M; j < M+1; j++)
+            {
+                for (int i = 0; i < result.Catalog.Count; i++)
+                {
+                    if (result.Catalog[i].DisplayName == spawnbutton[M].GetComponentInChildren<Text>().text)
+                    {
+                        k = i;
+                        Debug.Log("k값받음!" + k);
+
+
+                        unitidkey[M] = result.Catalog[k].Tags[10];
+                        Debug.Log(unitidkey[M]);
+                        unitcostTxt[M].text = unitidkey[M];
+
+
+
+                    }
+
+
+                }
+            }
+
+
+
+        },
+     (error) => print("실패"));
+
 
     }
     public void OnFirstUnitButtonClick()
     {
-        if(mycost>cost)
+        int unitcost = 0;
+        
+        unitcost = int.Parse(unitcostTxt[0].text);
+        if (mycost> unitcost)
         {
             Instantiate(obj[0], Points[spawnidx].position,Points[spawnidx].rotation);
-            mycost -= cost;
+            mycost -= unitcost;
 
             ChangeUnit(0);
                 

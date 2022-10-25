@@ -22,6 +22,7 @@ public class BossDamage : MonoBehaviour
     private int EneymySumDagame = 0;
     private string EnemeyItemName = "";
     string enemyid = "";
+     
     void Start()
     {
         initialDamageDelay = damageDelay;
@@ -34,7 +35,7 @@ public class BossDamage : MonoBehaviour
         hpTxt.color = Color.black;
         CurHp = MaxHp;
         hpTxt.text = " Hp : " + CurHp.ToString();
-        EnemyUnitDamage = UseUnitList.FindDic_name("Vampire").Attack;
+      
         Debug.Log("정보를 받고있습니다." + EnemyUnitDamage);
     }
     //isTrigger 체크시 충돌 감지하는 콜백 함수  //통과 하면서 충돌 감지 한다.
@@ -63,16 +64,25 @@ public class BossDamage : MonoBehaviour
             string name = other.transform.root.name;
             int cutClone = name.IndexOf("(Clone)");
             string Cutname = name.Substring(0,cutClone);
+            Debug.Log("충돌유닛이름 : " + Cutname);
+           
+            for(int i=0;i<50;i++)
+            {
+                Debug.Log("대조하는유닛이름 : " + getdamage.enemyName[i]);
+                int j = 0;
+                if (getdamage.enemyName[i] == Cutname)
+                //if ("Vampire" == Cutname)
+                {
+                    EneymySumDagame = getdamage.sumDamage[i];
+                    Debug.Log("총합데미지, 아이템데미지, 유닛데미지" + EneymySumDagame + "," + getdamage.enemyitemAtt[i] + "," + getdamage.enemyattack[i]);
+                    break;
+
+                }
+                 
+            }
+         
              
-            PlayFabClientAPI.GetUserData(request1, (result) => { EnemeyItemName= result.Data[Cutname].Value;
-                 EnemyDamage(Cutname); },
-                (error) => print("아이템정보못가져옴"));
-            int k = 0;
-            //k = int.Parse(EnemeyItemName);
-            EnemyItemDamage = AllitemID.FindDic(k).Attack;
-            EneymySumDagame = EnemyUnitDamage + EnemyItemDamage;
-            Debug.Log("총합데미지, 아이템데미지, 유닛데미지" + EneymySumDagame + "," + EnemyItemDamage + "," + EnemyUnitDamage);
-            CurHp -= damage;
+            CurHp -= EneymySumDagame;
             hpTxt.text = " Hp : " + CurHp.ToString();
             Hpbar.fillAmount = (float)CurHp / (float)MaxHp;
 
@@ -83,45 +93,18 @@ public class BossDamage : MonoBehaviour
             else if (Hpbar.fillAmount <= 0.5f)
                 Hpbar.color = Color.yellow;
             if (CurHp <= 0)
+            {
                 hpTxt.text = " Hp : 0";
                 PlayerDie();
+            }
+                
         }
 
     }
-    void EnemyDamage(string enemyname)
-    {
-        PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Main" }, (result) =>
-        {
-            int k = 0;
-            for (int j = 0; j < 5; j++)
-            {
-                for (int i = 0; i < result.Catalog.Count; i++)
-                {
-                    if (result.Catalog[i].DisplayName == enemyname)
-                    {
-                        k = i;
-                        Debug.Log("k값받음!" + k);
-
-
-                        enemyid = result.Catalog[k].Tags[0];
-                        Debug.Log(enemyid);
-                        EnemyUnitDamage =   AllUnitList.FindDic(int.Parse(enemyid)).Attack;
-                        Debug.Log(EnemyUnitDamage);
-
-
-                    }
-
-
-                }
-            }
-
-
-
-        },
-    (error) => print("실패"));
-    }
+    
     void PlayerDie()
     {
         Debug.Log("승리!");
     }
+   
 }

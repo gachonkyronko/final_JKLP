@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 public class HumanUnit_Ctrl : MonoBehaviour
 {
+    
+    public int RANGE = 0;
+    public double MOVESPD = 0;
+    public string myName = "";
+
     public enum State //열거형 상수 
     {
         TRACE, ATTACK, DIE, IDLE
@@ -18,9 +23,9 @@ public class HumanUnit_Ctrl : MonoBehaviour
     private Transform enemyTr;
     [SerializeField]
     private Animator animator;
-    private float traceDist = 15.0f; //추적 거리 
+    private float traceDist = 0.0f; //추적 거리 
     bool isDie = false;
-    private float attackDist = 1.0f; //공격 거리 
+    public  float attackDist = 0.0f; //공격 거리 
     //ZombieDamage z_damage;
     // Start is called before the first frame update
     void Start()
@@ -30,12 +35,15 @@ public class HumanUnit_Ctrl : MonoBehaviour
         humanTr = GetComponent<Transform>();
         animator = GetComponent<Animator>();
         navi = GetComponent<NavMeshAgent>();
+        myName = gameObject.name;
+        Invoke("mystat", 1.0f);
         //z_damage = GetComponent<ZombieDamage>();
-
+        
         //추적 대상   = 플레이어 위치 
-        StartCoroutine(CheckHumanState()); //스타트 코루틴 
-        StartCoroutine(HumanAction());
+        
     }
+    
+
     IEnumerator CheckHumanState() //Update() 함수 대신 무한 반복 하기 위해서 선언 
     {
         while (isDie == false)
@@ -107,4 +115,30 @@ public class HumanUnit_Ctrl : MonoBehaviour
 
 
     }
+    public void mystat()
+    {
+        
+            int cutClone = name.IndexOf("(Clone)");
+            string Cutname = name.Substring(0, cutClone);
+            Debug.Log("이 유닛의 이름 : " + Cutname);
+            for (int i = 0; i < getdamage.realLen; i++)
+            {
+                if (getdamage.enemyName[i] == Cutname)
+                {
+                    
+                    RANGE = int.Parse(getdamage.enemyattackrange[i]);
+                    MOVESPD = double.Parse(getdamage.enemymovepseed[i]);
+                    navi.speed = ((float)MOVESPD);
+                    break;
+                      
+   
 }
+            }
+        attackDist = RANGE; 
+        StartCoroutine(CheckHumanState()); //스타트 코루틴 
+        StartCoroutine(HumanAction());
+
+    }
+}
+
+ 
