@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/ChoiceStage_Scene.unity
+    path: Assets/0.Scenes/ChoiceStage_Scene.unity
     guid: 1011585424a06694bb2b302615d1e240
   - enabled: 1
     path: Assets/0.Scenes/SigninHome_Scene.unity

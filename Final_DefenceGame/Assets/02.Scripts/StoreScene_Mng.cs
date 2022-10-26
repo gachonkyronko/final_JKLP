@@ -11,6 +11,7 @@ using System;
  
 public class StoreScene_Mng : MonoBehaviour
 {
+    public Sprite test;
     public Text MyMoneyTxt;
     public Text clickTxt;
     public int MyMoney = 0;
@@ -25,6 +26,7 @@ public class StoreScene_Mng : MonoBehaviour
     public  Transform[] UnitButtons;
     int[] Itemnumber = new int[100];
     public Button[] unitPurchaseBtn = new Button[5];
+    public GameObject[] unitPurchaseBtn_1 = new GameObject[5];
     public Button[] itemPurchaseBtn = new Button[5];
     public Button[] myunit_invenBtn = new Button[6];
     public Button[] inven_myitem = new Button[6];
@@ -55,6 +57,7 @@ public class StoreScene_Mng : MonoBehaviour
         myunit_invenBtn = GameObject.Find("Inventory").GetComponentsInChildren<Button>();
         inven_myitem = GameObject.Find("inven_myitem").GetComponentsInChildren<Button>();
         unitPurchaseBtn = GameObject.Find("PurchaseUnit").GetComponentsInChildren<Button>();
+     
         itemPurchaseBtn = GameObject.Find("PurchaseItem").GetComponentsInChildren<Button>();
         unitCost = GameObject.Find("PurchaseUnitCost").GetComponentsInChildren<Text>();
         ItemCost = GameObject.Find("PurchaseItemCost").GetComponentsInChildren<Text>();
@@ -208,6 +211,17 @@ public class StoreScene_Mng : MonoBehaviour
                        Debug.Log(myUnitInven[k]);
                         
                        myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[k];
+                       if(myunit_invenBtn[i].GetComponentInChildren<Text>().text != "내 유닛")
+                       {
+                           string imagename = "Sprites/" + myunit_invenBtn[i].GetComponentInChildren<Text>().text;
+                           Debug.Log("이름" + myunit_invenBtn[i].GetComponentInChildren<Text>().text);
+                           Debug.Log("이미지경로" + imagename);
+
+                           myunit_invenBtn[i].image.sprite = Resources.Load(imagename, typeof(Sprite)) as Sprite;
+                       }
+                      
+
+
                        f = k+1;
                        Debug.Log("체크4");
                        break;
@@ -276,6 +290,7 @@ public class StoreScene_Mng : MonoBehaviour
 
 
                        inven_myitem[i].GetComponentInChildren<Text>().text = myItemInven[k];
+                      
                        s = k + 1;
                        Debug.Log("체크아이템리스트4");
                        break;
@@ -344,6 +359,7 @@ public class StoreScene_Mng : MonoBehaviour
             {
 
                 myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[i];
+       
 
             }
         },
@@ -407,7 +423,22 @@ public class StoreScene_Mng : MonoBehaviour
 
         (error) => print("인벤토리 불러오기 실패"));
     }
-    public void updateInven()
+    public void changeImage()
+    {
+
+
+        for (int i = 0; i < 6; i++)
+        {
+
+            string imagename = "Sprites/" + unitPurchaseBtn[i].GetComponentInChildren<Text>().text;
+            Debug.Log("이름" + unitPurchaseBtn[i].GetComponentInChildren<Text>().text);
+            Debug.Log("이미지경로" + imagename);
+
+            unitPurchaseBtn[i].image.sprite = Resources.Load(imagename, typeof(Sprite)) as Sprite;
+        }
+
+    }
+        public void updateInven()
     {
        
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
@@ -440,6 +471,11 @@ public class StoreScene_Mng : MonoBehaviour
                         Debug.Log(myUnitInven[k]);
                        
                         myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[k];
+                        string imagename = "Sprites/" + myunit_invenBtn[i].GetComponentInChildren<Text>().text;
+                        Debug.Log("이름" + myunit_invenBtn[i].GetComponentInChildren<Text>().text);
+                        Debug.Log("이미지경로" + imagename);
+
+                        myunit_invenBtn[i].image.sprite = Resources.Load(imagename, typeof(Sprite)) as Sprite;
                         f = k + 1;
                          
                         break;
@@ -578,13 +614,15 @@ public void PurchaseUnit1()
         PlayFabClientAPI.SubtractUserVirtualCurrency(request, (result) =>{ print("돈 빼기 성공! 현재 돈 : " + result.Balance); MyMoneyTxt.text = "보유골드량 : " + result.Balance; }, (error) => print("돈 빼기 실패"));
 
     }
-
-    public  void ClickUnit1()
+    public void ClickLogic(int r)
     {
-        ClickUnit.gameObject.GetComponentInChildren<Text>().text = myunit_invenBtn[0].GetComponentInChildren<Text>().text;
+        ClickUnit.gameObject.GetComponentInChildren<Text>().text = myunit_invenBtn[r].GetComponentInChildren<Text>().text;
         string clickname = ClickUnit.gameObject.GetComponentInChildren<Text>().text;
         //int test = UseUnitList.FindDic_name(clickname).Attack;
-        
+        string imagename = "Sprites/" + clickname;
+
+
+        ClickUnit.image.sprite = Resources.Load(imagename, typeof(Sprite)) as Sprite;
 
         int k = 0;
         string UnitDescription = "";
@@ -595,27 +633,61 @@ public void PurchaseUnit1()
                 if (result.Catalog[i].DisplayName == clickname)
                 {
                     k = i;
-                    Debug.Log("k값받음!" +k );
+                    Debug.Log("k값받음!" + k);
                     Debug.Log(result.Catalog[i].DisplayName);
-                    
+
                     UnitDescription = result.Catalog[k].Description;
                     Debug.Log(UnitDescription);
                     clickTxt.text = UnitDescription;
+
                 }
-                
-                 
+
+
             }
-             
-            
+
+
         },
         (error) => print("실패"));
-        
-        //Debug.Log("커스텀 데이터 =" + dic[clickname]);
 
-        //clickTxt.text
     }
-    
-        public void getItem1()
+    public  void ClickUnit1()
+    {
+        ClickLogic(0);
+        
+       
+    }
+    public void ClickUnit2()
+    {
+        ClickLogic(1);
+
+
+    }
+    public void ClickUnit3()
+    {
+        ClickLogic(2);
+
+
+    }
+    public void ClickUnit4()
+    {
+        ClickLogic(3);
+
+
+    }
+    public void ClickUnit5()
+    {
+        ClickLogic(4);
+
+
+    }
+    public void ClickUnit6()
+    {
+        ClickLogic(5);
+
+
+    }
+
+    public void getItem1()
     {
         string getitemUnit = ClickUnit.gameObject.GetComponentInChildren<Text>().text;
         string getitemname = inven_myitem[0].GetComponentInChildren<Text>().text;
