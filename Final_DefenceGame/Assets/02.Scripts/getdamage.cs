@@ -15,9 +15,21 @@ public class getdamage : MonoBehaviour
     public static string[] enemyAbility = new string[50];
     public static string[] enemymAbilityDetail = new string[50];
     public static string[] enemyCost= new string[50];
-     
-     
-     
+
+    public static string[] humanName = new string[50];
+    public static string[] humanHP = new string[50];
+    public static string[] humanDF = new string[50];
+    public static string[] humanattack = new string[50];
+    public static string[] humanattackspeed = new string[50];
+    public static string[] humanattackrange = new string[50];
+    public static string[] humanymovepseed = new string[50];
+    public static string[] humanRace = new string[50];
+    public static string[] humanAbility = new string[50];
+    public static string[] humanAbilityDetail = new string[50];
+    public static string[] humanCost = new string[50];
+
+
+
     public static string[] enemySaveName = new string[50];
     public static string[] enemyName = new string[50];
     public static string[] enemyitemekey = new string[50];
@@ -39,6 +51,7 @@ public class getdamage : MonoBehaviour
     public static string[] itemUseStack = new string[50];
     int itemlen = 0;
     int unitlen = 0;
+    public static int humanlen = 0;
    
     void Start()
     {
@@ -168,7 +181,34 @@ public class getdamage : MonoBehaviour
 
         },
   (error) => print("½ÇÆÐ"));
-        
+
+        PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Enemy" }, (result) =>
+        {
+            humanlen = result.Catalog.Count;
+            for (int j = 0; j< result.Catalog.Count; j++)
+            {
+                Debug.Log("ÀÎµ¦½º"+j);
+                 
+
+                humanName[j] = result.Catalog[j].ItemId;
+                Debug.Log("ÀÎµ¦½º" + result.Catalog[j].ItemId);
+                humanHP[j] = result.Catalog[j].Tags[1];
+                humanDF[j] = result.Catalog[j].Tags[2];
+                humanattack[j] = result.Catalog[j].Tags[3];
+                humanattackspeed[j] = result.Catalog[j].Tags[4];
+                humanattackrange[j] = result.Catalog[j].Tags[5];
+                humanymovepseed[j] = result.Catalog[j].Tags[6];
+                humanRace[j] = result.Catalog[j].Tags[7];
+                humanAbility[j] = result.Catalog[j].Tags[8];
+                humanAbilityDetail[j] = result.Catalog[j].Tags[9];
+                humanCost[j] = result.Catalog[j].Tags[10];
+
+            }
+
+
+        },
+ (error) => print("½ÇÆÐ"));
+
     }
 
     public void matchitem()

@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        
+        Time.timeScale = 1.0f;
         //myunit_invenBtn = GameObject.Find("Inventory").GetComponentsInChildren<Button>();
         Points = GameObject.Find("Spqwn").GetComponentsInChildren<Transform>();
         Points_1 = GameObject.Find("Enemy_Spqwn").GetComponentsInChildren<Transform>();
@@ -202,9 +202,10 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        Time.timeScale = 1.0f;
-        setTime -= Time.deltaTime;
-         
+        if( Gamestart5.countexit == true)
+            setTime -= Time.deltaTime;
+
+
         countdowntext.text = "남은 시간 : " + Mathf.Round(setTime).ToString();
         costtext.text = "보유코스트 : " + mycost.ToString();
         if(setTime<=0)
@@ -232,6 +233,8 @@ public class GameManager : MonoBehaviour
     public void OnMenuButtonClick()
     {
         Time.timeScale = 0f;
+      
+        
 
     }
     public void OnMenuBackButtonClick()

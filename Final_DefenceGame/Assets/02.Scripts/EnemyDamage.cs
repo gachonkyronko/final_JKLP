@@ -29,7 +29,7 @@ public class EnemyDamage : MonoBehaviour
 
         AllUnitList = GetComponent<UnitList>();
         UseUnitList = GetComponent<MyunitList>();
-        Invoke("mystat", 1.8f);
+        Invoke("mystat", 3.0f);
 
     }
     private void Update()
@@ -100,24 +100,28 @@ public class EnemyDamage : MonoBehaviour
         int cutClone = name.IndexOf("(Clone)");
         string Cutname = name.Substring(0, cutClone);
         Debug.Log("이 유닛의 이름 : " + Cutname);
-        for (int i = 0; i < getdamage.realLen; i++)
+        for (int j = 0; j < getdamage.humanlen; j++)
         {
-            if (getdamage.enemyName[i] == Cutname)
-            {
-                Debug.Log("테스트" + i);
-                Debug.Log("테스트" + getdamage.enemyName[i]);
-                Debug.Log("테스트" + getdamage.enemyattack[i]);
-                HP = int.Parse(getdamage.enemyHP[i]);
-                DF = int.Parse(getdamage.enemyDF[i]);
-                ATT = int.Parse(getdamage.enemyattack[i]);
-                ATTSPD = double.Parse(getdamage.enemyattackspeed[i]);
-                RANGE = int.Parse(getdamage.enemyattackrange[i]);
-                MOVESPD = double.Parse(getdamage.enemymovepseed[i]);
+           
+                
+                if (getdamage.humanName[j] == Cutname)
+                {
+                    Debug.Log("테스트" + j);
+                    Debug.Log("테스트" + getdamage.humanName[j]);
+                    Debug.Log("테스트" + getdamage.humanattack[j]);
+                    HP = int.Parse(getdamage.humanHP[j]);
+                    DF = int.Parse(getdamage.humanDF[j]);
+                    ATT = int.Parse(getdamage.humanattack[j]);
+                    ATTSPD = double.Parse(getdamage.humanattackspeed[j]);
+                    RANGE = int.Parse(getdamage.humanattackrange[j]);
+                    MOVESPD = double.Parse(getdamage.humanymovepseed[j]);
 
-                break;
+                   
 
 
-            }
+                }
+           
+     
         }
 
 

@@ -36,7 +36,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
         animator = GetComponent<Animator>();
         navi = GetComponent<NavMeshAgent>();
         myName = gameObject.name;
-        Invoke("mystat", 1.0f);
+        Invoke("mystat", 0.5f);
         //z_damage = GetComponent<ZombieDamage>();
         
         //추적 대상   = 플레이어 위치 

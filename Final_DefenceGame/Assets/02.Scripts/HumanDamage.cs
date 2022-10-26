@@ -29,7 +29,7 @@ public class HumanDamage : MonoBehaviour
          
         AllUnitList = GetComponent<UnitList>();
         UseUnitList = GetComponent<MyunitList>();
-        Invoke("mystat", 1.0f);
+        Invoke("mystat",0.5f);
 
     }
     private void Update()
