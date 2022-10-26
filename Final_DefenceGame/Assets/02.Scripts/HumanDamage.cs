@@ -23,6 +23,8 @@ public class HumanDamage : MonoBehaviour
     MyunitList UseUnitList;
     [SerializeField] protected bool isDamage = false;
     public static bool myunitdie = false;
+
+    
     void Start()
     {
         initialDamageDelay = damageDelay;

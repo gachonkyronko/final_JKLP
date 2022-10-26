@@ -57,9 +57,10 @@ public class GameManager : MonoBehaviour
     public static bool gamestrat = true;
     UnitList AllUnitList;
     MyunitList UseUnitList;
-    
+    public static bool win = false;
     void Start()
     {
+        win = false;
         Time.timeScale = 1.0f;
         //myunit_invenBtn = GameObject.Find("Inventory").GetComponentsInChildren<Button>();
         Points = GameObject.Find("Spqwn").GetComponentsInChildren<Transform>();
@@ -213,6 +214,8 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0f;
             Debug.Log("ÆÐ¹è");
+            win = true;
+            
         }
         if (Time.time - timePrev > 5.0f)
         {

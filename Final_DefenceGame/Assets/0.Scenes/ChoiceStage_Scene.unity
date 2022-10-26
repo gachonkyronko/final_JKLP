@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.7090988, y: -0.00011015}
+  m_AnchoredPosition: {x: 2.7090988, y: -0.00011062622}
   m_SizeDelta: {x: 309.4402, y: 71.491}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &63126520
@@ -852,7 +852,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 350113704}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1154878950}
+        m_TargetAssemblyTypeName: ChoiceStage_Mng, Assembly-CSharp
+        m_MethodName: OnsecondStageButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &350113704
 MonoBehaviour:
   m_ObjectHideFlags: 0

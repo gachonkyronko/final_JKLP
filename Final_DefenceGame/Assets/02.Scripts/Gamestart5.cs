@@ -11,7 +11,7 @@ public class Gamestart5 : MonoBehaviour
     void Start()
     {
         count5 = GetComponent<Text>();
-        Time.timeScale = 0.0f;
+        Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
@@ -19,7 +19,7 @@ public class Gamestart5 : MonoBehaviour
     {
         count -= Time.deltaTime;
 
-        count5.text = "게임시작 " + Mathf.Round(count) + "초 전";
+        count5.text =  Mathf.Round(count).ToString()  ;
         if (count <= 0)
         {
             Time.timeScale = 1.0f;

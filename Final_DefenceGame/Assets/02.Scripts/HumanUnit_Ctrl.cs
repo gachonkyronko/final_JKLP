@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,11 +9,11 @@ public class HumanUnit_Ctrl : MonoBehaviour
     public double MOVESPD = 0;
     public string myName = "";
     public double attackrange = 0;
-    public enum State //¿­°ÅÇü »ó¼ö 
+    public enum State //ì—´ê±°í˜• ìƒìˆ˜ 
     {
         TRACE, ATTACK, DIE, IDLE
     }
-    public State state = State.TRACE;
+    public State state = State.IDLE;
 
     [SerializeField]
     private NavMeshAgent navi;
@@ -23,9 +23,15 @@ public class HumanUnit_Ctrl : MonoBehaviour
     private Transform enemyTr;
     [SerializeField]
     private Animator animator;
-    private float traceDist = 0.0f; //ÃßÀû °Å¸® 
+    private float traceDist = 3000.0f; //ì¶”ì  ê±°ë¦¬ 
     bool isDie = false;
-    public  float attackDist = 0.0f; //°ø°İ °Å¸® 
+    public  float attackDist = 0.0f; //ê³µê²© ê±°ë¦¬ 
+
+
+    private string ttag = "Enemy";
+    private Transform target;
+    private Transform closestEnemy = null;
+    private float dist = 20.0f;
     //ZombieDamage z_damage;
     // Start is called before the first frame update
     void Start()
@@ -38,29 +44,49 @@ public class HumanUnit_Ctrl : MonoBehaviour
         myName = gameObject.name;
         Invoke("mystat", 0.5f);
         //z_damage = GetComponent<ZombieDamage>();
-        
-        //ÃßÀû ´ë»ó   = ÇÃ·¹ÀÌ¾î À§Ä¡ 
-            
+        InvokeRepeating("CheckHumanState", 11.0f, 1.0f);
+        InvokeRepeating("HumanAction", 11.0f, 1.0f);
+        //ì¶”ì  ëŒ€ìƒ   = í”Œë ˆì´ì–´ ìœ„ì¹˜ 
+
     }
     
 
-    IEnumerator CheckHumanState() //Update() ÇÔ¼ö ´ë½Å ¹«ÇÑ ¹İº¹ ÇÏ±â À§ÇØ¼­ ¼±¾ğ 
+    IEnumerator CheckHumanState() //Update() í•¨ìˆ˜ ëŒ€ì‹  ë¬´í•œ ë°˜ë³µ í•˜ê¸° ìœ„í•´ì„œ ì„ ì–¸ 
     {
         while (isDie == false)
         {
+
+            GameObject[] taggedEnemys = GameObject.FindGameObjectsWithTag(ttag);
+
+            Transform closestEnemy = null;
+            foreach (GameObject taggedEnemy in taggedEnemys)
+            {
+                Vector3 objectPos = taggedEnemy.transform.position;
+                dist = (objectPos - transform.position).sqrMagnitude;
+                //ì›ì£¼ë¯¼ì´ íŠ¹ì • ê±°ë¦¬ ì•ˆìœ¼ë¡œ ë“¤ì–´ì˜¬ë•ŒÂ Â Â Â Â Â Â Â Â 
+                Debug.Log(attackDist);
+                Debug.Log(dist);
+                if (dist < attackDist + 1)
+                {
+                    state = State.ATTACK;
+                    closestEnemy = taggedEnemy.transform;
+                }
+                else if (dist < traceDist + 50)
+                {
+
+                    state = State.TRACE;
+                    closestEnemy = taggedEnemy.transform;
+
+
+                }
+                else
+                    state = State.IDLE;
+            }
+            target = closestEnemy;
+
             yield return new WaitForSeconds(0.3f);
 
-            float dist_Enemy = Vector3.Distance(enemyTr.position, humanTr.position);
-            if (dist_Enemy <= attackDist)
-            {
-                state = State.ATTACK;
-            }
-
-
-            //else if ( dist_human <= traceDist)
-            //{
-            //    state = State.TRACE;
-            //}
+           
         }
     }
     IEnumerator HumanAction()
@@ -72,20 +98,27 @@ public class HumanUnit_Ctrl : MonoBehaviour
 
                 case State.TRACE:
 
-                    navi.SetDestination(enemyTr.position);
-                    humanTr.LookAt(enemyTr.transform);
+                    navi.SetDestination(target.position);
+                    humanTr.LookAt(target.transform);
+                    //navi.SetDestination(enemyTr.position);
+                    //humanTr.LookAt(enemyTr.transform);
                     navi.isStopped = false;
+                    animator.SetBool("IsTrace", true);
                     animator.SetBool("IsAttack", false);
 
                     break;
 
                 case State.ATTACK:
 
-                    humanTr.LookAt(enemyTr.transform);
+                    humanTr.LookAt(target.transform);
+                    //humanTr.LookAt(enemyTr.transform);
 
                     navi.isStopped = true;
                     animator.SetBool("IsAttack", true);
 
+                    break;
+                case State.IDLE:
+                    animator.SetBool("IsTrace", false);
                     break;
 
                 case State.DIE:
@@ -120,7 +153,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
         
             int cutClone = name.IndexOf("(Clone)");
             string Cutname = name.Substring(0, cutClone);
-            Debug.Log("ÀÌ À¯´ÖÀÇ ÀÌ¸§ : " + Cutname);
+            Debug.Log("ì´ ìœ ë‹›ì˜ ì´ë¦„ : " + Cutname);
             for (int i = 0; i < getdamage.realLen; i++)
             {
                 if (getdamage.enemyName[i] == Cutname)
@@ -137,7 +170,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
 }
             }
         attackDist = RANGE;
-        StartCoroutine(CheckHumanState()); //½ºÅ¸Æ® ÄÚ·çÆ¾ 
+        StartCoroutine(CheckHumanState()); //ìŠ¤íƒ€íŠ¸ ì½”ë£¨í‹´ 
         StartCoroutine(HumanAction());
 
     }

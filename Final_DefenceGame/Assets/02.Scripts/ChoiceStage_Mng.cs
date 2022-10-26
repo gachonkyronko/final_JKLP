@@ -40,6 +40,10 @@ public class ChoiceStage_Mng : MonoBehaviour
     {
         SceneManager.LoadScene("FirstStage");
     }
+    public void OnsecondStageButtonClick()
+    {
+        SceneManager.LoadScene("SecondStage");
+    }
     public void stageColor()
     {
         stage_num = int.Parse(myStage);

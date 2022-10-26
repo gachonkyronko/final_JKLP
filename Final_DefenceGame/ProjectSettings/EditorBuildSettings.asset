@@ -24,17 +24,41 @@ EditorBuildSettings:
     path: Assets/0.Scenes/ChoiceStage_Scene.unity
     guid: 1011585424a06694bb2b302615d1e240
   - enabled: 1
+    path: Assets/0.Scenes/SecondStage.unity
+    guid: e0cae4b73f4b8384684bbdbf9ccb3327
+  - enabled: 0
+    path: Assets/0.Scenes/FifthStage.unity
+    guid: f905cc5168cf0024a85afe8b002f9aa8
+  - enabled: 0
+    path: Assets/0.Scenes/FourthStage.unity
+    guid: b9193857ded7de547905ce31a92332ae
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/0.Scenes/SeventhStage.unity
+    guid: 04399d62ea8d0064aa12d699a652237d
+  - enabled: 0
+    path: Assets/0.Scenes/SixthStage.unity
+    guid: f59fe4b54f47586459dc8e66bda19a18
+  - enabled: 0
+    path: Assets/0.Scenes/ThirdStage.unity
+    guid: dc494202283093e4c8abdee1a9c135f0
+  - enabled: 1
     path: Assets/0.Scenes/SigninHome_Scene.unity
     guid: 2e9548d7d75adf549aec81ee5d0558f7
   - enabled: 1
     path: Assets/0.Scenes/FirstStage.unity
     guid: 03e83ca821c456348ae12b5e9f2166c8
-  - enabled: 1
-    path: Assets/0.Scenes/Battle_Scene.unity
-    guid: d964c12c92c3fc64fb1d1f12b2c01eda
   - enabled: 0
-    path: Assets/0.Scenes/FristStage.unity
-    guid: c3e3e6a4aa5e28f41ba16bd623ebec73
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/0.Scenes/Store_Scene.unity
     guid: 93b322c290f405041bad0e3385e9a531
