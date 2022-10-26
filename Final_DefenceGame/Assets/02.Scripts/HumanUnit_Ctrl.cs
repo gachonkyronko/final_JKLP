@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class HumanUnit_Ctrl : MonoBehaviour
 {
-    
+    public static bool unitspawn = false;
     public int RANGE = 0;
     public double MOVESPD = 0;
     public string myName = "";
@@ -31,7 +31,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
     void Start()
     {
         enemyTr = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
-
+        unitspawn = true;
         humanTr = GetComponent<Transform>();
         animator = GetComponent<Animator>();
         navi = GetComponent<NavMeshAgent>();

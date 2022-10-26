@@ -176,7 +176,8 @@ public class GameManager : MonoBehaviour
                     Debug.Log("테스트 :" + EnemyUnit[j]);
                     string unitname = "Unit/" + EnemyUnit[j];
                     Debug.Log("테스트 :" + unitname);
-                    obj_1[j] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
+                    obj_1[j] = Resources.Load("Unit/Zombie", typeof(GameObject)) as GameObject;
+                    //obj_1[j] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
 
 
 
