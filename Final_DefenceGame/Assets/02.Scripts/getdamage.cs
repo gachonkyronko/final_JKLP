@@ -55,7 +55,7 @@ public class getdamage : MonoBehaviour
    
     void Start()
     {
-        Debug.Log("실행은되는가?");
+        
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
         {
             for (int i = 0; i < result.Inventory.Count; i++)
@@ -74,26 +74,24 @@ public class getdamage : MonoBehaviour
             }
 
 
-            Debug.Log("체크1");
+          
             int f = 0;
             for (int i = 0; i < 20; i++)
             {
-                Debug.Log("체크2");
+                
                 for (int k = f; k < result.Inventory.Count; k++)
                 {
-                    Debug.Log("체크3");
-
-                    Debug.Log(k);
+                   
 
                     if (myUnitInven[k] != "0")
                     {
-                        Debug.Log(myUnitInven[k]);
+ 
 
                         enemyName[i] = myUnitInven[k];
                         f++;
 
 
-                        Debug.Log("체크4");
+                    
                         break;
 
                     }
@@ -109,7 +107,7 @@ public class getdamage : MonoBehaviour
         },
 
         (error) => print("인벤토리 불러오기 실패"));
-        Debug.Log("유닛정보받기완료, 적용시작");
+       
         Invoke("upload", 1.0f);
         Invoke("matchitem", 1.5f);
     }
@@ -120,7 +118,7 @@ public class getdamage : MonoBehaviour
         PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Main" }, (result) =>
         {
             int k = 0;
-            Debug.Log(unitstatsdata.Length);
+           
             for (int j = 0; j < unitstatsdata.Length; j++)
             {
                 for (int i = 0; i < result.Catalog.Count; i++)
@@ -129,8 +127,7 @@ public class getdamage : MonoBehaviour
                     {
 
                         k = i;
-                        Debug.Log("------");
-                        Debug.Log(enemyName[j]);
+                        
 
                         enemySaveName[j] = result.Catalog[k].DisplayName;
                         unitstatsdatatag[j] = result.Catalog[k].Tags[0];
@@ -174,8 +171,7 @@ public class getdamage : MonoBehaviour
                 itemMovespd[i] = result.Catalog[i].Tags[6];
                 itemGrade[i] = result.Catalog[i].Tags[7];
                 itemUseStack[i] = result.Catalog[i].Tags[8];
-                Debug.Log("아이템정보받아옴");
-                Debug.Log("아이템키값" + itemname[i]);
+              
             }
 
 
@@ -187,11 +183,11 @@ public class getdamage : MonoBehaviour
             humanlen = result.Catalog.Count;
             for (int j = 0; j< result.Catalog.Count; j++)
             {
-                Debug.Log("인덱스"+j);
+                 
                  
 
                 humanName[j] = result.Catalog[j].ItemId;
-                Debug.Log("인덱스" + result.Catalog[j].ItemId);
+                
                 humanHP[j] = result.Catalog[j].Tags[1];
                 humanDF[j] = result.Catalog[j].Tags[2];
                 humanattack[j] = result.Catalog[j].Tags[3];
@@ -224,19 +220,18 @@ public class getdamage : MonoBehaviour
                 break;
         }
 
-        Debug.Log("길이 : " + realLen);
+       
             var request1 = new GetUserDataRequest() { PlayFabId = Signin_Mng.myID };
         PlayFabClientAPI.GetUserData(request1, (result) =>
         {
-            Debug.Log("로그인성공"); int y = 0;
+              int y = 0;
             for (int l = 0; l < realLen; l++)
             {
                 y = l;
 
-                Debug.Log("값부터확인" + enemyName[y]);
-                Debug.Log("값부터확인" + result.Data[enemyName[y]].Value);
+              
                 enemyitemekey[y] = result.Data[enemyName[y]].Value;
-                Debug.Log("값부터확인" + enemyitemekey[y]);
+                
             }
             for (int i = 0; i < realLen; i++)
             {
@@ -245,16 +240,24 @@ public class getdamage : MonoBehaviour
                     if (enemyitemekey[i] == itemname[j])
                     {
                         enemyitemAtt[i] = itemAttack[j];
+                        Debug.Log("오류검사" + enemyitemAtt[i]);
+                    }
+                }
+                if(i==realLen-1)
+                {
+                    Debug.Log("오류검사" + realLen);
+                    for (int z = 0; z < realLen; z++)
+                    {
+                        Debug.Log("오류검사중 : " + int.Parse(enemyattack[z]));
+                        Debug.Log("오류검사중 : " + int.Parse(enemyitemAtt[z]));
+                        sumDamage[i] = int.Parse(enemyattack[z]) + int.Parse(enemyitemAtt[z]);
+
                     }
                 }
 
             }
-            Debug.Log("아이템공격력 적용");
-            for (int i = 0; i < realLen; i++)
-            {
-                sumDamage[i] = int.Parse(enemyattack[i]) + int.Parse(enemyitemAtt[i]);
-                Debug.Log("총 데미지" + sumDamage[i]);
-            }
+          
+            
             
         },
               (error) => print("아이템정보못가져옴"));

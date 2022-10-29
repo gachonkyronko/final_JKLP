@@ -647,7 +647,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Project D
+  m_Text: Reverse
 --- !u!222 &358694260
 CanvasRenderer:
   m_ObjectHideFlags: 0

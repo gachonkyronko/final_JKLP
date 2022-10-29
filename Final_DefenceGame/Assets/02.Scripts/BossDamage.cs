@@ -9,7 +9,7 @@ public class BossDamage : MonoBehaviour
     public Image Hpbar;
     private int CurHp = 0;
     private int MaxHp = 1000;
-   
+    public static bool dieWin = false;
     internal float damageDelay = 5f;
     private float initialDamageDelay;
     [SerializeField] protected bool isDamage = false;
@@ -57,32 +57,33 @@ public class BossDamage : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Humanweapon" && !isDamage)
+        if (other.gameObject.tag == "Human" && !isDamage)
         {
             isDamage = true;
             var request1 = new GetUserDataRequest() { PlayFabId = Signin_Mng.myID };
             string name = other.transform.root.name;
+
             int cutClone = name.IndexOf("(Clone)");
-            string Cutname = name.Substring(0,cutClone);
+            string Cutname = name.Substring(0, cutClone);
             Debug.Log("충돌유닛이름 : " + Cutname);
-           
-            for(int i=0;i<50;i++)
+
+            for (int i = 0; i < getdamage.realLen; i++)
             {
                 Debug.Log("대조하는유닛이름 : " + getdamage.enemyName[i]);
                 int j = 0;
                 if (getdamage.enemyName[i] == Cutname)
-                //if ("Vampire" == Cutname)
+
                 {
                     EneymySumDagame = getdamage.sumDamage[i];
-                    Debug.Log("총합데미지, 아이템데미지, 유닛데미지" + EneymySumDagame + "," + getdamage.enemyitemAtt[i] + "," + getdamage.enemyattack[i]);
+                    Debug.Log("총합데미지,  유닛데미지" + EneymySumDagame + "," + getdamage.enemyattack[i]);
                     break;
 
                 }
-                 
+
             }
-         
-             
-            CurHp -= EneymySumDagame;
+
+
+        CurHp -= EneymySumDagame;
             hpTxt.text = " Hp : " + CurHp.ToString();
             Hpbar.fillAmount = (float)CurHp / (float)MaxHp;
 
@@ -104,6 +105,7 @@ public class BossDamage : MonoBehaviour
     
     void PlayerDie()
     {
+        dieWin = true;
         Debug.Log("승리!");
     }
    

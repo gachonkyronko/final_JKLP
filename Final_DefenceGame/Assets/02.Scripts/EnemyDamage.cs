@@ -99,16 +99,14 @@ public class EnemyDamage : MonoBehaviour
 
         int cutClone = name.IndexOf("(Clone)");
         string Cutname = name.Substring(0, cutClone);
-        Debug.Log("이 유닛의 이름 : " + Cutname);
+      
         for (int j = 0; j < getdamage.humanlen; j++)
         {
            
                 
                 if (getdamage.humanName[j] == Cutname)
                 {
-                    Debug.Log("테스트" + j);
-                    Debug.Log("테스트" + getdamage.humanName[j]);
-                    Debug.Log("테스트" + getdamage.humanattack[j]);
+                   
                     HP = int.Parse(getdamage.humanHP[j]);
                     DF = int.Parse(getdamage.humanDF[j]);
                     ATT = int.Parse(getdamage.humanattack[j]);

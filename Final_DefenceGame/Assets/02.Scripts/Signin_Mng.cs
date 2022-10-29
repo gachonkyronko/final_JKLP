@@ -26,7 +26,7 @@ public class Signin_Mng : MonoBehaviour
             {
                 i = 8;
             }
-            print(i);
+             
         }    
     }
     public void SigninBtn() //로그인버튼클릭이벤트 

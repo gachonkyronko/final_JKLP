@@ -53,7 +53,7 @@ public class MyItem : MonoBehaviour
         {
             
             item.Value.Print();
-            Debug.Log("=====");
+           
         }
 
         itemDatas = JsonUtility.FromJson<ItemDatas>(textData.ToString());

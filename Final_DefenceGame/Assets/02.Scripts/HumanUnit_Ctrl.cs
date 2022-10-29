@@ -23,10 +23,10 @@ public class HumanUnit_Ctrl : MonoBehaviour
     private Transform enemyTr;
     [SerializeField]
     private Animator animator;
-    private float traceDist = 3000.0f; //추적 거리 
+    private float traceDist = 10.0f; //추적 거리 
     bool isDie = false;
     public  float attackDist = 0.0f; //공격 거리 
-
+    Vector3 destination = new Vector3(-0.15f, 0.58f, -1.07f);
 
     private string ttag = "Enemy";
     private Transform target;
@@ -47,6 +47,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
         InvokeRepeating("CheckHumanState", 11.0f, 1.0f);
         InvokeRepeating("HumanAction", 11.0f, 1.0f);
         //추적 대상   = 플레이어 위치 
+        
 
     }
     
@@ -64,8 +65,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
                 Vector3 objectPos = taggedEnemy.transform.position;
                 dist = (objectPos - transform.position).sqrMagnitude;
                 //원주민이 특정 거리 안으로 들어올때         
-                Debug.Log(attackDist);
-                Debug.Log(dist);
+              
                 if (dist < attackDist + 1)
                 {
                     state = State.ATTACK;
@@ -153,7 +153,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
         
             int cutClone = name.IndexOf("(Clone)");
             string Cutname = name.Substring(0, cutClone);
-            Debug.Log("이 유닛의 이름 : " + Cutname);
+            
             for (int i = 0; i < getdamage.realLen; i++)
             {
                 if (getdamage.enemyName[i] == Cutname)
@@ -161,7 +161,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
                     attackrange = double.Parse(getdamage.enemyattackrange[i]);
                 attackDist = ((float)attackrange);
                 RANGE = int.Parse(getdamage.enemyattackrange[i]);
-                    MOVESPD = double.Parse(getdamage.enemymovepseed[i]);
+                    MOVESPD = double.Parse(getdamage.enemymovepseed[i])*3;
                     navi.speed = ((float)MOVESPD);
                     
                     break;
@@ -172,6 +172,9 @@ public class HumanUnit_Ctrl : MonoBehaviour
         attackDist = RANGE;
         StartCoroutine(CheckHumanState()); //스타트 코루틴 
         StartCoroutine(HumanAction());
+        navi.SetDestination(destination);
+        humanTr.LookAt(destination);
+       
 
     }
 }

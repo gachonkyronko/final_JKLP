@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 3982761163749895670}
   m_Layer: 0
   m_Name: mixamorig:LeftHand
-  m_TagString: Humanweapon
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 3982761163764136201}
   m_Layer: 0
   m_Name: mixamorig:RightHand
-  m_TagString: Humanweapon
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1709,6 +1709,7 @@ MonoBehaviour:
   RANGE: 0
   MOVESPD: 0
   myName: 
+  attackrange: 0
   state: 0
   navi: {fileID: 0}
   humanTr: {fileID: 0}

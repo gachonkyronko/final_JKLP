@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         var request1 = new GetUserDataRequest() { PlayFabId = Signin_Mng.myID };
         unitcostTxt[0].text="하이"; 
         var requset = new GetCatalogItemsRequest { CatalogVersion = "Enemy" };
-        Debug.Log("유닛정보받기, 적용시작");
+       
         
         
 
@@ -95,20 +95,18 @@ public class GameManager : MonoBehaviour
             }
           
 
-            Debug.Log("체크1");
+          
             int f = 0;
             for (int i = 0; i < 5; i++)
             {
-                Debug.Log("체크2");
+                 
                 for (int k = f; k < result.Inventory.Count; k++)
                 {
-                    Debug.Log("체크3");
-                    Debug.Log(f);
-                    Debug.Log(k);
+                   
                     k = UnityEngine.Random.Range(0, result.Inventory.Count);
                     if (myUnitInven[k] != "0")
                     {
-                        Debug.Log(myUnitInven[k]);
+                     
                          
                         spawnbutton[i].GetComponentInChildren<Text>().text = myUnitInven[k];
                         string unitname = "Unit/" + spawnbutton[i].GetComponentInChildren<Text>().text;
@@ -118,7 +116,7 @@ public class GameManager : MonoBehaviour
                         obj[i] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
                          
                          
-                        Debug.Log("체크4");
+                       
                         break;
 
                     }
@@ -137,11 +135,11 @@ public class GameManager : MonoBehaviour
                         if (result.Catalog[i].DisplayName == spawnbutton[j].GetComponentInChildren<Text>().text)
                         {
                             k = i;
-                            Debug.Log("k값받음!" + k);
+                          
 
 
                             unitidkey[j] = result.Catalog[k].Tags[10];
-                            Debug.Log(unitidkey[j]);
+                            
                             unitcostTxt[j].text = unitidkey[j];
 
 
@@ -165,18 +163,18 @@ public class GameManager : MonoBehaviour
             int k = 0;
             for (int j = 0; j < 5; j++)
             {
-                Debug.Log("테스팅");
+               
                 for (int i = 0; i < result.Catalog.Count; i++)
                 {
 
                     k = UnityEngine.Random.Range(0, 8);
-                    Debug.Log("k값받음!" + k);
+                   
                     EnemyUnit[j] = result.Catalog[k].ItemId;
 
 
-                    Debug.Log("테스트 :" + EnemyUnit[j]);
+                   
                     string unitname = "Unit/" + EnemyUnit[j];
-                    Debug.Log("테스트 :" + unitname);
+                  
 
                     obj_1[j] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
 
@@ -196,7 +194,7 @@ public class GameManager : MonoBehaviour
 
         },
    (error) => print("실패"));
-        Debug.Log("유닛정보받기완료, 적용시작");
+        
         
     }
 
@@ -289,27 +287,20 @@ public class GameManager : MonoBehaviour
                 }
 
             }
-            for (int i = 0; i < 6; i++)
-            {
-                Debug.Log("체크0" + myUnitInven[i]);
+           
 
-
-            }
-
-            Debug.Log("체크1");
+            
             int f = 0;
             for (int i = M; i <M+1; i++)
             {
-                Debug.Log("체크2");
+                
                 for (int k = f; k < result.Inventory.Count; k++)
                 {
-                    Debug.Log("체크3");
-                    Debug.Log(f);
-                    Debug.Log(k);
+                    
                     k = UnityEngine.Random.Range(0, result.Inventory.Count);
                     if (myUnitInven[k] != "0")
                     {
-                        Debug.Log(myUnitInven[k]);
+                        
 
                         spawnbutton[i].GetComponentInChildren<Text>().text = myUnitInven[k];
                         string unitname = "Unit/" + spawnbutton[i].GetComponentInChildren<Text>().text;
@@ -319,8 +310,7 @@ public class GameManager : MonoBehaviour
                         obj[i] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
                         f = k + 1;
                         String test_123 = "Unit/" + spawnbutton[i].GetComponentInChildren<Text>().text;
-                        Debug.Log(test_123);
-                        Debug.Log("체크4");
+                        
                         break;
 
                     }
@@ -343,7 +333,7 @@ public class GameManager : MonoBehaviour
                     if (result.Catalog[i].DisplayName == spawnbutton[M].GetComponentInChildren<Text>().text)
                     {
                         k = i;
-                        Debug.Log("k값받음!" + k);
+                        
 
 
                         unitidkey[M] = result.Catalog[k].Tags[10];

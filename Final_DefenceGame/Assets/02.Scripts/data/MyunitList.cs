@@ -54,11 +54,10 @@ public class MyunitList : MonoBehaviour
         test Test1 = JsonUtility.FromJson<test>(json);
         int[] arr = new int[100];
         newunit = Test1.Printnum();
-        Debug.Log(unitlist.FindDic(newunit[0]).Name);
-        Debug.Log(unitlist.FindDic(newunit[0]).ID);
+        
         foreach (int number in newunit)
         {
-            Debug.Log(number);
+           
             if (number == 0)
             {
                 break;

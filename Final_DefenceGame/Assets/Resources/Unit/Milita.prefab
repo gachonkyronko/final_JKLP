@@ -787,9 +787,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7839612149317004817}
+  - component: {fileID: 291517647117894233}
   m_Layer: 0
   m_Name: weapon_l
-  m_TagString: Untagged
+  m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -809,6 +810,20 @@ Transform:
   m_Father: {fileID: 8356850297056162076}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &291517647117894233
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019424601903203656}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3046288657786319103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,9 +1116,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8798141060840087994}
+  - component: {fileID: 7339981001608589570}
   m_Layer: 0
   m_Name: weapon_r
-  m_TagString: Untagged
+  m_TagString: Human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1123,6 +1139,20 @@ Transform:
   m_Father: {fileID: 162230152021925390}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &7339981001608589570
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3437483907325499101}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.93, z: 0}
 --- !u!1 &3564047741383293748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1652,6 +1682,7 @@ GameObject:
   - component: {fileID: -9039173111158249700}
   - component: {fileID: -6662488810034923153}
   - component: {fileID: -4769132888374642510}
+  - component: {fileID: 3377340231007376195}
   m_Layer: 0
   m_Name: Milita
   m_TagString: Human
@@ -1735,6 +1766,7 @@ MonoBehaviour:
   RANGE: 0
   MOVESPD: 0
   myName: 
+  attackrange: 0
   state: 0
   navi: {fileID: 0}
   humanTr: {fileID: 0}
@@ -1763,6 +1795,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &3377340231007376195
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5901343921660244843}
+  serializedVersion: 2
+  m_Mass: 50
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6064615896841510728
 GameObject:
   m_ObjectHideFlags: 0

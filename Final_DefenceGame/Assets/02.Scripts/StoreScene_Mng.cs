@@ -168,7 +168,7 @@ public class StoreScene_Mng : MonoBehaviour
         
         var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
         PlayFabClientAPI.GetCatalogItems(requset, GetSuccess, GetFail);
-        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(2).GetComponent<Text>();
+        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(1).GetComponent<Text>();
          
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
        {
@@ -519,7 +519,7 @@ public class StoreScene_Mng : MonoBehaviour
                 var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unitname[u], VirtualCurrency = "GD", Price = saveunitcost[u] };
                 PlayFabClientAPI.PurchaseItem(request, (result) => {
                     print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[u]); UseUnitList.AddUnit(Randomunit[u]);
-                    var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[u], unitname[u] } } };
+                    var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[u], "1234" } } };
                     PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
                 }, (error) => print("유닛 구입 실패"));
                 haveunit = false;

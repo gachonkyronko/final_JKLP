@@ -17,7 +17,7 @@ public class HumanDamage : MonoBehaviour
     public int COST = 0;
    
     private int EneymySumDagame = 0;
-    internal float damageDelay = 5f;
+    internal float damageDelay = 2f;
     private float initialDamageDelay;
     UnitList AllUnitList;
     MyunitList UseUnitList;
@@ -101,14 +101,12 @@ public class HumanDamage : MonoBehaviour
 
         int cutClone = name.IndexOf("(Clone)");
         string Cutname = name.Substring(0, cutClone);
-        Debug.Log("이 유닛의 이름 : " + Cutname);
+       
         for (int i = 0; i < getdamage.realLen; i++)
         {
             if (getdamage.enemyName[i] == Cutname)
             {
-                Debug.Log("테스트" + i);
-                Debug.Log("테스트" + getdamage.enemyName[i]);
-                Debug.Log("테스트" + getdamage.enemyattack[i]);
+               
                 HP = int.Parse(getdamage.enemyHP[i]);
                 DF = int.Parse(getdamage.enemyDF[i]);
                 ATT = int.Parse(getdamage.enemyattack[i]);

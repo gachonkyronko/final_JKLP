@@ -36,9 +36,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("적유닛확인@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-        
+       
 
         animator = GetComponent<Animator>();
         navi = GetComponent<NavMeshAgent>();
@@ -72,8 +70,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
                 Vector3 objectPos = taggedEnemy.transform.position;
                 dist = (objectPos - transform.position).sqrMagnitude;
                 //원주민이 특정 거리 안으로 들어올때         
-                Debug.Log(attackDist);
-                Debug.Log(dist);
+               
                 if (dist < attackDist +1 )
                 {
                     state = State.ATTACK;
@@ -205,20 +202,19 @@ public class EnemyUnit_Ctrl : MonoBehaviour
 }
     public void mystat()
     {
-        Debug.Log("스탯확인");
-       
+      
         int cutClone = name.IndexOf("(Clone)");
         string Cutname = name.Substring(0, cutClone);
-        Debug.Log("이 유닛의 이름 : " + Cutname);
+        
         for (int j = 0; j < getdamage.humanlen; j++)
         {
 
 
             if (getdamage.humanName[j] == Cutname)
             {
-                Debug.Log("테스트123 : " + getdamage.humanName[j]);
+                
                 RANGE = int.Parse(getdamage.humanattackrange[j]);
-                MOVESPD = double.Parse(getdamage.humanymovepseed[j]);
+                MOVESPD = double.Parse(getdamage.humanymovepseed[j])*3;
                 attackrange = double.Parse(getdamage.humanattackrange[j]);
                 attackDist = ((float)attackrange);
                 navi.speed = ((float)MOVESPD);
