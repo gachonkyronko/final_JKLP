@@ -8,9 +8,9 @@ public class BossDamage : MonoBehaviour
 {
     public Image Hpbar;
     private int CurHp = 0;
-    private int MaxHp = 1000;
+    private int MaxHp = 50;
     public static bool dieWin = false;
-    internal float damageDelay = 5f;
+    internal float damageDelay = 1f;
     private float initialDamageDelay;
     [SerializeField] protected bool isDamage = false;
     private Text hpTxt;
@@ -107,6 +107,7 @@ public class BossDamage : MonoBehaviour
     {
         dieWin = true;
         Debug.Log("½Â¸®!");
+        Time.timeScale = 0.0f;
     }
    
 }

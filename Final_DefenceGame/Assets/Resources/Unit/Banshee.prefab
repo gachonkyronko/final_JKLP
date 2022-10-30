@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: -6653587455438800856}
   - component: {fileID: -145028487581835500}
   - component: {fileID: 6728876345494588882}
+  - component: {fileID: 4283183001446247666}
   m_Layer: 0
   m_Name: Banshee
   m_TagString: Enemy
@@ -544,8 +545,22 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!136 &4283183001446247666
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162447415958681279}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.71
+  m_Height: 2.47
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.87, z: 0}
 --- !u!1 &6162447415958681345
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,7 +817,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6162447415958448945}
-  - component: {fileID: 1311604997959792802}
+  - component: {fileID: 3809866431779867127}
+  - component: {fileID: 1489252548866783978}
   m_Layer: 0
   m_Name: Bip01 L Hand
   m_TagString: Enemy
@@ -826,20 +842,35 @@ Transform:
   m_Father: {fileID: 6162447415958448951}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1311604997959792802
-CapsuleCollider:
+--- !u!135 &3809866431779867127
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6162447415958681361}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 2
+  m_Radius: 0.44
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1489252548866783978
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162447415958681361}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6162447415958681363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,7 +1875,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6162447415958448915}
-  - component: {fileID: 2505180535904377174}
+  - component: {fileID: 4587608537411630809}
+  - component: {fileID: 7008021388932156801}
   m_Layer: 0
   m_Name: Bip01 R Hand
   m_TagString: Enemy
@@ -1868,19 +1900,34 @@ Transform:
   m_Father: {fileID: 6162447415958448913}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2505180535904377174
-CapsuleCollider:
+--- !u!54 &4587608537411630809
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162447415958681459}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &7008021388932156801
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6162447415958681459}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6162447415958681461
 GameObject:

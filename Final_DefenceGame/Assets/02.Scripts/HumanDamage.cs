@@ -57,39 +57,48 @@ public class HumanDamage : MonoBehaviour
             isDamage = true;
             var request1 = new GetUserDataRequest() { PlayFabId = Signin_Mng.myID };
             string name = other.transform.root.name;
-
-            int cutClone = name.IndexOf("(Clone)");
-            string Cutname = name.Substring(0, cutClone);
-            Debug.Log("√Êµπ¿Ø¥÷¿Ã∏ß : " + Cutname);
-
-            for (int i = 0; i < getdamage.realLen; i++)
+            string Cutname;
+            if (name=="fancy_tower")
             {
-                Debug.Log("¥Î¡∂«œ¥¬¿Ø¥÷¿Ã∏ß : " + getdamage.enemyName[i]);
-                int j = 0;
-                if (getdamage.enemyName[i] == Cutname)
+                Cutname = "fancy_tower";
+            }
+            else
+            {
+                int cutClone = name.IndexOf("(Clone)");
+                Cutname = name.Substring(0, cutClone);
+                Debug.Log("√Êµπ¿Ø¥÷¿Ã∏ß : " + Cutname);
 
+                for (int i = 0; i < getdamage.realLen; i++)
                 {
-                    EneymySumDagame = getdamage.sumDamage[i];
-                    Debug.Log("√—«’µ•πÃ¡ˆ,  ¿Ø¥÷µ•πÃ¡ˆ" + EneymySumDagame + "," + getdamage.enemyattack[i]);
-                    break;
+                    Debug.Log("¥Î¡∂«œ¥¬¿Ø¥÷¿Ã∏ß : " + getdamage.humanName[i]);
+                    int j = 0;
+                    if (getdamage.humanName[i] == Cutname)
+
+                    {
+                        EneymySumDagame = int.Parse(getdamage.humanattack[i]);
+                        Debug.Log("√—«’µ•πÃ¡ˆ,  ¿Ø¥÷µ•πÃ¡ˆ" + EneymySumDagame);
+                        break;
+
+                    }
 
                 }
 
-            }
+                if (DF > EneymySumDagame)
+                    DF = DF - EneymySumDagame;
+                else
+                {
+                    EneymySumDagame = EneymySumDagame - DF;
+                    HP = HP - EneymySumDagame;
 
-            if (DF > EneymySumDagame)
-                DF = DF - EneymySumDagame;
-            else
-            {
-                EneymySumDagame = EneymySumDagame - DF;
-                HP = HP - EneymySumDagame;
-
+                }
+                if (HP < 0)
+                {
+                    Debug.Log("¿Ø¥÷ªÁ∏¡");
+                    Destroy(gameObject);
+                }
             }
-            if (HP < 0)
-            {
-                Debug.Log("¿Ø¥÷ªÁ∏¡");
-                Destroy(gameObject);
-            }
+            
+            
         }
 
     }

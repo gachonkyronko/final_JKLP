@@ -38,11 +38,11 @@ public class ChoiceStage_Mng : MonoBehaviour
     }
     public void OnfirstStageButtonClick()
     {
-        SceneManager.LoadScene("FirstStage");
+        SceneManager.LoadScene("SeventhStage");
     }
     public void OnsecondStageButtonClick()
     {
-        SceneManager.LoadScene("SecondStage");
+        SceneManager.LoadScene("SeventhStage");
     }
     public void stageColor()
     {

@@ -16,7 +16,7 @@ public class Signin_Mng : MonoBehaviour
     public static string myPassword = "";
     public static string myName = "";
     public static string myStage = "";
-
+    public Canvas logfail;
 
     private void Start()
     {
@@ -34,7 +34,7 @@ public class Signin_Mng : MonoBehaviour
         myEmail = EmailInput.text;
         myPassword = PasswordInput.text;
         var request = new LoginWithEmailAddressRequest { Email = EmailInput.text, Password = PasswordInput.text };
-        PlayFabClientAPI.LoginWithEmailAddress(request, (result) => { loginok = true; myID = result.PlayFabId; }, (error) => print("로그인 실패"));
+        PlayFabClientAPI.LoginWithEmailAddress(request, (result) => { loginok = true; myID = result.PlayFabId; }, (error) => logfail.gameObject.SetActive(true));
          
     }
    

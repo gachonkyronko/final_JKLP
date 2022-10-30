@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public int cost = 3;
     public int mycost = 1000;
     public GameObject[] spawnbutton = new GameObject[10];
+    public Button[] spawnBtn = new Button[10];
     public GameObject[] obj = new GameObject[5];
     public GameObject[] obj_1 = new GameObject[5];
     public int memeber = 0;
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
     {
         win = false;
         Time.timeScale = 1.0f;
+        spawnBtn = GameObject.Find("Panel_ChoiceUnit").GetComponentsInChildren<Button>();
         //myunit_invenBtn = GameObject.Find("Inventory").GetComponentsInChildren<Button>();
         Points = GameObject.Find("Spqwn").GetComponentsInChildren<Transform>();
         Points_1 = GameObject.Find("Enemy_Spqwn").GetComponentsInChildren<Transform>();
@@ -109,6 +111,11 @@ public class GameManager : MonoBehaviour
                      
                          
                         spawnbutton[i].GetComponentInChildren<Text>().text = myUnitInven[k];
+                        spawnBtn[i].GetComponentInChildren<Text>().text = myUnitInven[k];
+                        string imagename = "Sprites/" + spawnBtn[i].GetComponentInChildren<Text>().text;
+
+                        spawnBtn[i].image.sprite = Resources.Load(imagename, typeof(Sprite)) as Sprite;
+
                         string unitname = "Unit/" + spawnbutton[i].GetComponentInChildren<Text>().text;
                         //프리팹다넣게되면 
                          
@@ -220,7 +227,84 @@ public class GameManager : MonoBehaviour
             mycost += 2;
             timePrev = Time.time;
         }
-       
+       if(setTime==90)
+        {
+            PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Enemy" }, (result) =>
+            {
+                int k = 0;
+                for (int j = 0; j < 5; j++)
+                {
+
+                    for (int i = 0; i < result.Catalog.Count; i++)
+                    {
+
+                        k = UnityEngine.Random.Range(0, 8);
+
+                        EnemyUnit[j] = result.Catalog[k].ItemId;
+
+
+
+                        string unitname = "Unit/" + EnemyUnit[j];
+
+
+                        obj_1[j] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
+
+
+
+
+
+
+
+
+                    }
+                    int t = UnityEngine.Random.Range(1, 4);
+                    Instantiate(obj_1[j], Points_1[t].position, Points[spawnidx].rotation);
+                }
+
+
+
+            },
+   (error) => print("실패"));
+        }
+       if(setTime==30)
+        {
+            PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Enemy" }, (result) =>
+            {
+                int k = 0;
+                for (int j = 0; j < 5; j++)
+                {
+
+                    for (int i = 0; i < result.Catalog.Count; i++)
+                    {
+
+                        k = UnityEngine.Random.Range(0, 8);
+
+                        EnemyUnit[j] = result.Catalog[k].ItemId;
+
+
+
+                        string unitname = "Unit/" + EnemyUnit[j];
+
+
+                        obj_1[j] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
+
+
+
+
+
+
+
+
+                    }
+                    int t = UnityEngine.Random.Range(1, 4);
+                    Instantiate(obj_1[j], Points_1[t].position, Points[spawnidx].rotation);
+                }
+
+
+
+            },
+   (error) => print("실패"));
+        }
 
     }
     
@@ -305,7 +389,10 @@ public class GameManager : MonoBehaviour
                         spawnbutton[i].GetComponentInChildren<Text>().text = myUnitInven[k];
                         string unitname = "Unit/" + spawnbutton[i].GetComponentInChildren<Text>().text;
                         //프리팹다넣게되면 
-                        
+                        spawnBtn[i].GetComponentInChildren<Text>().text = myUnitInven[k];
+                        string imagename = "Sprites/" + spawnBtn[i].GetComponentInChildren<Text>().text;
+
+                        spawnBtn[i].image.sprite = Resources.Load(imagename, typeof(Sprite)) as Sprite;
                         //텍스트자리에 spawnbutton[i].GetComponentInChildren<Text>().text 넣기
                         obj[i] = Resources.Load(unitname, typeof(GameObject)) as GameObject;
                         f = k + 1;

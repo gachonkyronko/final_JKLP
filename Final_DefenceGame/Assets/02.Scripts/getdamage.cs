@@ -38,6 +38,7 @@ public class getdamage : MonoBehaviour
     public static string[] unitstatsdatatag = new string[50];
 
     public static int[] sumDamage = new int[50];
+    public static int[] humanSumDamage = new int[50];
     string[] myUnitInven = new string[100];
     public static int realLen = 0;
     public static string[] itemname = new string[50];
@@ -51,6 +52,7 @@ public class getdamage : MonoBehaviour
     public static string[] itemUseStack = new string[50];
     int itemlen = 0;
     int unitlen = 0;
+    
     public static int humanlen = 0;
    
     void Start()
@@ -242,6 +244,10 @@ public class getdamage : MonoBehaviour
                         enemyitemAtt[i] = itemAttack[j];
                         Debug.Log("오류검사" + enemyitemAtt[i]);
                     }
+                    else
+                    {
+                        enemyitemAtt[i] = "0";
+                    }
                 }
                 if(i==realLen-1)
                 {
@@ -250,7 +256,8 @@ public class getdamage : MonoBehaviour
                     {
                         Debug.Log("오류검사중 : " + int.Parse(enemyattack[z]));
                         Debug.Log("오류검사중 : " + int.Parse(enemyitemAtt[z]));
-                        sumDamage[i] = int.Parse(enemyattack[z]) + int.Parse(enemyitemAtt[z]);
+                        sumDamage[z] = int.Parse(enemyattack[z]) + int.Parse(enemyitemAtt[z]);
+                        Debug.Log("오류검사중 : " + sumDamage[z] + enemyName[z]);
 
                     }
                 }

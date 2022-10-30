@@ -14,6 +14,8 @@ public class StoreScene_Mng : MonoBehaviour
     public Sprite test;
     public Text MyMoneyTxt;
     public Text clickTxt;
+    public Canvas success;
+    public Canvas Fail;
     public int MyMoney = 0;
     public string[] unit_1 = new string [5]; //아이템 아이디를   배열로 가져오려고 만듬
     public string[] unitname = new string[5];
@@ -92,7 +94,11 @@ public class StoreScene_Mng : MonoBehaviour
             
             itemPurchaseBtn[j].GetComponentInChildren<Text>().text = AllitemID.FindDic(item[j]).Name;
             ItemCost[j].text = (AllitemID.FindDic(item[j]).Grade * 100).ToString();
-                  
+
+            string itemname = "Item/" + itemPurchaseBtn[j].GetComponentInChildren<Text>().text;
+  
+            itemPurchaseBtn[j].image.sprite = Resources.Load(itemname, typeof(Sprite)) as Sprite;
+
         }
 
         foreach (int number in Allunit)
@@ -409,6 +415,17 @@ public class StoreScene_Mng : MonoBehaviour
 
 
                             inven_myitem[i].GetComponentInChildren<Text>().text = myItemInven[k];
+
+                            string inven_itemname = "Item/" + inven_myitem[i].GetComponentInChildren<Text>().text;
+                            if(inven_myitem[i].GetComponentInChildren<Text>().text == "내 유닛")
+                            {
+                                inven_myitem[i].GetComponentInChildren<Text>().text = "비어있음";
+                            }
+                            else
+                            {
+                                inven_myitem[i].image.sprite = Resources.Load(inven_itemname, typeof(Sprite)) as Sprite;
+                            }
+                             
                             f = k + 1;
                             Debug.Log("체크아이템리스트4");
                             break;
@@ -518,15 +535,16 @@ public class StoreScene_Mng : MonoBehaviour
             {
                 var request = new PurchaseItemRequest() { CatalogVersion = "Main", ItemId = unitname[u], VirtualCurrency = "GD", Price = saveunitcost[u] };
                 PlayFabClientAPI.PurchaseItem(request, (result) => {
-                    print("유닛 구입 성공!"); updateInven(); SubtractMoney(saveunitcost[u]); UseUnitList.AddUnit(Randomunit[u]);
+                    print("유닛 구입 성공!"); success.gameObject.SetActive(true); updateInven(); SubtractMoney(saveunitcost[u]); UseUnitList.AddUnit(Randomunit[u]);
                     var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { unitname[u], "1234" } } };
                     PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); }, (error) => print("실패"));
-                }, (error) => print("유닛 구입 실패"));
+                }, (error) => Fail.gameObject.SetActive(true));
                 haveunit = false;
             }
             else
             {
                 Debug.Log("이미 보유중인 유닛입니다.");
+                Fail.gameObject.SetActive(true);
                 haveunit = false;
 
             }
@@ -570,11 +588,12 @@ public void PurchaseUnit1()
         var request = new PurchaseItemRequest() { CatalogVersion = "Sub", ItemId = itemname[u], VirtualCurrency = "GD", Price = saveitemcost[u] };
         PlayFabClientAPI.PurchaseItem(request, (result) => {
             print("아이템 구입 성공!");
+            success.gameObject.SetActive(true);
             SubtractMoney(saveitemcost[u]);
             updateClickInven(); 
             var request1 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { itemname[u], "1234" } } };
             PlayFabClientAPI.UpdateUserData(request1, (result) => { print("null아이템넣음"); }, (error) => print("실패"));
-        }, (error) => print("유닛 구입 실패"));
+        }, (error) => Fail.gameObject.SetActive(true));
     }
     public void PurchaseItem1()
     {
@@ -648,6 +667,7 @@ public void PurchaseUnit1()
 
         },
         (error) => print("실패"));
+        updateClickInven();
 
     }
     public  void ClickUnit1()

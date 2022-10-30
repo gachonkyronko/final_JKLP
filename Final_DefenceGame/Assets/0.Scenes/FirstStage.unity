@@ -213,10 +213,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.17
-  m_Height: 1.35
+  m_Radius: 1.06
+  m_Height: 6.17
   m_Direction: 2
-  m_Center: {x: 0, y: -0.00000003725291, z: 0.6916625}
+  m_Center: {x: 0, y: -0.00000003725291, z: 3.18}
 --- !u!114 &19108426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5314,6 +5314,17 @@ MonoBehaviour:
   - {fileID: 1804687698}
   - {fileID: 1103152459}
   - {fileID: 1809352641}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  spawnBtn:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
