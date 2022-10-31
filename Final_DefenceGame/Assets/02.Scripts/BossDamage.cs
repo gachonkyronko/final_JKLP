@@ -20,7 +20,8 @@ public class BossDamage : MonoBehaviour
     private int EnemyUnitDamage = 0;
    
     private int EneymySumDagame = 0;
-     
+    public Text FinishTxt;
+    public Canvas Finishcanvas;
      
      
     void Start()
@@ -108,6 +109,8 @@ public class BossDamage : MonoBehaviour
         dieWin = true;
         Debug.Log("½Â¸®!");
         Time.timeScale = 0.0f;
+        Finishcanvas.gameObject.SetActive(true);
+        FinishTxt.text = "½Â¸®!";
     }
    
 }

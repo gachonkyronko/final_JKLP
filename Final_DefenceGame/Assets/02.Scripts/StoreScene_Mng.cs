@@ -55,7 +55,7 @@ public class StoreScene_Mng : MonoBehaviour
   
     void Start() //상점정보불러오기
     {
-
+        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(2).GetComponent<Text>();
         myunit_invenBtn = GameObject.Find("Inventory").GetComponentsInChildren<Button>();
         inven_myitem = GameObject.Find("inven_myitem").GetComponentsInChildren<Button>();
         unitPurchaseBtn = GameObject.Find("PurchaseUnit").GetComponentsInChildren<Button>();
@@ -174,7 +174,7 @@ public class StoreScene_Mng : MonoBehaviour
         
         var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
         PlayFabClientAPI.GetCatalogItems(requset, GetSuccess, GetFail);
-        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(1).GetComponent<Text>();
+        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(2).GetComponent<Text>();
          
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
        {
@@ -215,9 +215,10 @@ public class StoreScene_Mng : MonoBehaviour
                    if (myUnitInven[k] != "0")
                    {
                        Debug.Log(myUnitInven[k]);
-                        
+                       
                        myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[k];
-                       if(myunit_invenBtn[i].GetComponentInChildren<Text>().text != "내 유닛")
+                       
+                       if(myunit_invenBtn[i].GetComponentInChildren<Text>().text != "비어있음")
                        {
                            string imagename = "Sprites/" + myunit_invenBtn[i].GetComponentInChildren<Text>().text;
                            Debug.Log("이름" + myunit_invenBtn[i].GetComponentInChildren<Text>().text);
@@ -225,6 +226,7 @@ public class StoreScene_Mng : MonoBehaviour
 
                            myunit_invenBtn[i].image.sprite = Resources.Load(imagename, typeof(Sprite)) as Sprite;
                        }
+                       
                       
 
 
@@ -233,6 +235,7 @@ public class StoreScene_Mng : MonoBehaviour
                        break;
 
                    }
+                   
                     
                }
                
@@ -628,7 +631,8 @@ public void PurchaseUnit1()
 
     public void SubtractMoney(int money)
     {
-        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(1).GetComponent<Text>();
+        
+        MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(2).GetComponent<Text>();
         var request = new SubtractUserVirtualCurrencyRequest() { VirtualCurrency = "GD", Amount = 50 };
         PlayFabClientAPI.SubtractUserVirtualCurrency(request, (result) =>{ print("돈 빼기 성공! 현재 돈 : " + result.Balance); MyMoneyTxt.text = "보유골드량 : " + result.Balance; }, (error) => print("돈 빼기 실패"));
 
@@ -655,7 +659,14 @@ public void PurchaseUnit1()
                     Debug.Log("k값받음!" + k);
                     Debug.Log(result.Catalog[i].DisplayName);
 
-                    UnitDescription = result.Catalog[k].Description;
+                    UnitDescription = "체력 : "+result.Catalog[k].Tags[1] + 
+                    "\n방어력 : " + result.Catalog[k].Tags[2] + 
+                    "\n공격력 : " + result.Catalog[k].Tags[3] + 
+                    "\n공격속도 : " + result.Catalog[k].Tags[4]+
+                     "\n공격범위 : " + result.Catalog[k].Tags[5]+
+                      "\n이동속도 : " + result.Catalog[k].Tags[6]+
+                    
+                     "\n소환비용 : " + result.Catalog[k].Tags[10];
                     Debug.Log(UnitDescription);
                     clickTxt.text = UnitDescription;
 

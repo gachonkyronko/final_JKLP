@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject HumanPrefab; 
     public Button firstSpawnButton;
     public Button ThirdSpawnButton;
+    public Button FourSpawnButton;
     public UnityAction firstSpawnaction;
     public Button secondSpawnButton;
     public UnityAction secondSpawnaction;
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
     public Text countdowntext;
     public Text costtext;
     public int cost = 3;
-    public int mycost = 1000;
+    public int mycost = 20;
     public GameObject[] spawnbutton = new GameObject[10];
     public Button[] spawnBtn = new Button[10];
     public GameObject[] obj = new GameObject[5];
@@ -53,6 +54,8 @@ public class GameManager : MonoBehaviour
     public string[] unitidkey = new string[5];
     public string[] EnemyUnit = new string[5];
     public string[] saveenemy = new string[5];
+    public Text FinishTxt;
+    public Canvas Finishcanvas;
     string[] a = new string[5] { "", "", "", "", "" };
     //데이터들
     public static bool gamestrat = true;
@@ -132,6 +135,7 @@ public class GameManager : MonoBehaviour
 
 
             }
+
             PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Main" }, (result) =>
             {
                 int k = 0;
@@ -220,7 +224,9 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
             Debug.Log("패배");
             win = true;
-            
+            Finishcanvas.gameObject.SetActive(true);
+            FinishTxt.text = "패배";
+
         }
         if (Time.time - timePrev > 5.0f)
         {
@@ -307,7 +313,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    
+
    
     public void OnFirstSpawnButtonClick()
     {
@@ -315,6 +321,7 @@ public class GameManager : MonoBehaviour
         firstSpawnButton.image.color = Color.gray;
         secondSpawnButton.image.color = Color.white;
         ThirdSpawnButton.image.color = Color.white;
+        FourSpawnButton.image.color = Color.white;
     }
     public void OnMenuButtonClick()
     {
@@ -339,6 +346,7 @@ public class GameManager : MonoBehaviour
         firstSpawnButton.image.color = Color.white;
         secondSpawnButton.image.color = Color.gray;
         ThirdSpawnButton.image.color = Color.white;
+        FourSpawnButton.image.color = Color.white;
     }
     public void OnThirdSpawnButtonClick()
     {
@@ -346,6 +354,15 @@ public class GameManager : MonoBehaviour
         firstSpawnButton.image.color = Color.white;
         secondSpawnButton.image.color = Color.white;
         ThirdSpawnButton.image.color = Color.gray;
+        FourSpawnButton.image.color = Color.white;
+    }
+    public void OnFourSpawnButtonClick()
+    {
+        spawnidx = 4;
+        firstSpawnButton.image.color = Color.white;
+        secondSpawnButton.image.color = Color.white;
+        ThirdSpawnButton.image.color = Color.white;
+       FourSpawnButton.image.color = Color.gray;
     }
     void ChangeUnit(int M)
     {
@@ -483,6 +500,66 @@ public class GameManager : MonoBehaviour
 
 
     }
+    public void OnThirdtUnitButtonClick()
+    {
+
+        if (mycost > cost)
+        {
+
+            Instantiate(obj[2], Points[spawnidx].position,
+            Points[spawnidx].rotation);
+            mycost -= cost;
+            ChangeUnit(1);
+
+        }
+        else
+        {
+            Debug.Log("코스트가 부족합니다.");
+        }
 
 
+    }
+    public void OnFourUnitButtonClick()
+    {
+
+        if (mycost > cost)
+        {
+
+            Instantiate(obj[3], Points[spawnidx].position,
+            Points[spawnidx].rotation);
+            mycost -= cost;
+            ChangeUnit(1);
+
+        }
+        else
+        {
+            Debug.Log("코스트가 부족합니다.");
+        }
+
+
+    }
+    public void OnFiveUnitButtonClick()
+    {
+
+        if (mycost > cost)
+        {
+
+            Instantiate(obj[4], Points[spawnidx].position,
+            Points[spawnidx].rotation);
+            mycost -= cost;
+            ChangeUnit(1);
+
+        }
+        else
+        {
+            Debug.Log("코스트가 부족합니다.");
+        }
+
+
+    }
+
+    public void finishBtn()
+    {
+        SceneManager.LoadScene("ChoiceStage_Scene");
+    }
 }
