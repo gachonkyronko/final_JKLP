@@ -44,7 +44,7 @@ public class ChoiceStage_Mng : MonoBehaviour
     {
         SceneManager.LoadScene("SeventhStage");
     }
-    public void stageColor()
+    public void stageColor() //진행가능하면 자물쇠가 풀린다.
     {
         stage_num = int.Parse(myStage);
         for(int i=0; i<stage_num+1;i++)

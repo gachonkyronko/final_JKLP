@@ -16,7 +16,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
 
     private string ttag = "Human"; 
     private Transform target;
-    private Transform closestEnemy = null; 
+   
     private float dist =20.0f;
      
  
@@ -32,8 +32,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
     private float traceDist = 10.0f; //추적 거리 
     bool isDie = false;
     public float attackDist = 0.0f; //공격 거리 
-    //ZombieDamage z_damage;
-    // Start is called before the first frame update
+    
     void Start()
     {
        
@@ -50,14 +49,12 @@ public class EnemyUnit_Ctrl : MonoBehaviour
 
 
 
-        //z_damage = GetComponent<ZombieDamage>();
-
-        //추적 대상   = 플레이어 위치 
+         
 
     }
    
 
-    IEnumerator CheckHumanState_1() //Update() 함수 대신 무한 반복 하기 위해서 선언 
+    IEnumerator CheckHumanState_1()  
     {
         while (isDie == false)
         {
@@ -69,7 +66,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
             {
                 Vector3 objectPos = taggedEnemy.transform.position;
                 dist = (objectPos - transform.position).sqrMagnitude;
-                //원주민이 특정 거리 안으로 들어올때         
+                      
                
                 if (dist < attackDist +1 )
                 {
@@ -91,22 +88,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
 
             yield return new WaitForSeconds(0.3f);
 
-            //float dist_Enemy = Vector3.Distance(enemyTr.position, humanTr.position);
-            //if (dist_Enemy <= attackDist)
-            //{
-            //    state = State.ATTACK;
-            //}
-
-
-            //else if (dist_Enemy <= traceDist)
-            //{
-            //    state = State.TRACE;
-            //}
-
-            //else
-            //{
-            //    state = State.IDLE;
-            //}
+            
         }
     }
     IEnumerator HumanAction_1()
@@ -120,8 +102,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
 
                     navi.SetDestination(target.position);
                     humanTr.LookAt(target.transform);
-                    //navi.SetDestination(enemyTr.position);
-                    //humanTr.LookAt(enemyTr.transform);
+                 
                     navi.isStopped = false;
                     animator.SetBool("IsTrace", true);
                     animator.SetBool("IsAttack", false);
@@ -131,7 +112,7 @@ public class EnemyUnit_Ctrl : MonoBehaviour
                 case State.ATTACK:
 
                     humanTr.LookAt(target.transform);
-                    //humanTr.LookAt(enemyTr.transform);
+                    
 
                     navi.isStopped = true;
                     animator.SetBool("IsAttack", true);
@@ -142,42 +123,21 @@ public class EnemyUnit_Ctrl : MonoBehaviour
                     break;
 
                 case State.DIE:
-                    // z_damage.Die();
+                    
                     break;
             }
             yield return new WaitForSeconds(0.3f);
 
         }
     }
-    //void getClosestEnemy()
-    //{        //비용이 큼 - 특정 태그의 오브젝트를 모두 찾음        
-    //    GameObject[] taggedEnemys = GameObject.FindGameObjectsWithTag(ttag);
-    //    float closestDistSqr = Mathf.Infinity; //infinity 실제값?        
-    //    Transform closestEnemy = null;
-    //    foreach (GameObject taggedEnemy in taggedEnemys)
-    //    {
-    //        Vector3 objectPos = taggedEnemy.transform.position; 
-    //        dist = (objectPos - transform.position).sqrMagnitude;
-    //        //원주민이 특정 거리 안으로 들어올때            
-    //        if (dist <attackDist)
-    //        {                // 그 거리가 제곱한 최단 거리보다 작으면            
-    //            if (dist < closestDistSqr)
-    //            {
-    //                closestDistSqr = dist;
-    //                closestEnemy = taggedEnemy.transform;
-    //            }
-    //        }
-    //    }
-    //    target = closestEnemy;
-    //}
-
+   
     void colstart()
     {
         if (HumanUnit_Ctrl.unitspawn == true)
         {
             humanTr = GetComponent<Transform>();
             enemyTr = GameObject.FindWithTag("Human").GetComponent<Transform>();
-            StartCoroutine(CheckHumanState_1()); //스타트 코루틴 
+            StartCoroutine(CheckHumanState_1());  
             StartCoroutine(HumanAction_1());
         }
        

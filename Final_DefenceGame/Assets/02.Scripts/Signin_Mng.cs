@@ -10,13 +10,14 @@ public class Signin_Mng : MonoBehaviour
     
     public InputField EmailInput;
     public InputField PasswordInput;
+    public Canvas logfail;
     public bool loginok = false;
     public static string myID = "";
     public static string myEmail = "";
     public static string myPassword = "";
     public static string myName = "";
     public static string myStage = "";
-    public Canvas logfail;
+    
 
     private void Start()
     {

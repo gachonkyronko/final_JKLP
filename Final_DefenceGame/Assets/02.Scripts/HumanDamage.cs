@@ -66,17 +66,17 @@ public class HumanDamage : MonoBehaviour
             {
                 int cutClone = name.IndexOf("(Clone)");
                 Cutname = name.Substring(0, cutClone);
-                Debug.Log("충돌유닛이름 : " + Cutname);
+             
 
                 for (int i = 0; i < getdamage.realLen; i++)
                 {
-                    Debug.Log("대조하는유닛이름 : " + getdamage.humanName[i]);
-                    int j = 0;
+                   
+                    
                     if (getdamage.humanName[i] == Cutname)
 
                     {
                         EneymySumDagame = int.Parse(getdamage.humanattack[i]);
-                        Debug.Log("총합데미지,  유닛데미지" + EneymySumDagame);
+                        
                         break;
 
                     }

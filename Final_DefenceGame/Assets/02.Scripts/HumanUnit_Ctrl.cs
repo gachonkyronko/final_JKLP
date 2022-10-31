@@ -31,12 +31,9 @@ public class HumanUnit_Ctrl : MonoBehaviour
     public  float attackDist = 0.0f; //공격 거리 
     Vector3 destination = new Vector3(-5.7f, 5.04f, -1.07f);
 
-    private string ttag = "Enemy";
-    private Transform target;
-    private Transform closestEnemy = null;
+  
     private float dist = 20.0f;
-    //ZombieDamage z_damage;
-    // Start is called before the first frame update
+   
     void Start()
     {
         enemyTr = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
@@ -48,10 +45,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
         navi.SetDestination(destination);
          
         Invoke("mystat", 0.5f);
-        //z_damage = GetComponent<ZombieDamage>();
-        //InvokeRepeating("CheckHumanState", 11.0f, 1.0f);
-        //InvokeRepeating("HumanAction", 11.0f, 1.0f);
-        //추적 대상   = 플레이어 위치 
+     
 
 
     }
@@ -62,7 +56,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
         while (isDie == false)
         {
             yield return new WaitForSeconds(0.3f);
-            //GameObject[] taggedEnemys = GameObject.FindGameObjectsWithTag(ttag);
+           
             dist = Vector3.Distance(humanTr.position, enemy.transform.position);
             if (dist < attackDist )
             {
@@ -81,32 +75,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
 
                 state = State.IDLE;
         }
-        //Transform closestEnemy = null;
-        //foreach (GameObject taggedEnemy in taggedEnemys)
-        //{
-        //    Vector3 objectPos = taggedEnemy.transform.position;
-        //    dist = (objectPos - transform.position).sqrMagnitude;
-        //    //원주민이 특정 거리 안으로 들어올때         
-
-        //    if (dist < attackDist + 10)
-        //    {
-        //        state = State.ATTACK;
-        //        closestEnemy = taggedEnemy.transform;
-        //    }
-        //    else if (dist < traceDist)
-        //    {
-
-        //        state = State.TRACE;
-        //        closestEnemy = taggedEnemy.transform;
-
-
-        //    }
-        //    else
-
-        //        state = State.IDLE;
-        //}
-        //target = closestEnemy;
-        //Debug.Log("타켓누군데" + target);
+       
         yield return new WaitForSeconds(0.3f);
 
    
@@ -132,7 +101,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
                 case State.ATTACK:
 
                     humanTr.LookAt(enemy.transform);
-                    //humanTr.LookAt(enemyTr.transform);
+                   
 
                     navi.isStopped = true;
                     animator.SetBool("IsAttack", true);
@@ -143,7 +112,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
                     break;
 
                 case State.DIE:
-                    // z_damage.Die();
+                   
                     break;
             }
             yield return new WaitForSeconds(0.3f);
@@ -154,13 +123,13 @@ public class HumanUnit_Ctrl : MonoBehaviour
     {
         FoundObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
         shortDis = Vector3.Distance(gameObject.transform.position, FoundObjects[0].transform.position);
-        enemy = FoundObjects[0]; // 첫번째를 먼저 
+        enemy = FoundObjects[0]; 
 
         foreach (GameObject found in FoundObjects)
         {
             float Distance = Vector3.Distance(gameObject.transform.position, found.transform.position);
 
-            if (Distance < shortDis) // 위에서 잡은 기준으로 거리 재기
+            if (Distance < shortDis)  
             {
                 enemy = found;
                 shortDis = Distance;
@@ -208,7 +177,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
             }
         }
         attackDist = RANGE;
-        StartCoroutine(CheckHumanState()); //스타트 코루틴 
+        StartCoroutine(CheckHumanState());  
         StartCoroutine(HumanAction());
 
 

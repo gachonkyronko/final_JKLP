@@ -14,10 +14,7 @@ public class BossDamage : MonoBehaviour
     private float initialDamageDelay;
     [SerializeField] protected bool isDamage = false;
     private Text hpTxt;
-     UnitList AllUnitList;
-    ItemList AllitemID;
-    MyunitList UseUnitList;
-    private int EnemyUnitDamage = 0;
+ 
    
     private int EneymySumDagame = 0;
     public Text FinishTxt;
@@ -27,9 +24,7 @@ public class BossDamage : MonoBehaviour
     void Start()
     {
         initialDamageDelay = damageDelay;
-        AllitemID = GetComponent<ItemList>();
-        AllUnitList = GetComponent<UnitList>();
-        UseUnitList = GetComponent<MyunitList>();
+       
         Hpbar = GameObject.Find("Panel_Boss").transform.GetChild(1).GetComponent<Image>();
         hpTxt = GameObject.Find("Panel_Boss").transform.GetChild(0).GetComponent<Text>();
         Hpbar.color = Color.green;
@@ -39,7 +34,7 @@ public class BossDamage : MonoBehaviour
       
         
     }
-    //isTrigger 체크시 충돌 감지하는 콜백 함수  //통과 하면서 충돌 감지 한다.
+    
     private void Update()
     {
         DamageDelay();
@@ -66,17 +61,17 @@ public class BossDamage : MonoBehaviour
 
             int cutClone = name.IndexOf("(Clone)");
             string Cutname = name.Substring(0, cutClone);
-            Debug.Log("충돌유닛이름 : " + Cutname);
+           
 
             for (int i = 0; i < getdamage.realLen; i++)
             {
-                Debug.Log("대조하는유닛이름 : " + getdamage.enemyName[i]);
-                int j = 0;
+             
+               
                 if (getdamage.enemyName[i] == Cutname)
 
                 {
                     EneymySumDagame = getdamage.sumDamage[i];
-                    Debug.Log("총합데미지,  유닛데미지" + EneymySumDagame + "," + getdamage.enemyattack[i]);
+                    
                     break;
 
                 }

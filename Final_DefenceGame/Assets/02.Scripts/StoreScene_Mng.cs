@@ -74,8 +74,8 @@ public class StoreScene_Mng : MonoBehaviour
         int m = 0;
         Itemnumber = AllitemID.GetKey();
         Allunit = AllUnitList.GetKey();
-        //Allunit = AllUnitList.GetKey();
         Useunit = UseUnitList.GetKey();
+        //아이템정보출력
         foreach (int number in Itemnumber)
         {
             
@@ -161,7 +161,7 @@ public class StoreScene_Mng : MonoBehaviour
             
 
         }
-        Debug.Log("유닛아이디반환완료, 텍스트정보변환시작");
+        
         for (int q = 0; q < 5; q++)
         {
             unitPurchaseBtn[q].GetComponentInChildren<Text>().text = a[q];
@@ -169,9 +169,9 @@ public class StoreScene_Mng : MonoBehaviour
 
         }
 
-        Debug.Log("유닛아이디반환완료, 인벤토리내용반환중");
         
         
+        //유닛정보출력
         var requset = new GetCatalogItemsRequest { CatalogVersion = "Main" };
         PlayFabClientAPI.GetCatalogItems(requset, GetSuccess, GetFail);
         MyMoneyTxt = GameObject.Find("Canvas").transform.GetChild(2).GetComponent<Text>();
@@ -194,35 +194,27 @@ public class StoreScene_Mng : MonoBehaviour
                }
 
            }
-           for (int i = 0; i < 6; i++)
-           {
-               Debug.Log("체크0" + myUnitInven[i]);
-                
-
-           }
+          
             
-           Debug.Log("체크1");
+           
            int f=0;
-           //인벤토리에 유닛만 넣는다.
+           //유저정보가 저장된 DB에 아이템도 저장되어있기에 유닛추려서 넣는다.
            for (int i = 0; i < 6; i++)
            {
-               Debug.Log("체크2");
+               
                for (int k = f;k< result.Inventory.Count;k++)
                {
-                   Debug.Log("체크3");
-                   Debug.Log(f);
-                   Debug.Log(k);
+                 
                    if (myUnitInven[k] != "0")
                    {
-                       Debug.Log(myUnitInven[k]);
+                     
                        
                        myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[k];
                        
                        if(myunit_invenBtn[i].GetComponentInChildren<Text>().text != "비어있음")
                        {
                            string imagename = "Sprites/" + myunit_invenBtn[i].GetComponentInChildren<Text>().text;
-                           Debug.Log("이름" + myunit_invenBtn[i].GetComponentInChildren<Text>().text);
-                           Debug.Log("이미지경로" + imagename);
+                         
 
                            myunit_invenBtn[i].image.sprite = Resources.Load(imagename, typeof(Sprite)) as Sprite;
                        }
@@ -231,7 +223,7 @@ public class StoreScene_Mng : MonoBehaviour
 
 
                        f = k+1;
-                       Debug.Log("체크4");
+                      
                        break;
 
                    }
@@ -241,28 +233,8 @@ public class StoreScene_Mng : MonoBehaviour
                
 
            }
-           //for (int i = 0; i < unitcount; i++)
-           //{
-              
-           //    for (int k = f; k < result.Inventory.Count; k++)
-           //    {
-                   
-           //        if (myUnitInven[k] != "0")
-           //        {
-
-           //            UseUnitList.AddUnit(UseUnitList.FindDic_name(myUnitInven[k]).ID);
-                        
-           //            f = k + 1;
-                       
-           //            break;
-
-           //        }
-
-           //    }
-
-
-           //}
-
+        
+           //보유아이템을 인벤토리에서 가져오기위함.
            for (int i = 0; i < result.Inventory.Count; i++)
            {
 
@@ -277,23 +249,16 @@ public class StoreScene_Mng : MonoBehaviour
                }
 
            }
-           for (int i = 0; i < 6; i++)
-           {
-               Debug.Log("체크아이템리스트" + myItemInven[i]);
+        
 
-
-           }
-
-           Debug.Log("체크아이템리스트1");
+          
            int s = 0;
            for (int i = 0; i < 6; i++)
            {
-               Debug.Log("체크아이템리스트2");
+               
                for (int k = s; k < result.Inventory.Count; k++)
                {
-                   Debug.Log("체크아이템리스트3");
-                   Debug.Log(s);
-                   Debug.Log(k);
+                   
                    if (myItemInven[k] != "0")
                    {
 
@@ -301,7 +266,7 @@ public class StoreScene_Mng : MonoBehaviour
                        inven_myitem[i].GetComponentInChildren<Text>().text = myItemInven[k];
                       
                        s = k + 1;
-                       Debug.Log("체크아이템리스트4");
+                       
                        break;
 
                    }
@@ -314,7 +279,7 @@ public class StoreScene_Mng : MonoBehaviour
 
      (error) => print("인벤토리 불러오기 실패"));
         
-        Debug.Log("인벤토리반환성공");
+        
     }
      
     private void GetFail(PlayFabError obj)
@@ -329,8 +294,7 @@ public class StoreScene_Mng : MonoBehaviour
         for (int i = 0; i < items.Count; i++)
         {
             
-             
-            //Debug.Log("커스텀 데이터 =" + dic["key1"]);
+         
         }
 
         //골드량표시
@@ -350,7 +314,7 @@ public class StoreScene_Mng : MonoBehaviour
         var request = new AddUserVirtualCurrencyRequest() { VirtualCurrency = "GD", Amount = 100 };
         PlayFabClientAPI.AddUserVirtualCurrency(request, (result) => { print("돈 얻기 성공! 현재 돈 : " + result.Balance);  MyMoneyTxt.text = "보유골드량 : " + result.Balance; }, (error) => print("돈 얻기 실패"));
     }
-    public void updateInvenitem()
+    public void updateInvenitem() //유닛구매시 인벤토리창 최신화
     {
 
 
@@ -376,6 +340,8 @@ public class StoreScene_Mng : MonoBehaviour
      (error) => print("인벤토리 불러오기 실패"));
 
     }
+
+    //유닛클릭시 상세정보가 나오도록하는창
     public void updateClickInven()
     {
          
@@ -396,23 +362,16 @@ public class StoreScene_Mng : MonoBehaviour
                     }
 
                 }
-                for (int i = 0; i < 6; i++)
-                {
-                    Debug.Log("체크아이템리스트" + myItemInven[i]);
+               
 
-
-                }
-
-                Debug.Log("체크아이템리스트1");
+               
                 int f = 0;
                 for (int i = 0; i < 6; i++)
                 {
-                    Debug.Log("체크아이템리스트2");
+                   
                     for (int k = f; k < result.Inventory.Count; k++)
                     {
-                        Debug.Log("체크아이템리스트3");
-                        Debug.Log(f);
-                        Debug.Log(k);
+                       
                         if (myItemInven[k] != "0")
                         {
 
@@ -430,7 +389,7 @@ public class StoreScene_Mng : MonoBehaviour
                             }
                              
                             f = k + 1;
-                            Debug.Log("체크아이템리스트4");
+                           
                             break;
 
                         }
@@ -451,8 +410,7 @@ public class StoreScene_Mng : MonoBehaviour
         {
 
             string imagename = "Sprites/" + unitPurchaseBtn[i].GetComponentInChildren<Text>().text;
-            Debug.Log("이름" + unitPurchaseBtn[i].GetComponentInChildren<Text>().text);
-            Debug.Log("이미지경로" + imagename);
+          
 
             unitPurchaseBtn[i].image.sprite = Resources.Load(imagename, typeof(Sprite)) as Sprite;
         }
@@ -488,12 +446,10 @@ public class StoreScene_Mng : MonoBehaviour
                      
                     if (myUnitInven[k] != "0")
                     {
-                        Debug.Log(myUnitInven[k]);
-                       
+                        
                         myunit_invenBtn[i].GetComponentInChildren<Text>().text = myUnitInven[k];
                         string imagename = "Sprites/" + myunit_invenBtn[i].GetComponentInChildren<Text>().text;
-                        Debug.Log("이름" + myunit_invenBtn[i].GetComponentInChildren<Text>().text);
-                        Debug.Log("이미지경로" + imagename);
+                       
 
                         myunit_invenBtn[i].image.sprite = Resources.Load(imagename, typeof(Sprite)) as Sprite;
                         f = k + 1;
@@ -510,15 +466,16 @@ public class StoreScene_Mng : MonoBehaviour
         },
 
       (error) => print("인벤토리 불러오기 실패"));
-        Debug.Log("인벤토리반환성공");
+        
     }
     
+    //유닛구매, 이미 보유중인지도 체크하는 곳
     public void checkhaveunit(int u)
     {
         u = u - 1;
         unitname[u] = unitPurchaseBtn[u].GetComponentInChildren<Text>().text;
         saveunitcost[u] = int.Parse(unitCost[u].text);
-        Debug.Log("구매하려는유닛" + unitname[u]);
+      
         PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (result) =>
         {
 
@@ -528,7 +485,7 @@ public class StoreScene_Mng : MonoBehaviour
                 if (result.Inventory[i].ItemId == unitname[u])
                 {
                     haveunit = true;
-                    Debug.Log("선판정 : " + haveunit);
+                   
                     break;
                 }
             }
@@ -582,6 +539,7 @@ public void PurchaseUnit1()
         checkhaveunit(5);
 
     }
+    //아이템구매
     public void purchaseitems(int u)
     {
         u = u - 1;
@@ -641,7 +599,7 @@ public void PurchaseUnit1()
     {
         ClickUnit.gameObject.GetComponentInChildren<Text>().text = myunit_invenBtn[r].GetComponentInChildren<Text>().text;
         string clickname = ClickUnit.gameObject.GetComponentInChildren<Text>().text;
-        //int test = UseUnitList.FindDic_name(clickname).Attack;
+    
         string imagename = "Sprites/" + clickname;
 
 
@@ -718,14 +676,14 @@ public void PurchaseUnit1()
 
     }
 
-    public void getItem1()
+    public void getItem1() //아이템장착을 위한 곳
     {
         string getitemUnit = ClickUnit.gameObject.GetComponentInChildren<Text>().text;
         string getitemname = inven_myitem[0].GetComponentInChildren<Text>().text;
         getItemlogic(getitemUnit, getitemname);
         
     }
-    public void getItemlogic(string z, string y)
+    public void getItemlogic(string z, string y) //아이템장착을 위한 곳
     {
         PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest() { CatalogVersion = "Sub" }, (result) =>
         {

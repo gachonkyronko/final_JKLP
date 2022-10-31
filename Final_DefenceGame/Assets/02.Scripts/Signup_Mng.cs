@@ -28,7 +28,7 @@ public class Signup_Mng : MonoBehaviour
 
 
     
-    void Update()  
+    void Update()   //회원가입과정중 데이터가 DB서버로 넘어가는 것을 스킵하지않도록 변수지정
     {
          
             if (signupok == true)
@@ -55,7 +55,7 @@ public class Signup_Mng : MonoBehaviour
         }
     }
 
-        public void BackBtn() //�ڷΰ���
+        public void BackBtn() //뒤로가기
     {
         SceneManager.LoadScene("Signin_Scene");
     }

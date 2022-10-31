@@ -58,17 +58,17 @@ public class EnemyDamage : MonoBehaviour
 
             int cutClone = name.IndexOf("(Clone)");
             string Cutname = name.Substring(0, cutClone);
-            Debug.Log("√Êµπ¿Ø¥÷¿Ã∏ß : " + Cutname);
+           
 
             for (int i = 0; i < getdamage.realLen; i++)
             {
-                Debug.Log("¥Î¡∂«œ¥¬¿Ø¥÷¿Ã∏ß : " + getdamage.enemyName[i]);
-                int j = 0;
+                
+                
                 if (getdamage.enemyName[i] == Cutname)
 
                 {
                     EneymySumDagame = getdamage.sumDamage[i];
-                    Debug.Log("√—«’µ•πÃ¡ˆ,  ¿Ø¥÷µ•πÃ¡ˆ" + EneymySumDagame + "," + getdamage.enemyattack[i]);
+                    
                     break;
 
                 }
@@ -85,7 +85,7 @@ public class EnemyDamage : MonoBehaviour
             }
             if (HP < 0)
             {
-                Debug.Log("¿Ø¥÷ªÁ∏¡");
+              
                 Destroy(gameObject);
             }
         }
