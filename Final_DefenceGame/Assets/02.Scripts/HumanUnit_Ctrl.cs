@@ -168,7 +168,7 @@ public class HumanUnit_Ctrl : MonoBehaviour
                 attackrange = double.Parse(getdamage.enemyattackrange[i]);
                 attackDist = ((float)attackrange);
                 RANGE = int.Parse(getdamage.enemyattackrange[i]);
-                MOVESPD = double.Parse(getdamage.enemymovepseed[i]) * 3;
+                MOVESPD = double.Parse(getdamage.enemymovepseed[i]) * 10;
                 navi.speed = ((float)MOVESPD);
 
                 break;

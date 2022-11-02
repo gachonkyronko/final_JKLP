@@ -10,7 +10,7 @@ public class BossDamage : MonoBehaviour
     private int CurHp = 0;
     private int MaxHp = 50;
     public static bool dieWin = false;
-    internal float damageDelay = 1f;
+    internal float damageDelay = 2f;
     private float initialDamageDelay;
     [SerializeField] protected bool isDamage = false;
     private Text hpTxt;

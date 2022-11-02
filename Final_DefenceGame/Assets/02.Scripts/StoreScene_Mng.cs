@@ -707,7 +707,7 @@ public void PurchaseUnit1()
 
                 }
             var request1 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { z,  itemid} } };
-            PlayFabClientAPI.UpdateUserData(request1, (result) => { print("장착성공"); }, (error) => print("실패"));
+            PlayFabClientAPI.UpdateUserData(request1, (result) => { success.gameObject.SetActive(true); }, (error) => Fail.gameObject.SetActive(true));
 
 
 
