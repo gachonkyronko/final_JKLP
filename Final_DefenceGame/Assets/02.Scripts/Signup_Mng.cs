@@ -52,6 +52,8 @@ public class Signup_Mng : MonoBehaviour
             PlayFabClientAPI.UpdateUserData(request1, (result) => { print("성공"); signupok = true; }, (error) => print("실패"));
             var request2 = new UpdateUserDataRequest() { Data = new Dictionary<string, string>() { { "스테이지", stage } } };
             PlayFabClientAPI.UpdateUserData(request2, (result) => { print("성공"); signupok = true; }, (error) => print("실패"));
+            var request = new AddUserVirtualCurrencyRequest() { VirtualCurrency = "GD", Amount = 1000 };
+            PlayFabClientAPI.AddUserVirtualCurrency(request, (result) => signupok = true, (error) => print("돈 얻기 실패"));
         }
     }
 
